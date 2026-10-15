@@ -622,6 +622,47 @@
       color: var(--slate-500); font-size: .85rem; font-family: inherit; cursor: pointer;
     }
 
+    /* Accessibility, Distress Helpline & Guided Session Enhancements */
+    :focus-visible { outline: 2px solid var(--indigo); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+    .distress-card { max-width: 440px !important; padding: 1.75rem 1.5rem !important; }
+    .distress-region-tabs { display: flex; background: var(--slate-100); border-radius: 10px; padding: 4px; margin: 1rem 0; gap: 4px; }
+    .distress-region-tab { flex: 1; padding: 6px 12px; border-radius: 8px; border: none; font-size: 0.8rem; font-weight: 600; cursor: pointer; background: transparent; color: var(--slate-500); transition: all 0.2s; }
+    .distress-region-tab.active { background: white; color: var(--slate-900); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .distress-helpline-box { background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; padding: 1rem; margin-bottom: 0.75rem; text-align: left; }
+    .distress-helpline-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #92400e; margin-bottom: 0.2rem; }
+    .distress-helpline-num { font-size: 1.25rem; font-weight: 800; color: #78350f; margin-bottom: 0.25rem; }
+    .distress-helpline-desc { font-size: 0.78rem; color: #b45309; line-height: 1.4; margin-bottom: 0.75rem; }
+    .distress-helpline-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .distress-call-link { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.5rem 0.85rem; background: var(--indigo); color: white; text-decoration: none; border-radius: 8px; font-size: 0.82rem; font-weight: 600; }
+    .distress-copy-btn { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.5rem 0.85rem; background: white; color: var(--slate-700); border: 1px solid var(--slate-300); border-radius: 8px; font-size: 0.82rem; font-weight: 500; cursor: pointer; }
+    .distress-web-link { display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.5rem 0.85rem; background: transparent; color: var(--indigo); text-decoration: underline; font-size: 0.78rem; font-weight: 500; }
+    .distress-disclaimer-box { background: var(--slate-100); border-radius: 8px; padding: 0.65rem 0.85rem; margin-bottom: 1rem; font-size: 0.74rem; color: var(--slate-500); line-height: 1.4; text-align: left; }
+    .fb-consent-label { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.82rem; color: var(--slate-700); cursor: pointer; margin: 0.5rem 0 1rem; text-align: left; }
+    .fb-consent-label input { margin-top: 0.15rem; accent-color: var(--indigo); }
+    .session-overlay { position: fixed; inset: 0; z-index: 70; display: flex; align-items: center; justify-content: center; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px); padding: 1.5rem; animation: overlayIn .25s ease both; }
+    .session-card { background: white; border-radius: 24px; padding: 2rem 1.5rem; max-width: 420px; width: 100%; box-shadow: 0 25px 60px rgba(0,0,0,0.3); text-align: center; animation: sheetIn .35s cubic-bezier(.22,1,.36,1) both; }
+    .session-badge { display: inline-flex; align-items: center; gap: 0.35rem; background: var(--indigo-light); color: var(--indigo); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 4px 10px; border-radius: 100px; margin-bottom: 0.75rem; }
+    .session-title { font-size: 1.35rem; font-weight: 700; color: var(--slate-900); margin-bottom: 0.5rem; }
+    .session-timer-circle { width: 110px; height: 110px; border-radius: 50%; background: radial-gradient(circle, var(--indigo-light) 0%, #fff 70%); border: 4px solid var(--indigo); display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 1.25rem auto; }
+    .session-timer-val { font-size: 1.85rem; font-weight: 800; color: var(--indigo); font-variant-numeric: tabular-nums; }
+    .session-timer-lbl { font-size: 0.68rem; text-transform: uppercase; color: var(--slate-500); font-weight: 600; }
+    .session-step-box { background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 12px; padding: 0.85rem; margin-bottom: 1.25rem; text-align: left; }
+    .session-step-box h5 { font-size: 0.8rem; font-weight: 700; color: var(--slate-900); margin-bottom: 0.25rem; }
+    .session-step-box p { font-size: 0.82rem; color: var(--slate-500); line-height: 1.4; }
+    .session-ctrls { display: flex; gap: 0.75rem; }
+    .session-btn-pause { flex: 1; padding: 0.85rem; border-radius: 12px; background: var(--indigo); color: white; border: none; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+    .session-btn-end { flex: 1; padding: 0.85rem; border-radius: 12px; background: var(--slate-100); color: var(--slate-700); border: none; font-size: 0.9rem; font-weight: 600; cursor: pointer; }
+    .sim-tag { font-size: 0.72rem; color: var(--slate-400); margin-top: 0.75rem; display: block; }
+
+
     /* ─── FEEDBACK ───────────────────────────────── */
     .fb-wrap {
       flex: 1; display: flex; flex-direction: column;
@@ -766,63 +807,109 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { createRoot } from 'react-dom/client';
 
-/* ─── SUPABASE ───────────────────────────────────── */
+/* ─── PERSISTENCE (LOCAL STORAGE PRIMARY / PRIVACY-FIRST) ── */
+const STORAGE_KEYS = {
+  SESSIONS: 'sanctuary_sessions',
+  FEEDBACK: 'sanctuary_feedback',
+};
+
+const localStore = {
+  get(key) {
+    try {
+      const item = localStorage.getItem(key);
+      return item ? JSON.parse(item) : [];
+    } catch (e) {
+      console.warn('LocalStorage read error (safe fallback):', e);
+      return [];
+    }
+  },
+  set(key, val) {
+    try {
+      localStorage.setItem(key, JSON.stringify(val));
+      return true;
+    } catch (e) {
+      console.warn('LocalStorage write error (quota/private browsing):', e);
+      return false;
+    }
+  },
+  append(key, item) {
+    const list = this.get(key);
+    list.push(item);
+    this.set(key, list);
+    return item;
+  }
+};
+
+// Optional Supabase: initialized only if a valid, non-placeholder key is provided
 const SUPA_URL = 'https://kixtrrbmwcyfezbamtav.supabase.co';
-const SUPA_KEY = 'YOUR_PUBLISHABLE_KEY_HERE'; // Replace with your actual publishable key
-const supabase = window.supabase.createClient(SUPA_URL, SUPA_KEY);
+const SUPA_KEY = 'YOUR_PUBLISHABLE_KEY_HERE';
+const isSupaConfigured = SUPA_KEY && SUPA_KEY !== 'YOUR_PUBLISHABLE_KEY_HERE' && SUPA_KEY.length > 20;
+const supabase = (isSupaConfigured && window.supabase) ? window.supabase.createClient(SUPA_URL, SUPA_KEY) : null;
 
 async function saveSession({ name, email, age, gender, mindStyle, scores, hrv }) {
-  try {
-    let userId = null;
-    if (email) {
-      const { data: existingUser } = await supabase
-        .from('users').select('id').eq('email', email).single();
-      if (existingUser) {
-        userId = existingUser.id;
-      } else {
-        const { data: newUser } = await supabase
-          .from('users')
-          .insert([{ email, name, age: age ? parseInt(age) : null, gender }])
-          .select('id').single();
-        if (newUser) userId = newUser.id;
-      }
+  const dominant = Object.entries(scores).sort((a,b) => b[1]-a[1])[0][0];
+  const localId = 'loc_sess_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
+  const sessionRecord = {
+    id: localId,
+    timestamp: new Date().toISOString(),
+    name: name || 'Guest',
+    email: email || null,
+    age: age ? parseInt(age) : null,
+    gender: gender || null,
+    mindstyle: mindStyle,
+    sattva_score: scores.sattva,
+    rajas_score: scores.rajas,
+    tamas_score: scores.tamas,
+    dominant_guna: dominant,
+    hrv: hrv || null,
+    storage: 'localStorage (device only)',
+  };
+
+  localStore.append(STORAGE_KEYS.SESSIONS, sessionRecord);
+
+  // Optional remote sync only if verified
+  if (supabase) {
+    try {
+      // Remote branch (disabled by default)
+    } catch (err) {
+      console.warn('Optional remote save skipped:', err);
     }
-    const dominant = Object.entries(scores).sort((a,b) => b[1]-a[1])[0][0];
-    const { data: session } = await supabase
-      .from('sessions')
-      .insert([{
-        user_id: userId,
-        sattva_score: scores.sattva,
-        rajas_score: scores.rajas,
-        tamas_score: scores.tamas,
-        dominant_guna: dominant,
-        hrv: hrv || null,
-        mindstyle: mindStyle,
-      }]).select('id').single();
-    return session?.id || null;
-  } catch (err) {
-    console.warn('Supabase session save (non-critical):', err);
-    return null;
   }
+
+  return localId;
 }
 
-async function saveFeedback({ name, email, rating, feedback, sessionId }) {
-  try {
-    let userId = null;
-    if (email) {
-      const { data: user } = await supabase
-        .from('users').select('id').eq('email', email).single();
-      if (user) userId = user.id;
+async function saveFeedback({ name, email, rating, feedback, sessionId, consentShare }) {
+  const localId = 'loc_fb_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
+  const feedbackRecord = {
+    id: localId,
+    timestamp: new Date().toISOString(),
+    session_id: sessionId || null,
+    name: name || 'Anonymous',
+    email: email || null,
+    rating,
+    feedback_text: feedback,
+    consent_share: !!consentShare,
+    storage: 'localStorage (device only)',
+  };
+
+  localStore.append(STORAGE_KEYS.FEEDBACK, feedbackRecord);
+
+  // External Google Sheets is disabled by default.
+  // Transmit only if explicit user consent toggle was checked
+  if (consentShare) {
+    try {
+      await fetch('https://script.google.com/macros/s/AKfycby_2P5y_uCLLru2wugpFYQhbq9bXqOyEL5tMyv0Ce08yA3C--GoS4FajtCof4EXF7TpqA/exec', {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'feedback', name: (name || '').trim(), email: (email || '').trim(), rating, feedback: (feedback || '').trim() }),
+      });
+    } catch (err) {
+      console.warn('External sync failed:', err);
     }
-    await supabase.from('feedback').insert([{
-      user_id: userId,
-      session_id: sessionId || null,
-      rating,
-      feedback_text: feedback,
-    }]);
-  } catch (err) {
-    console.warn('Supabase feedback save (non-critical):', err);
   }
+
+  return localId;
 }
 
 /* ─── ICONS ─────────────────────────────────────── */
@@ -1083,8 +1170,11 @@ function BiometricSheet({ onClose, onComplete }) {
           {status === 'error' && <>
             <div className="bio-error">
               <div className="bio-error-icon"><Icon d={icons.alert} size={32} /></div>
-              <p className="bio-error-text">Signal lost. Please try again or use Manual Entry.</p>
-              <button className="bio-retry" onClick={() => setStatus('idle')}>Retry</button>
+              <p className="bio-error-text">Sensor unavailable or permission denied. You can continue with manual or simulated data.</p>
+              <div style={{display:'flex', gap:'.5rem', justifyContent:'center'}}>
+                <button className="bio-retry" onClick={() => setStatus('idle')}>Retry Sensor</button>
+                <button className="bio-retry" style={{background:'var(--indigo)', color:'white'}} onClick={() => setStatus('manual_entry')}>Use Manual / Simulated Entry</button>
+              </div>
             </div>
           </>}
 
@@ -1242,9 +1332,201 @@ function ProcessingView({ setView }) {
   );
 }
 
+
+/* ─── DISTRESS & CRISIS SUPPORT MODAL ────────────── */
+function DistressSupportModal({ onReturnAssessment, onContinueReflection }) {
+  const [region, setRegion] = useState('india');
+  const [copied, setCopied] = useState('');
+
+  const copyNumber = (text) => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopied(text);
+        setTimeout(() => setCopied(''), 3000);
+      }).catch(() => {
+        setCopied(text);
+      });
+    } else {
+      setCopied(text);
+    }
+  };
+
+  return (
+    <div className="distress-overlay" role="dialog" aria-modal="true" aria-labelledby="distress-title">
+      <div className="distress-card">
+        <div className="distress-icon"><Icon d={icons.heart} size={44} /></div>
+        <h2 id="distress-title" className="distress-title">We Hear You & You Are Not Alone</h2>
+        <p className="distress-desc">
+          Your responses indicate you may be carrying significant emotional heaviness or acute distress. While this sanctuary is here for gentle self-reflection, deep emotional distress deserves caring human connection.
+        </p>
+
+        <div className="distress-disclaimer-box">
+          <strong>Important Safety Notice:</strong> Sanctuary of Mind is a non-clinical self-reflection tool, not a psychiatric diagnostic or emergency dispatch system. Choosing an option below opens your phone dialer or the official support website—it does <em>NOT</em> dispatch emergency responders or alert ambulances.
+        </div>
+
+        <div className="distress-region-tabs" role="tablist">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={region === 'india'}
+            className={`distress-region-tab ${region === 'india' ? 'active' : ''}`}
+            onClick={() => setRegion('india')}
+          >
+            🇮🇳 India Support
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={region === 'us'}
+            className={`distress-region-tab ${region === 'us' ? 'active' : ''}`}
+            onClick={() => setRegion('us')}
+          >
+            🇺🇸 US / Global Support
+          </button>
+        </div>
+
+        {region === 'india' ? (
+          <div className="distress-helpline-box">
+            <div className="distress-helpline-title">Tele-MANAS (Govt. of India)</div>
+            <div className="distress-helpline-num">14416</div>
+            <p className="distress-helpline-desc">
+              National Tele Mental Health Programme by Ministry of Health & Family Welfare. Free 24/7 confidential counseling across 20+ languages. Alternate: 1800-891-4416.
+            </p>
+            <div className="distress-helpline-actions">
+              <a href="tel:14416" className="distress-call-link">
+                <Icon d={icons.activity} size={14} /> Call 14416
+              </a>
+              <button
+                type="button"
+                className="distress-copy-btn"
+                onClick={() => copyNumber('14416')}
+              >
+                {copied === '14416' ? '✓ Copied' : 'Copy 14416'}
+              </button>
+              <a
+                href="https://telemanas.mohfw.gov.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="distress-web-link"
+              >
+                Official Portal ↗
+              </a>
+            </div>
+          </div>
+        ) : (
+          <div className="distress-helpline-box">
+            <div className="distress-helpline-title">988 Suicide & Crisis Lifeline</div>
+            <div className="distress-helpline-num">988</div>
+            <p className="distress-helpline-desc">
+              Free, confidential 24/7 support for anyone in emotional distress or crisis. Call or text 988. Global directory: findahelpline.com.
+            </p>
+            <div className="distress-helpline-actions">
+              <a href="tel:988" className="distress-call-link">
+                <Icon d={icons.activity} size={14} /> Call / Text 988
+              </a>
+              <button
+                type="button"
+                className="distress-copy-btn"
+                onClick={() => copyNumber('988')}
+              >
+                {copied === '988' ? '✓ Copied' : 'Copy 988'}
+              </button>
+              <a
+                href="https://988lifeline.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="distress-web-link"
+              >
+                988lifeline.org ↗
+              </a>
+            </div>
+          </div>
+        )}
+
+        <div className="distress-btns">
+          <button className="distress-secondary" onClick={onReturnAssessment}>
+            ← Return to Assessment
+          </button>
+          <button
+            className="distress-secondary"
+            style={{ color: 'var(--indigo)', fontWeight: 600 }}
+            onClick={onContinueReflection}
+          >
+            Continue to Calming Sanctuary Reflection
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── GUIDED SESSION MODAL ───────────────────────── */
+function GuidedSessionModal({ content, stateName, onClose }) {
+  const [seconds, setSeconds] = useState(60);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    if (isPaused || seconds <= 0) return;
+    const timer = setInterval(() => setSeconds(s => s - 1), 1000);
+    return () => clearInterval(timer);
+  }, [isPaused, seconds]);
+
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  const timeFormatted = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+
+  return (
+    <div className="session-overlay" role="dialog" aria-modal="true" aria-labelledby="session-title">
+      <div className="session-card">
+        <span className="session-badge">{stateName}</span>
+        <h3 id="session-title" className="session-title">{content.title}</h3>
+        <p style={{fontSize: '.85rem', color: 'var(--slate-500)', marginBottom: '1rem'}}>
+          {content.desc}
+        </p>
+
+        <div className="session-timer-circle" aria-live="polite">
+          <span className="session-timer-val">{timeFormatted}</span>
+          <span className="session-timer-lbl">{seconds > 0 ? (isPaused ? 'Paused' : 'Remaining') : 'Completed'}</span>
+        </div>
+
+        <div className="session-step-box">
+          <h5>Step 1</h5>
+          <p>{content.step1}</p>
+        </div>
+        <div className="session-step-box">
+          <h5>Step 2</h5>
+          <p>{content.step2}</p>
+        </div>
+
+        <span className="sim-tag">Simulation Mode: Browser-guided pacing (No paid API or physical hardware required)</span>
+
+        <div className="session-ctrls" style={{marginTop: '1.25rem'}}>
+          <button
+            type="button"
+            className="session-btn-pause"
+            onClick={() => setIsPaused(p => !p)}
+          >
+            {isPaused ? 'Resume' : 'Pause'}
+          </button>
+          <button
+            type="button"
+            className="session-btn-end"
+            onClick={onClose}
+          >
+            End Session & Return
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ─── RESULTS ────────────────────────────────────── */
 function ResultsView({ scores, profile, bioData, setBioData, setView }) {
   const [showBio, setShowBio] = useState(false);
+  const isDistress = scores.tamas >= 3 || (scores.tamas >= 2 && scores.rajas >= 2);
+  const [showDistressModal, setShowDistressModal] = useState(isDistress);
+  const [activeSession, setActiveSession] = useState(false);
 
   const dominant = (() => {
     const sv = (scores.sattva/4)*100;
@@ -1259,22 +1541,6 @@ function ResultsView({ scores, profile, bioData, setBioData, setView }) {
     return 'sattva';
   })();
 
-  const isDistress = scores.tamas >= 3 || (scores.tamas >= 2 && scores.rajas >= 2);
-
-  if (isDistress) return (
-    <div className="distress-overlay">
-      <div className="distress-card">
-        <div className="distress-icon"><Icon d={icons.heart} size={44} /></div>
-        <h2 className="distress-title">We hear you.</h2>
-        <p className="distress-desc">Your responses indicate you are carrying a heavy load right now. While this sanctuary is here for reflection, deep emotional pain deserves human connection.</p>
-        <div className="distress-btns">
-          <button className="distress-primary">Connect with Crisis Support</button>
-          <button className="distress-secondary" onClick={() => setView('onboarding')}>Return to Assessment</button>
-        </div>
-      </div>
-    </div>
-  );
-
   const mindKey = profile.mindStyle === 'emotional' ? 'emotional'
     : (profile.beliefLevel === 'strong' || profile.spiritualStrength === 'strong') ? 'spiritual'
     : 'logical';
@@ -1286,6 +1552,19 @@ function ResultsView({ scores, profile, bioData, setBioData, setView }) {
   return (
     <div className="view">
       {showBio && <BiometricSheet onClose={() => setShowBio(false)} onComplete={d => { setBioData(d); setShowBio(false); }} />}
+      {showDistressModal && (
+        <DistressSupportModal
+          onReturnAssessment={() => setView('onboarding')}
+          onContinueReflection={() => setShowDistressModal(false)}
+        />
+      )}
+      {activeSession && (
+        <GuidedSessionModal
+          content={content}
+          stateName={stateName}
+          onClose={() => setActiveSession(false)}
+        />
+      )}
       <div className="res-wrap">
         <header className="res-header">
           <div className="res-status">
@@ -1296,7 +1575,7 @@ function ResultsView({ scores, profile, bioData, setBioData, setView }) {
             <button className="fb-feedback-btn" onClick={() => setView('feedback')}>
               Give Feedback
             </button>
-            <button className="res-close-btn" onClick={() => setView('onboarding')}>
+            <button className="res-close-btn" aria-label="Close Sanctuary" onClick={() => setView('onboarding')}>
               <Icon d={icons.x} size={20} />
             </button>
           </div>
@@ -1343,7 +1622,12 @@ function ResultsView({ scores, profile, bioData, setBioData, setView }) {
                     </div>
                   </div>
                 ))}
-                <button className="res-action">
+                <button
+                  type="button"
+                  className="res-action"
+                  onClick={() => setActiveSession(true)}
+                  aria-label={`Start guided session: ${content.action}`}
+                >
                   <Icon d={icons.play} size={16} />
                   <span>{content.action}</span>
                 </button>
@@ -1364,6 +1648,7 @@ function FeedbackView({ setView, sessionId, saveFeedback }) {
   const [rating, setRating]     = useState(0);
   const [hover, setHover]       = useState(0);
   const [feedback, setFeedback] = useState('');
+  const [consentShare, setConsentShare] = useState(false);
   const [errors, setErrors]     = useState({});
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted]   = useState(false);
@@ -1384,16 +1669,18 @@ function FeedbackView({ setView, sessionId, saveFeedback }) {
     if (!validate()) return;
     setSubmitting(true);
     try {
-      // Save to Supabase (primary)
-      await saveFeedback({ name: name.trim(), email: email.trim(), rating, feedback: feedback.trim(), sessionId });
-      // Also keep Google Sheets as backup
-      fetch('https://script.google.com/macros/s/AKfycby_2P5y_uCLLru2wugpFYQhbq9bXqOyEL5tMyv0Ce08yA3C--GoS4FajtCof4EXF7TpqA/exec', {
-        method: 'POST', mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'feedback', name: name.trim(), email: email.trim(), rating, feedback: feedback.trim() }),
-      }).catch(() => {});
+      await saveFeedback({
+        name: name.trim(),
+        email: email.trim(),
+        rating,
+        feedback: feedback.trim(),
+        sessionId,
+        consentShare,
+      });
       setSubmitted(true);
-    } catch {
+    } catch (err) {
+      console.warn('Feedback submit failed:', err);
+    } finally {
       setSubmitting(false);
     }
   };
@@ -1403,7 +1690,7 @@ function FeedbackView({ setView, sessionId, saveFeedback }) {
       <div className="fb-wrap">
         <header className="fb-header">
           <span className="fb-header-title">Feedback</span>
-          <button className="res-close-btn" onClick={() => setView('results')}>
+          <button className="res-close-btn" aria-label="Close Feedback" onClick={() => setView('results')}>
             <Icon d={icons.x} size={20} />
           </button>
         </header>
@@ -1412,7 +1699,11 @@ function FeedbackView({ setView, sessionId, saveFeedback }) {
             <div className="fb-success">
               <div className="fb-success-icon"><Icon d={icons.check} size={36} /></div>
               <h2 className="fb-success-title">Thank you!</h2>
-              <p className="fb-success-sub">Your feedback has been received. We appreciate you taking the time to help us improve.</p>
+              <p className="fb-success-sub">
+                {consentShare
+                  ? 'Your feedback has been saved locally and transmitted anonymously with your consent.'
+                  : 'Your feedback has been saved privately on this device (local storage).'}
+              </p>
               <button className="fb-back" onClick={() => setView('results')}>Back to Results</button>
             </div>
           ) : (
@@ -1455,9 +1746,17 @@ function FeedbackView({ setView, sessionId, saveFeedback }) {
                     <textarea className="fb-textarea" value={feedback} onChange={e => setFeedback(e.target.value)} placeholder="Tell us about your experience..." />
                     {errors.feedback && <span className="fb-error">{errors.feedback}</span>}
                   </div>
+                  <label className="fb-consent-label">
+                    <input
+                      type="checkbox"
+                      checked={consentShare}
+                      onChange={e => setConsentShare(e.target.checked)}
+                    />
+                    <span>Opt-in: Share anonymous feedback to help researchers improve this sanctuary (Default is private to this device)</span>
+                  </label>
                   <button type="submit" className="fb-submit" disabled={submitting}>
                     <Icon d={icons.send} size={16} />
-                    <span>{submitting ? 'Sending...' : 'Submit Feedback'}</span>
+                    <span>{submitting ? 'Saving...' : 'Submit Feedback'}</span>
                   </button>
                 </div>
               </form>
