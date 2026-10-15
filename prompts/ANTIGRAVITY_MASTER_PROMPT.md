@@ -1,0 +1,7 @@
+# Sanctuary of Mind — Antigravity Master Prompt
+
+Read the complete Product and Build Specification and the preserved original master pack. Inspect the actual repository before editing. Produce a baseline audit with verified facts, assumptions, current functionality, broken paths, build commands, test commands, secrets/configuration risks, deployment settings, and blockers.
+
+Do not rewrite the application from scratch. Preserve working behaviour and add regression tests for the existing assessment/protocol logic before changing it. Follow the implementation roadmap phase by phase. Build a complete, accessible, responsive browser simulator first, with guest mode, optional preferences, voice/text/manual check-in, deterministic explainable recommendations, guided session playback with transcript and controls, feedback-based adaptation, safety support, honest simulation labels, and reset behaviour. Keep the core demo functional without paid APIs, physical hardware, or remote credentials.
+
+After each phase, report changed files, tests actually run, results, remaining issues, and next steps. Do not claim a test passed unless it ran. Do not expose secrets, add paid services, introduce remote data collection, deploy publicly, or make destructive architecture changes without approval. Treat Alexa+, MCP, smart-home, music, wearable, and sensor integrations as unverified until genuinely implemented and tested. Verify current official hackathon requirements before submission. Prefer a small, complete end-to-end demo over unfinished feature breadth.

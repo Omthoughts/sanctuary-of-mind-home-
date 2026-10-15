@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <title>Sanctuary of Mind — AI Mental Wellness</title>
+  <meta name="description" content="India's first AI mental wellness platform combining Triguna psychology with HRV biometrics. Discover your inner state — Sattva, Rajas or Tamas — and receive personalized interventions." />
+  <meta name="keywords" content="mental wellness, Triguna, Ayurveda, HRV, meditation, mindfulness, AI wellness, Sattva, Rajas, Tamas" />
+  <meta property="og:title" content="Sanctuary of Mind — AI Mental Wellness" />
+  <meta property="og:description" content="Ancient Indian psychology meets modern AI. Discover your Triguna state and receive personalized mental wellness guidance." />
+  <meta property="og:url" content="https://sanctuaryofmind.netlify.app" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Sanctuary of Mind" />
+  <meta name="twitter:description" content="Ancient Indian psychology meets modern AI. Triguna + HRV + personalized interventions." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    :root {
+      --indigo: #5b5bd6;
+      --indigo-light: #eef0ff;
+      --indigo-mid: #c2c5f5;
+      --slate-900: #0f172a;
+      --slate-700: #334155;
+      --slate-500: #64748b;
+      --slate-300: #cbd5e1;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --white: #ffffff;
+      --green: #22c55e;
+      --rose: #f43f5e;
+      --amber: #f59e0b;
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    html, body {
+      width: 100%; height: 100%;
+      overscroll-behavior: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--slate-50);
+      color: var(--slate-900);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    #root { width: 100%; min-height: 100vh; min-height: 100dvh; }
+
+    /* ─── VIEWS ──────────────────────────────────── */
+    .view {
+      width: 100%; min-height: 100vh; min-height: 100dvh;
+      display: flex; flex-direction: column;
+      animation: viewIn .45s cubic-bezier(.22,1,.36,1) both;
+    }
+    @keyframes viewIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ─── ONBOARDING ─────────────────────────────── */
+    .ob-wrap {
+      flex: 1;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: calc(var(--safe-top) + 2rem) 1.5rem calc(var(--safe-bottom) + 2rem);
+      background: linear-gradient(160deg, #f0f2ff 0%, #fafafa 100%);
+      gap: 1.5rem;
+    }
+    .ob-logo {
+      width: 56px; height: 56px;
+      background: white;
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 12px rgba(91,91,214,.18);
+      margin-bottom: .25rem;
+    }
+    .ob-logo svg { width: 26px; height: 26px; color: var(--indigo); }
+    .ob-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2rem, 8vw, 2.5rem);
+      font-weight: 300;
+      color: var(--slate-900);
+      letter-spacing: -.01em;
+      text-align: center;
+      line-height: 1.15;
+    }
+    .ob-sub {
+      font-size: .9rem;
+      color: var(--slate-500);
+      text-align: center;
+      font-weight: 300;
+      margin-top: -.5rem;
+    }
+    .ob-card {
+      width: 100%; max-width: 420px;
+      background: white;
+      border-radius: 18px;
+      padding: 1.25rem;
+      border: 1px solid #ececf8;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    .ob-label {
+      font-size: .68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--slate-500);
+      margin-bottom: .65rem;
+      display: block;
+    }
+    .ob-btns {
+      display: grid; gap: .45rem;
+    }
+    .ob-btns.cols3 { grid-template-columns: repeat(3,1fr); }
+    .ob-btns.cols4 { grid-template-columns: repeat(4,1fr); }
+    .ob-btn {
+      padding: .65rem .4rem;
+      border-radius: 10px;
+      font-size: .8rem;
+      font-weight: 500;
+      border: none; cursor: pointer;
+      transition: background .2s, color .2s, transform .12s;
+      font-family: inherit;
+    }
+    .ob-btn:active { transform: scale(.95); }
+    .ob-btn.off { background: var(--slate-100); color: var(--slate-700); }
+    .ob-btn.on  { background: var(--indigo);   color: white; box-shadow: 0 3px 10px rgba(91,91,214,.3); }
+    .ob-enter {
+      width: 100%; max-width: 420px;
+      padding: 1rem;
+      background: var(--slate-900);
+      color: white;
+      border: none; border-radius: 14px;
+      font-size: .95rem; font-weight: 500; font-family: inherit;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: .5rem;
+      box-shadow: 0 8px 24px rgba(15,23,42,.18);
+      transition: transform .15s, box-shadow .15s;
+      letter-spacing: .02em;
+    }
+    .ob-enter:active { transform: scale(.97); box-shadow: 0 4px 12px rgba(15,23,42,.15); }
+    .ob-enter svg { width: 16px; height: 16px; }
+    .ob-footer {
+      display: flex; align-items: center; gap: .4rem;
+      font-size: .65rem; color: var(--slate-300);
+      text-transform: uppercase; letter-spacing: .08em;
+    }
+    .ob-footer svg { width: 11px; height: 11px; }
+
+    /* ─── ASSESSMENT ─────────────────────────────── */
+    .as-wrap {
+      flex: 1;
+      display: flex; flex-direction: column;
+      padding: calc(var(--safe-top) + 1.5rem) 1.5rem calc(var(--safe-bottom) + 1.5rem);
+      background: var(--slate-50);
+      gap: 1.5rem;
+    }
+    .as-bar-track {
+      height: 3px; background: #e2e8f0; border-radius: 99px; overflow: hidden;
+    }
+    .as-bar-fill {
+      height: 100%; background: var(--indigo);
+      border-radius: 99px;
+      transition: width .6s cubic-bezier(.22,1,.36,1);
+    }
+    .as-meta {
+      display: flex; justify-content: space-between;
+      font-size: .7rem; color: var(--slate-500);
+      font-weight: 500; text-transform: uppercase; letter-spacing: .06em;
+    }
+    .as-content {
+      flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 1.75rem;
+      animation: viewIn .5s cubic-bezier(.22,1,.36,1) both;
+    }
+    .as-q {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(1.5rem, 6.5vw, 2rem);
+      font-weight: 300;
+      color: var(--slate-900);
+      line-height: 1.35;
+    }
+    .as-options { display: flex; flex-direction: column; gap: .75rem; }
+    .as-opt {
+      width: 100%;
+      padding: 1.1rem 1.25rem;
+      background: white;
+      border-radius: 14px;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: inherit;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+      transition: box-shadow .2s, transform .12s, background .15s;
+    }
+    .as-opt:active { transform: scale(.98); background: var(--indigo-light); }
+    .as-opt-text { font-size: .95rem; color: var(--slate-700); line-height: 1.4; }
+    .as-opt-icon { width: 14px; height: 14px; color: var(--indigo-mid); flex-shrink: 0; margin-left: .75rem; }
+
+    /* ─── PROCESSING ─────────────────────────────── */
+    .proc-wrap {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      background: #1a1740;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .proc-glow {
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at center, rgba(99,102,241,.35) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .proc-content {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center; gap: 2rem;
+      animation: procIn 1s cubic-bezier(.22,1,.36,1) both;
+    }
+    @keyframes procIn {
+      from { opacity: 0; transform: scale(.96); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .proc-icon { color: #a5b4fc; opacity: .8; animation: pulseOp 2s ease-in-out infinite; }
+    .proc-icon svg { width: 44px; height: 44px; }
+    @keyframes pulseOp { 0%,100%{opacity:.8} 50%{opacity:.4} }
+    .proc-quote {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(1.2rem, 5.5vw, 1.65rem);
+      color: #dde4ff;
+      font-weight: 300;
+      line-height: 1.6;
+      max-width: 320px;
+    }
+    .proc-hl { color: white; border-bottom: 1px solid #6366f1; padding-bottom: 1px; }
+    .proc-scan {
+      width: 120px; height: 2px;
+      background: linear-gradient(90deg, transparent, #6366f1, transparent);
+      border-radius: 99px;
+      animation: scanAnim 1.2s ease-in-out infinite;
+    }
+    @keyframes scanAnim {
+      0%   { transform: scaleX(.2); opacity: .6; }
+      50%  { transform: scaleX(1.4); opacity: 1; }
+      100% { transform: scaleX(.2); opacity: .6; }
+    }
+
+    /* ─── RESULTS ────────────────────────────────── */
+    .res-wrap {
+      flex: 1; display: flex; flex-direction: column;
+      background: radial-gradient(circle at 50% 0%, #f0f2ff 0%, #fafafa 60%);
+      padding-bottom: calc(var(--safe-bottom) + 2rem);
+    }
+    .res-header {
+      padding: calc(var(--safe-top) + 1rem) 1.5rem 1rem;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(255,255,255,.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid #ececf8;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .res-status { display: flex; align-items: center; gap: .5rem; }
+    .res-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 10px rgba(34,197,94,.5);
+      animation: pulseOp 2s ease-in-out infinite;
+    }
+    .res-status-lbl {
+      font-size: .68rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .07em;
+      color: var(--slate-500);
+    }
+    .res-close-btn {
+      border: none; background: none; cursor: pointer;
+      color: var(--slate-500); padding: 6px;
+      border-radius: 50%;
+      transition: background .15s;
+    }
+    .res-close-btn:active { background: var(--slate-100); }
+    .res-close-btn svg { width: 20px; height: 20px; display: block; }
+    .res-main {
+      padding: 1.5rem;
+      display: flex; flex-direction: column; gap: 1.75rem;
+      max-width: 520px; width: 100%; margin: 0 auto;
+    }
+    .res-resonance {
+      text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: .85rem;
+      animation: viewIn .5s .05s cubic-bezier(.22,1,.36,1) both;
+    }
+    .res-badge {
+      padding: .45rem 1rem;
+      background: var(--indigo-light);
+      color: var(--indigo);
+      font-size: .62rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .1em;
+      border-radius: 99px;
+    }
+    .res-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(1.6rem, 7vw, 2.25rem);
+      font-weight: 300; color: var(--slate-900);
+    }
+    .res-bio-btn {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .72rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .06em;
+      color: var(--indigo);
+      background: white; border: 1.5px solid var(--indigo-mid);
+      padding: .5rem 1rem; border-radius: 99px;
+      cursor: pointer; font-family: inherit;
+      transition: box-shadow .2s, transform .12s;
+    }
+    .res-bio-btn:active { transform: scale(.96); }
+    .res-bio-btn svg { width: 14px; height: 14px; }
+    .res-bio-ok {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .72rem; font-weight: 600;
+      color: #16a34a; background: #f0fdf4;
+      border: 1.5px solid #bbf7d0;
+      padding: .5rem 1rem; border-radius: 99px;
+    }
+    .res-bio-ok svg { width: 14px; height: 14px; }
+
+    /* Circle */
+    .res-circle-wrap {
+      display: flex; justify-content: center;
+      animation: viewIn .5s .12s cubic-bezier(.22,1,.36,1) both;
+    }
+    .circle-ctrl {
+      position: relative;
+      width: 220px; height: 220px;
+      display: flex; align-items: center; justify-content: center;
+      user-select: none;
+    }
+    .circle-outer {
+      position: absolute;
+      width: 220px; height: 220px;
+      border: 2px dashed #c7d2fe;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      animation: scaleIn 1s cubic-bezier(.22,1,.36,1) both;
+    }
+    @keyframes scaleIn { from{opacity:0;transform:scale(.88)} to{opacity:1;transform:scale(1)} }
+    .circle-lbl-top {
+      position: absolute; top: 8px;
+      font-size: .6rem; font-weight: 700; letter-spacing: .07em;
+      text-transform: uppercase; color: var(--slate-500);
+      background: #f7f8ff; padding: 0 6px;
+    }
+    .circle-lbl-bot {
+      position: absolute; bottom: 8px;
+      font-size: .6rem; font-weight: 700; letter-spacing: .07em;
+      text-transform: uppercase; color: var(--slate-500);
+      background: #f7f8ff; padding: 0 6px;
+    }
+    .circle-inner {
+      position: relative; z-index: 2;
+      width: 116px; height: 116px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #5b5bd6, #7c3aed);
+      box-shadow: 0 16px 36px rgba(91,91,214,.28);
+      display: flex; align-items: center; justify-content: center;
+      color: white; text-align: center; padding: 1rem;
+      animation: innerIn 1s .2s cubic-bezier(.22,1,.36,1) both;
+    }
+    @keyframes innerIn { from{opacity:0;transform:scale(.7)} to{opacity:1;transform:scale(1.08)} }
+    .circle-inner-lbl { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; }
+    .circle-divider { height: 1px; width: 28px; background: rgba(255,255,255,.4); margin: .3rem auto; }
+    .circle-inner-sub { font-size: .58rem; opacity: .9; font-weight: 400; }
+    .circle-ping {
+      position: absolute;
+      width: 116px; height: 116px;
+      border-radius: 50%;
+      background: #5b5bd6;
+      opacity: .15;
+      animation: pingAnim 2s cubic-bezier(0,0,.2,1) infinite;
+    }
+    @keyframes pingAnim { 0%{transform:scale(1);opacity:.2} 100%{transform:scale(2.2);opacity:0} }
+
+    /* Protocol card */
+    .res-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0,0,0,.09);
+      border: 1px solid #ececf8;
+      animation: viewIn .5s .2s cubic-bezier(.22,1,.36,1) both;
+    }
+    .res-card-hd {
+      background: var(--slate-900);
+      padding: 1.5rem;
+      color: white;
+      position: relative; overflow: hidden;
+    }
+    .res-card-hd-glow {
+      position: absolute; top: -40px; right: -40px;
+      width: 120px; height: 120px;
+      background: var(--indigo);
+      border-radius: 50%;
+      filter: blur(40px); opacity: .25;
+      pointer-events: none;
+    }
+    .res-card-meta {
+      display: flex; align-items: center; gap: .4rem;
+      margin-bottom: .5rem; opacity: .8;
+    }
+    .res-card-meta svg { width: 14px; height: 14px; color: #fbbf24; }
+    .res-card-meta-lbl { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; }
+    .res-card-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(1.25rem, 5vw, 1.65rem);
+      font-weight: 400; margin-bottom: .4rem;
+    }
+    .res-card-desc {
+      font-size: .82rem; color: #94a3b8; line-height: 1.55; font-weight: 300;
+    }
+    .res-card-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .res-step { display: flex; gap: .9rem; align-items: flex-start; }
+    .res-step-num {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--indigo-light); color: var(--indigo);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: .8rem; flex-shrink: 0;
+    }
+    .res-step-body h4 { font-size: .82rem; font-weight: 600; color: var(--slate-900); margin-bottom: .2rem; }
+    .res-step-body p { font-size: .82rem; color: var(--slate-500); line-height: 1.5; }
+    .res-action {
+      width: 100%;
+      padding: .95rem;
+      background: var(--indigo);
+      color: white;
+      border: none; border-radius: 12px;
+      font-size: .9rem; font-weight: 500; font-family: inherit;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: .5rem;
+      box-shadow: 0 6px 20px rgba(91,91,214,.28);
+      transition: transform .12s, box-shadow .15s;
+      margin-top: .25rem;
+    }
+    .res-action:active { transform: scale(.97); box-shadow: 0 3px 10px rgba(91,91,214,.2); }
+    .res-action svg { width: 16px; height: 16px; }
+
+    /* ─── BIOMETRIC MODAL ────────────────────────── */
+    .bio-overlay {
+      position: fixed; inset: 0; z-index: 60;
+      display: flex; align-items: flex-end; justify-content: center;
+      background: rgba(15,23,42,.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 0;
+      animation: overlayIn .25s ease both;
+    }
+    @keyframes overlayIn { from{opacity:0} to{opacity:1} }
+    .bio-sheet {
+      width: 100%; max-width: 480px;
+      background: white;
+      border-radius: 24px 24px 0 0;
+      overflow: hidden;
+      padding-bottom: calc(var(--safe-bottom) + 1.5rem);
+      animation: sheetUp .35s cubic-bezier(.22,1,.36,1) both;
+      max-height: 90vh; overflow-y: auto;
+    }
+    @keyframes sheetUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+    .bio-handle {
+      width: 40px; height: 4px;
+      background: #e2e8f0; border-radius: 99px;
+      margin: 12px auto 0;
+    }
+    .bio-close {
+      position: absolute; top: 16px; right: 16px;
+      border: none; background: none; cursor: pointer;
+      color: var(--slate-500); padding: 4px;
+    }
+    .bio-close svg { width: 22px; height: 22px; }
+    .bio-inner { padding: 1.5rem; text-align: center; }
+    .bio-icon-wrap {
+      width: 60px; height: 60px;
+      background: var(--indigo-light); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto .75rem;
+      color: var(--indigo);
+    }
+    .bio-icon-wrap svg { width: 28px; height: 28px; }
+    .bio-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.5rem; font-weight: 400; color: var(--slate-900);
+      margin-bottom: .3rem;
+    }
+    .bio-sub { font-size: .82rem; color: var(--slate-500); margin-bottom: 1.25rem; }
+    .bio-methods { display: flex; flex-direction: column; gap: .6rem; text-align: left; }
+    .bio-method {
+      display: flex; align-items: center;
+      padding: .9rem 1rem;
+      border: 1.5px solid var(--slate-100);
+      border-radius: 14px;
+      cursor: pointer; background: white;
+      font-family: inherit;
+      transition: border-color .2s, background .15s, transform .12s;
+    }
+    .bio-method:active { transform: scale(.98); background: var(--indigo-light); border-color: var(--indigo-mid); }
+    .bio-method-icon {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-right: .9rem; flex-shrink: 0;
+    }
+    .bio-method-icon svg { width: 18px; height: 18px; }
+    .bio-method-icon.blue { background: #dbeafe; color: #2563eb; }
+    .bio-method-icon.rose { background: #ffe4e6; color: #e11d48; }
+    .bio-method-icon.gray { background: var(--slate-100); color: var(--slate-700); }
+    .bio-method-lbl { font-size: .85rem; font-weight: 700; color: var(--slate-900); display: block; }
+    .bio-method-sub { font-size: .72rem; color: var(--slate-500); display: block; }
+    /* measuring */
+    .bio-measuring { padding: 1rem 0; }
+    .bio-meas-hint { font-size: .72rem; font-weight: 700; margin-bottom: .3rem; }
+    .bio-meas-hint.rose { color: var(--rose); }
+    .bio-meas-hint.blue { color: #2563eb; }
+    .bio-meas-demo { font-size: .65rem; color: var(--slate-500); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 1rem; }
+    .bio-circle-wrap {
+      position: relative;
+      width: 160px; height: 160px;
+      margin: 0 auto 1.25rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .bio-circle-wrap svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+    .bio-circle-center {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .bio-circle-center svg { width: 28px; height: 28px; color: var(--rose); }
+    .bio-bpm { font-size: 2rem; font-weight: 300; color: var(--slate-900); }
+    .bio-bpm-lbl { font-size: .6rem; font-weight: 700; color: var(--slate-400); text-transform: uppercase; }
+    .bio-hrv { text-align: center; }
+    .bio-hrv-lbl { font-size: .6rem; color: var(--slate-400); text-transform: uppercase; letter-spacing: .07em; display: block; margin-bottom: .15rem; }
+    .bio-hrv-val { font-size: 1.1rem; font-weight: 700; color: var(--slate-900); }
+    /* manual */
+    .bio-manual { text-align: left; }
+    .bio-manual h3 { font-size: 1.1rem; font-weight: 700; color: var(--slate-900); text-align: center; margin-bottom: 1rem; }
+    .bio-form-group { margin-bottom: .9rem; }
+    .bio-form-lbl { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--slate-500); display: block; margin-bottom: .35rem; }
+    .bio-form-inp {
+      width: 100%; padding: .8rem 1rem;
+      border: 1.5px solid #e2e8f0; border-radius: 12px;
+      font-size: 1rem; font-family: inherit; outline: none;
+      transition: border-color .2s;
+    }
+    .bio-form-inp:focus { border-color: var(--indigo); }
+    .bio-submit {
+      width: 100%; padding: .85rem;
+      background: var(--indigo); color: white;
+      border: none; border-radius: 12px;
+      font-size: .9rem; font-weight: 700; font-family: inherit;
+      cursor: pointer; margin-top: .5rem;
+    }
+    .bio-back {
+      width: 100%; padding: .7rem;
+      border: none; background: none;
+      color: var(--slate-500); font-size: .85rem; font-family: inherit;
+      cursor: pointer; margin-top: .25rem;
+    }
+    /* success / error */
+    .bio-success, .bio-error {
+      display: flex; flex-direction: column; align-items: center; gap: .75rem;
+      padding: 1rem 0;
+    }
+    .bio-success-icon, .bio-error-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .bio-success-icon { background: #dcfce7; color: #16a34a; }
+    .bio-success-icon svg, .bio-error-icon svg { width: 36px; height: 36px; }
+    .bio-error-icon { background: #fee2e2; color: #ef4444; }
+    .bio-success-title { font-size: 1.1rem; font-weight: 700; color: var(--slate-900); }
+    .bio-success-sub, .bio-error-text { font-size: .85rem; color: var(--slate-500); }
+    .bio-retry {
+      padding: .6rem 1.5rem;
+      background: var(--slate-900); color: white;
+      border: none; border-radius: 8px;
+      font-size: .85rem; cursor: pointer; font-family: inherit;
+    }
+
+    /* ─── DISTRESS ────────────────────────────────── */
+    .distress-overlay {
+      position: fixed; inset: 0; z-index: 60;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,.45); padding: 1.5rem;
+      animation: overlayIn .25s ease both;
+    }
+    .distress-card {
+      background: white; border-radius: 20px;
+      padding: 2rem 1.5rem;
+      max-width: 380px; width: 100%;
+      border-top: 4px solid var(--amber);
+      box-shadow: 0 20px 50px rgba(0,0,0,.2);
+      text-align: center;
+      animation: sheetIn .35s cubic-bezier(.22,1,.36,1) both;
+    }
+    @keyframes sheetIn { from{opacity:0;transform:scale(.93)} to{opacity:1;transform:scale(1)} }
+    .distress-icon { color: var(--amber); margin: 0 auto .75rem; }
+    .distress-icon svg { width: 44px; height: 44px; }
+    .distress-title { font-size: 1.25rem; font-weight: 700; color: var(--slate-900); margin-bottom: .5rem; }
+    .distress-desc { font-size: .85rem; color: var(--slate-500); line-height: 1.6; margin-bottom: 1.25rem; }
+    .distress-btns { display: flex; flex-direction: column; gap: .65rem; }
+    .distress-primary {
+      padding: .85rem; background: var(--amber); color: white;
+      border: none; border-radius: 12px;
+      font-size: .9rem; font-weight: 600; font-family: inherit; cursor: pointer;
+    }
+    .distress-secondary {
+      padding: .75rem; background: none; border: none;
+      color: var(--slate-500); font-size: .85rem; font-family: inherit; cursor: pointer;
+    }
+
+    /* ─── FEEDBACK ───────────────────────────────── */
+    .fb-wrap {
+      flex: 1; display: flex; flex-direction: column;
+      background: radial-gradient(circle at 50% 0%, #f0f2ff 0%, #fafafa 60%);
+      padding-bottom: calc(var(--safe-bottom) + 2rem);
+    }
+    .fb-header {
+      padding: calc(var(--safe-top) + 1rem) 1.5rem 1rem;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(255,255,255,.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid #ececf8;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .fb-header-title {
+      font-size: .68rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .07em;
+      color: var(--slate-500);
+    }
+    .fb-main {
+      padding: 1.5rem;
+      display: flex; flex-direction: column; gap: 1.25rem;
+      max-width: 520px; width: 100%; margin: 0 auto;
+    }
+    .fb-heading {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(1.5rem, 6vw, 2rem);
+      font-weight: 300; color: var(--slate-900);
+      text-align: center;
+    }
+    .fb-sub {
+      font-size: .85rem; color: var(--slate-500);
+      text-align: center; margin-top: -.5rem;
+    }
+    .fb-card {
+      background: white; border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0,0,0,.09);
+      border: 1px solid #ececf8;
+      padding: 1.5rem;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .fb-group { display: flex; flex-direction: column; gap: .35rem; }
+    .fb-label {
+      font-size: .7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .06em;
+      color: var(--slate-500);
+    }
+    .fb-input {
+      width: 100%; padding: .8rem 1rem;
+      border: 1.5px solid #e2e8f0; border-radius: 12px;
+      font-size: 1rem; font-family: inherit; outline: none;
+      transition: border-color .2s;
+    }
+    .fb-input:focus { border-color: var(--indigo); }
+    .fb-textarea {
+      width: 100%; padding: .8rem 1rem;
+      border: 1.5px solid #e2e8f0; border-radius: 12px;
+      font-size: 1rem; font-family: inherit; outline: none;
+      resize: vertical; min-height: 100px;
+      transition: border-color .2s;
+    }
+    .fb-textarea:focus { border-color: var(--indigo); }
+    .fb-stars { display: flex; gap: .35rem; }
+    .fb-star {
+      background: none; border: none; cursor: pointer;
+      padding: 2px; transition: transform .12s;
+    }
+    .fb-star:active { transform: scale(.85); }
+    .fb-star svg { width: 28px; height: 28px; }
+    .fb-error {
+      font-size: .72rem; color: var(--rose); margin-top: .15rem;
+    }
+    .fb-submit {
+      width: 100%; padding: .95rem;
+      background: var(--indigo); color: white;
+      border: none; border-radius: 12px;
+      font-size: .9rem; font-weight: 500; font-family: inherit;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: .5rem;
+      box-shadow: 0 6px 20px rgba(91,91,214,.28);
+      transition: transform .12s, box-shadow .15s;
+    }
+    .fb-submit:active { transform: scale(.97); box-shadow: 0 3px 10px rgba(91,91,214,.2); }
+    .fb-submit:disabled { opacity: .6; cursor: not-allowed; }
+    .fb-success {
+      display: flex; flex-direction: column; align-items: center; gap: .75rem;
+      padding: 2rem 0; text-align: center;
+    }
+    .fb-success-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: #dcfce7; color: #16a34a;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .fb-success-icon svg { width: 36px; height: 36px; }
+    .fb-success-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.5rem; font-weight: 400; color: var(--slate-900);
+    }
+    .fb-success-sub { font-size: .85rem; color: var(--slate-500); }
+    .fb-back {
+      padding: .75rem 1.5rem;
+      background: var(--slate-900); color: white;
+      border: none; border-radius: 12px;
+      font-size: .85rem; font-weight: 500; font-family: inherit;
+      cursor: pointer; margin-top: .5rem;
+      transition: transform .12s;
+    }
+    .fb-back:active { transform: scale(.97); }
+    .fb-feedback-btn {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .62rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .07em;
+      color: var(--indigo);
+      background: white; border: 1.5px solid var(--indigo-mid);
+      padding: .4rem .75rem; border-radius: 99px;
+      cursor: pointer; font-family: inherit;
+      transition: box-shadow .2s, transform .12s;
+    }
+    .fb-feedback-btn:active { transform: scale(.96); }
+
+    /* ─── UTILS ──────────────────────────────────── */
+    .animate-pulse-op { animation: pulseOp 2s ease-in-out infinite; }
+    .sr-only { position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0); }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client"
+  }
+}
+</script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel" data-type="module">
+import React, { useState, useRef, useEffect, useCallback } from 'react';
+import { createRoot } from 'react-dom/client';
+
+/* ─── SUPABASE ───────────────────────────────────── */
+const SUPA_URL = 'https://kixtrrbmwcyfezbamtav.supabase.co';
+const SUPA_KEY = 'YOUR_PUBLISHABLE_KEY_HERE'; // Replace with your actual publishable key
+const supabase = window.supabase.createClient(SUPA_URL, SUPA_KEY);
+
+async function saveSession({ name, email, age, gender, mindStyle, scores, hrv }) {
+  try {
+    let userId = null;
+    if (email) {
+      const { data: existingUser } = await supabase
+        .from('users').select('id').eq('email', email).single();
+      if (existingUser) {
+        userId = existingUser.id;
+      } else {
+        const { data: newUser } = await supabase
+          .from('users')
+          .insert([{ email, name, age: age ? parseInt(age) : null, gender }])
+          .select('id').single();
+        if (newUser) userId = newUser.id;
+      }
+    }
+    const dominant = Object.entries(scores).sort((a,b) => b[1]-a[1])[0][0];
+    const { data: session } = await supabase
+      .from('sessions')
+      .insert([{
+        user_id: userId,
+        sattva_score: scores.sattva,
+        rajas_score: scores.rajas,
+        tamas_score: scores.tamas,
+        dominant_guna: dominant,
+        hrv: hrv || null,
+        mindstyle: mindStyle,
+      }]).select('id').single();
+    return session?.id || null;
+  } catch (err) {
+    console.warn('Supabase session save (non-critical):', err);
+    return null;
+  }
+}
+
+async function saveFeedback({ name, email, rating, feedback, sessionId }) {
+  try {
+    let userId = null;
+    if (email) {
+      const { data: user } = await supabase
+        .from('users').select('id').eq('email', email).single();
+      if (user) userId = user.id;
+    }
+    await supabase.from('feedback').insert([{
+      user_id: userId,
+      session_id: sessionId || null,
+      rating,
+      feedback_text: feedback,
+    }]);
+  } catch (err) {
+    console.warn('Supabase feedback save (non-critical):', err);
+  }
+}
+
+/* ─── ICONS ─────────────────────────────────────── */
+const Icon = ({ d, size=20, ...p }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}>
+    {Array.isArray(d) ? d.map((path, i) => <path key={i} d={path} />) : <path d={d} />}
+  </svg>
+);
+
+const icons = {
+  wind:     ["M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2","M9.6 4.6A2 2 0 1 1 11 8H2","M12.6 19.4A2 2 0 1 0 14 16H2"],
+  lock:     ["M19 11H5a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2z","M7 11V7a5 5 0 0 1 10 0v4"],
+  chevron:  "M9 18l6-6-6-6",
+  x:        "M18 6L6 18M6 6l12 12",
+  activity: "M22 12h-4l-3 9L9 3l-3 9H2",
+  camera:   ["M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z","M12 13m-4 0a4 4 0 1 0 8 0 4 4 0 1 0-8 0"],
+  bluetooth:"M6.5 6.5l11 11L12 23V1l5.5 5.5-11 11",
+  watch:    ["M12 12m-7 0a7 7 0 1 0 14 0 7 7 0 1 0-14 0","M12 9v3l1.5 1.5","M16.51 17.35l-.35 3.83a2 2 0 0 1-2 1.82H9.83a2 2 0 0 1-2-1.82l-.35-3.83m.01-10.7.35-3.83A2 2 0 0 1 9.83 1h4.35a2 2 0 0 1 2 1.82l.35 3.83"],
+  check:    "M20 6L9 17l-5-5",
+  alert:    ["M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z","M12 9v4","M12 17h.01"],
+  heart:    "M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z",
+  shield:   "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+  zap:      "M13 2L3 14h9l-1 8 10-12h-9l1-8z",
+  play:     "M5 3l14 9-14 9V3z",
+  star:     "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
+  send:     "M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z",
+};
+
+/* ─── DATA ───────────────────────────────────────── */
+const QUESTIONS = [
+  { id:1, text:"How is your attention behaving right now?", options:[
+    { text:"It is focused, clear, and steady.",              guna:"sattva", score:1 },
+    { text:"It is jumping between worries or tasks.",         guna:"rajas",  score:1 },
+    { text:"It is drifting, blank, or stuck in the past.",    guna:"tamas",  score:1 },
+  ]},
+  { id:2, text:"Scan your body. What sensation is dominant?", options:[
+    { text:"Lightness, ease, or a steady rhythm.",            guna:"sattva", score:1 },
+    { text:"Tension (jaw/shoulders), heat, or vibration.",    guna:"rajas",  score:1 },
+    { text:"Heaviness, numbness, or fatigue.",                guna:"tamas",  score:1 },
+  ]},
+  { id:3, text:"When you think about your day ahead, you feel:", options:[
+    { text:"Capable and open to what comes.",                 guna:"sattva", score:1 },
+    { text:"Urgency, pressure, or a need to 'fix' it.",       guna:"rajas",  score:1 },
+    { text:"Overwhelmed, indifferent, or resistant.",         guna:"tamas",  score:1 },
+  ]},
+  { id:4, text:"How are you relating to this present moment?", options:[
+    { text:"I am accepting it as it is.",                     guna:"sattva", score:1 },
+    { text:"I am fighting it or trying to speed it up.",      guna:"rajas",  score:1 },
+    { text:"I am trying to escape or ignore it.",             guna:"tamas",  score:1 },
+  ]},
+];
+
+const LIBRARY = {
+  rajas: {
+    logical:   { title:"Sympathetic Down-Regulation", desc:"Your amygdala is over-firing. Use a 4-7-8 breath ratio to mechanically trigger the parasympathetic (Vagus Nerve).", step1:"Inhale for 4 seconds to oxygenate.", step2:"Exhale for 8 seconds to signal safety.", action:"Initiate Regulation" },
+    emotional: { title:"Holding Space for Yourself",  desc:"Your heart is racing because it cares. Let's wrap that anxiety in a blanket of breath. You are safe to let go.", step1:"Breathe in acceptance.",               step2:"Breathe out the weight.",             action:"Begin Breathing" },
+    spiritual: { title:"Surrendering to Divine Will", desc:"This restlessness is a call to trust. Release the burden of being the Doer. Breathe in Grace, breathe out control.", step1:"Inhale the present moment.",          step2:"Exhale into the unknown.",            action:"Offer Prayer" },
+  },
+  tamas: {
+    logical:   { title:"Motor Cortex Activation",  desc:"The Default Mode Network is trapping you in rumination. Immediate motor engagement switches neural networks.", step1:"Stand up immediately.",      step2:"Shake hands vigorously.", action:"Activate Protocol" },
+    emotional: { title:"Igniting the Spark",        desc:"You feel heavy, and that is okay. We are going to gently move together to remind your body it is capable of change.", step1:"Rise like the sun.", step2:"Shake off the dust.", action:"Move Gently" },
+    spiritual: { title:"Awakening the Spirit",      desc:"The veil of inertia is heavy, but your spirit is light. Use movement to break the shell and let your inner light shine.", step1:"Stand and offer presence.", step2:"Release the stagnation.", action:"Awaken Now" },
+  },
+  sattva: {
+    logical:   { title:"Maintenance of Clarity",  desc:"Your executive functions are optimal. Use this state for high-cognitive load tasks without attachment to the result.", step1:"Observe the clarity.",  step2:"Direct it to purpose.",  action:"Deep Focus" },
+    emotional: { title:"Savoring the Calm",        desc:"You are in a beautiful state of flow. Pause to feel gratitude for this peace, knowing it is a gift to be shared.", step1:"Smile internally.",      step2:"Send love outward.",      action:"Express Gratitude" },
+    spiritual: { title:"Service to the Divine",   desc:"Clarity is a blessing. Offer this clear mind as an instrument for the greater good. Remain humble in this light.", step1:"Witness the peace.",     step2:"Dedicate it to all.",     action:"Offer Service" },
+  },
+};
+
+/* ─── MATH ───────────────────────────────────────── */
+function rmssd(arr = []) {
+  if (arr.length < 2) return 0;
+  let s = 0;
+  for (let i = 1; i < arr.length; i++) { const d = arr[i] - arr[i-1]; s += d*d; }
+  return Math.sqrt(s / (arr.length - 1));
+}
+
+/* ─── BIOMETRIC SHEET ────────────────────────────── */
+function BiometricSheet({ onClose, onComplete }) {
+  const [status, setStatus]   = useState('idle');
+  const [method, setMethod]   = useState(null);
+  const [bpm, setBpm]         = useState(0);
+  const [hrv, setHrv]         = useState(0);
+  const [progress, setProgress] = useState(0);
+  const rrBuf      = useRef([]);
+  const videoRef   = useRef(null);
+  const canvasRef  = useRef(null);
+  const rafId      = useRef(null);
+  const btDevice   = useRef(null);
+  const mounted    = useRef(true);
+  const latestBpm  = useRef(0);
+
+  useEffect(() => { mounted.current = true; return () => { mounted.current = false; cleanup(); }; }, []);
+
+  const cleanup = () => {
+    if (rafId.current) cancelAnimationFrame(rafId.current);
+    if (videoRef.current?.srcObject) videoRef.current.srcObject.getTracks().forEach(t => t.stop());
+    if (btDevice.current?.gatt?.connected) btDevice.current.gatt.disconnect();
+  };
+
+  const finish = (finalHrv, finalBpm) => {
+    setStatus('success'); cleanup();
+    setTimeout(() => { if (mounted.current) onComplete({ hrv: Math.round(finalHrv), bpm: finalBpm }); }, 1200);
+  };
+
+  const updateMetrics = useCallback((curBpm) => {
+    const curHrv = rmssd(rrBuf.current);
+    setHrv(Math.round(curHrv));
+    setProgress(prev => {
+      const next = prev + 0.6;
+      if (next >= 100) { finish(curHrv, curBpm); return 100; }
+      return next;
+    });
+  }, []);
+
+  const startBluetooth = async () => {
+    setMethod('bluetooth'); setStatus('scanning');
+    try {
+      const dev = await navigator.bluetooth.requestDevice({ filters:[{services:['heart_rate']}] });
+      btDevice.current = dev;
+      const srv  = await dev.gatt.connect();
+      const svc  = await srv.getPrimaryService('heart_rate');
+      const char = await svc.getCharacteristic('heart_rate_measurement');
+      await char.startNotifications();
+      char.addEventListener('characteristicvaluechanged', e => {
+        if (!mounted.current) return;
+        const v = e.target.value;
+        const hr = (v.getUint8(0) & 1) ? v.getUint16(1,true) : v.getUint8(1);
+        rrBuf.current.push(60000/hr);
+        latestBpm.current = hr;
+        setBpm(hr); updateMetrics(hr);
+      });
+      setStatus('measuring');
+    } catch { setStatus('error'); }
+  };
+
+  const startCamera = async () => {
+    setMethod('camera'); setStatus('scanning');
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:'environment' } });
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        await videoRef.current.play();
+        setStatus('measuring');
+        analyzeFrame();
+      }
+    } catch { setStatus('error'); }
+  };
+
+  const analyzeFrame = () => {
+    if (!canvasRef.current || !videoRef.current || !mounted.current) return;
+    const ctx = canvasRef.current.getContext('2d');
+    ctx.drawImage(videoRef.current, 0, 0, 100, 100);
+    const d = ctx.getImageData(0,0,100,100).data;
+    let r = 0; for (let i=0;i<d.length;i+=4) r+=d[i];
+    if (r/(d.length/4) > 100) {
+      const rr = 800 + Math.random()*50 - 25;
+      rrBuf.current.push(rr);
+      const cur = Math.floor(60000/rr);
+      latestBpm.current = cur;
+      setBpm(cur); updateMetrics(cur);
+    }
+    rafId.current = requestAnimationFrame(analyzeFrame);
+  };
+
+  const handleManual = e => {
+    e.preventDefault();
+    const b = parseInt(e.target.bpm.value, 10);
+    const h = parseInt(e.target.hrv.value, 10) || 0;
+    finish(h, b);
+  };
+
+  const circumference = 2 * Math.PI * 68;
+
+  return (
+    <div className="bio-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
+      <div className="bio-sheet" style={{position:'relative'}}>
+        <div className="bio-handle" />
+        <button className="bio-close" onClick={onClose}><Icon d={icons.x} /></button>
+        <div className="bio-inner">
+
+          {status === 'idle' && <>
+            <div className="bio-icon-wrap"><Icon d={icons.activity} size={28} /></div>
+            <h2 className="bio-title">Physiological Resonance</h2>
+            <p className="bio-sub">Select a sensor to tune the protocol to your body.</p>
+            <div className="bio-methods">
+              <button className="bio-method" onClick={startBluetooth}>
+                <div className="bio-method-icon blue"><Icon d={icons.bluetooth} size={18} /></div>
+                <div><span className="bio-method-lbl">Connect Device</span><span className="bio-method-sub">Polar, Whoop (Best Accuracy)</span></div>
+              </button>
+              <button className="bio-method" onClick={startCamera}>
+                <div className="bio-method-icon rose"><Icon d={icons.camera} size={18} /></div>
+                <div><span className="bio-method-lbl">Use Camera</span><span className="bio-method-sub">Simulated Estimation (Demo)</span></div>
+              </button>
+              <button className="bio-method" onClick={() => setStatus('manual_entry')}>
+                <div className="bio-method-icon gray"><Icon d={icons.watch} size={18} /></div>
+                <div><span className="bio-method-lbl">Manual Entry</span><span className="bio-method-sub">Apple Watch / Fitbit Data</span></div>
+              </button>
+            </div>
+          </>}
+
+          {(status === 'measuring' || status === 'scanning') && <>
+            <div className="bio-measuring">
+              {method === 'camera' && <p className="bio-meas-hint rose">Place finger gently over camera lens</p>}
+              {method === 'camera' && <p className="bio-meas-demo">Simulated Estimation — Demo</p>}
+              {method === 'bluetooth' && <p className="bio-meas-hint blue">Reading data stream...</p>}
+              <div className="bio-circle-wrap">
+                <svg viewBox="0 0 160 160">
+                  <circle cx="80" cy="80" r="68" stroke="#e2e8f0" strokeWidth="5" fill="none" />
+                  <circle cx="80" cy="80" r="68" stroke="#5b5bd6" strokeWidth="5" fill="none"
+                    strokeDasharray={circumference}
+                    strokeDashoffset={circumference * (1 - progress/100)}
+                    style={{transition:'stroke-dashoffset .3s'}} />
+                </svg>
+                <div className="bio-circle-center">
+                  <Icon d={icons.heart} size={26} style={{color:'var(--rose)', animation: bpm>0?'pulseOp 1.2s ease infinite':''}} />
+                  <span className="bio-bpm">{bpm || '--'}</span>
+                  <span className="bio-bpm-lbl">BPM</span>
+                </div>
+              </div>
+              <div className="bio-hrv">
+                <span className="bio-hrv-lbl">HRV (Resilience)</span>
+                <span className="bio-hrv-val">{hrv > 0 ? hrv + ' ms' : 'Calculating...'}</span>
+              </div>
+              <video ref={videoRef} style={{display:'none'}} playsInline muted />
+              <canvas ref={canvasRef} width="100" height="100" style={{display:'none'}} />
+            </div>
+          </>}
+
+          {status === 'manual_entry' && <>
+            <div className="bio-manual">
+              <h3>Enter Device Data</h3>
+              <form onSubmit={handleManual}>
+                <div className="bio-form-group">
+                  <label className="bio-form-lbl">Heart Rate (BPM)</label>
+                  <input name="bpm" type="number" required placeholder="e.g. 72" className="bio-form-inp" />
+                </div>
+                <div className="bio-form-group">
+                  <label className="bio-form-lbl">HRV (ms) — Optional</label>
+                  <input name="hrv" type="number" placeholder="e.g. 45" className="bio-form-inp" />
+                </div>
+                <button type="submit" className="bio-submit">Save Data</button>
+                <button type="button" className="bio-back" onClick={() => setStatus('idle')}>← Back</button>
+              </form>
+            </div>
+          </>}
+
+          {status === 'success' && <>
+            <div className="bio-success">
+              <div className="bio-success-icon"><Icon d={icons.check} size={36} /></div>
+              <h3 className="bio-success-title">Resonance Captured</h3>
+              <p className="bio-success-sub">Aligning protocol to your body...</p>
+            </div>
+          </>}
+
+          {status === 'error' && <>
+            <div className="bio-error">
+              <div className="bio-error-icon"><Icon d={icons.alert} size={32} /></div>
+              <p className="bio-error-text">Signal lost. Please try again or use Manual Entry.</p>
+              <button className="bio-retry" onClick={() => setStatus('idle')}>Retry</button>
+            </div>
+          </>}
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── CIRCLE ─────────────────────────────────────── */
+function CircleOfControl() {
+  return (
+    <div className="circle-ctrl">
+      <div className="circle-ping" />
+      <div className="circle-outer">
+        <span className="circle-lbl-top">The Outcome</span>
+        <span className="circle-lbl-bot">Time &amp; Others</span>
+      </div>
+      <div className="circle-inner">
+        <div>
+          <p className="circle-inner-lbl">My Power</p>
+          <div className="circle-divider" />
+          <p className="circle-inner-sub">Effort · Choice · Breath</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── ONBOARDING ─────────────────────────────────── */
+function OnboardingView({ profile, setProfile, onEnter }) {
+  return (
+    <div className="view">
+      <div className="ob-wrap">
+        <div>
+          <div className="ob-logo"><Icon d={icons.wind} size={26} style={{color:'var(--indigo)'}} /></div>
+        </div>
+        <h1 className="ob-title">Welcome to your sanctuary.</h1>
+        <p className="ob-sub">We adapt to your worldview. Tell us how you connect.</p>
+
+        <div className="ob-card">
+          <label className="ob-label">I process the world through…</label>
+          <div className="ob-btns cols3">
+            {['Logical','Balanced','Emotional'].map(s => (
+              <button key={s}
+                className={`ob-btn ${profile.mindStyle === s.toLowerCase() ? 'on' : 'off'}`}
+                onClick={() => setProfile({...profile, mindStyle: s.toLowerCase()})}>
+                {s}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="ob-card">
+          <label className="ob-label">My view on a Higher Power…</label>
+          <div className="ob-btns cols4">
+            {['Strong','Some','Neutral','None'].map(s => (
+              <button key={s}
+                className={`ob-btn ${profile.beliefLevel === s.toLowerCase() ? 'on' : 'off'}`}
+                onClick={() => setProfile({...profile, beliefLevel: s.toLowerCase()})}>
+                {s}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="ob-card">
+          <label className="ob-label">My spiritual connection right now…</label>
+          <div className="ob-btns cols4">
+            {['Strong','Some','Neutral','Not'].map(s => (
+              <button key={s}
+                className={`ob-btn ${profile.spiritualStrength === s.toLowerCase() ? 'on' : 'off'}`}
+                onClick={() => setProfile({...profile, spiritualStrength: s.toLowerCase()})}>
+                {s}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <button className="ob-enter" onClick={onEnter}>
+          <span>Enter Sanctuary</span>
+          <Icon d={icons.chevron} size={16} />
+        </button>
+
+        <div className="ob-footer">
+          <Icon d={icons.lock} size={11} />
+          <span>Secure · Encrypted · Private</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── ASSESSMENT ─────────────────────────────────── */
+function AssessmentView({ currentQ, setCurrentQ, scores, setScores, setView }) {
+  const q = QUESTIONS[currentQ];
+  const pct = ((currentQ + 1) / QUESTIONS.length) * 100;
+
+  const pick = (opt) => {
+    const next = { ...scores, [opt.guna]: scores[opt.guna] + opt.score };
+    setScores(next);
+    if (currentQ < QUESTIONS.length - 1) setCurrentQ(currentQ + 1);
+    else setView('processing');
+  };
+
+  return (
+    <div className="view">
+      <div className="as-wrap">
+        <div style={{maxWidth:480, width:'100%', margin:'0 auto'}}>
+          <div className="as-bar-track"><div className="as-bar-fill" style={{width:`${pct}%`}} /></div>
+          <div className="as-meta" style={{marginTop:'.6rem'}}>
+            <span>Reflection {currentQ + 1}</span>
+            <span>of {QUESTIONS.length}</span>
+          </div>
+        </div>
+        <div className="as-content" style={{maxWidth:480, width:'100%', margin:'0 auto'}} key={currentQ}>
+          <h2 className="as-q">{q.text}</h2>
+          <div className="as-options">
+            {q.options.map((opt, i) => (
+              <button key={i} className="as-opt" onClick={() => pick(opt)}>
+                <span className="as-opt-text">{opt.text}</span>
+                <Icon d={icons.chevron} size={14} style={{color:'var(--indigo-mid)', flexShrink:0}} />
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── PROCESSING ─────────────────────────────────── */
+function ProcessingView({ setView }) {
+  useEffect(() => {
+    const t = setTimeout(() => setView('results'), 1400);
+    return () => clearTimeout(t);
+  }, []);
+
+  return (
+    <div className="view">
+      <div className="proc-wrap">
+        <div className="proc-glow" />
+        <div className="proc-content">
+          <div className="proc-icon"><Icon d={icons.shield} size={44} /></div>
+          <p className="proc-quote">
+            "Surrender means accepting what you{' '}
+            <span className="proc-hl">cannot control</span>,
+            {' '}and acting strongly on what you{' '}
+            <span className="proc-hl">can</span>."
+          </p>
+          <div className="proc-scan" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── RESULTS ────────────────────────────────────── */
+function ResultsView({ scores, profile, bioData, setBioData, setView }) {
+  const [showBio, setShowBio] = useState(false);
+
+  const dominant = (() => {
+    const sv = (scores.sattva/4)*100;
+    const rv = (scores.rajas/4)*100;
+    const tv = (scores.tamas/4)*100;
+    const bio = bioData ? Math.min(Math.max((bioData.hrv/100)*100, 0), 100) : 50;
+    const wSv = (sv*.7) + (bioData ? bio*.3 : 0);
+    const buf = bioData ? (1 - bio/200) : 1;
+    const wRv = rv*.7*buf, wTv = tv*.7*buf;
+    if (wRv > wSv && wRv > wTv) return 'rajas';
+    if (wTv > wSv && wTv > wRv) return 'tamas';
+    return 'sattva';
+  })();
+
+  const isDistress = scores.tamas >= 3 || (scores.tamas >= 2 && scores.rajas >= 2);
+
+  if (isDistress) return (
+    <div className="distress-overlay">
+      <div className="distress-card">
+        <div className="distress-icon"><Icon d={icons.heart} size={44} /></div>
+        <h2 className="distress-title">We hear you.</h2>
+        <p className="distress-desc">Your responses indicate you are carrying a heavy load right now. While this sanctuary is here for reflection, deep emotional pain deserves human connection.</p>
+        <div className="distress-btns">
+          <button className="distress-primary">Connect with Crisis Support</button>
+          <button className="distress-secondary" onClick={() => setView('onboarding')}>Return to Assessment</button>
+        </div>
+      </div>
+    </div>
+  );
+
+  const mindKey = profile.mindStyle === 'emotional' ? 'emotional'
+    : (profile.beliefLevel === 'strong' || profile.spiritualStrength === 'strong') ? 'spiritual'
+    : 'logical';
+
+  const content = LIBRARY[dominant][mindKey];
+  const stateName = dominant === 'rajas' ? 'Active Energy (Rajas)'
+    : dominant === 'tamas' ? 'Resting Energy (Tamas)' : 'Clear Energy (Sattva)';
+
+  return (
+    <div className="view">
+      {showBio && <BiometricSheet onClose={() => setShowBio(false)} onComplete={d => { setBioData(d); setShowBio(false); }} />}
+      <div className="res-wrap">
+        <header className="res-header">
+          <div className="res-status">
+            <div className="res-dot" />
+            <span className="res-status-lbl">Sanctuary Mode</span>
+          </div>
+          <div style={{display:'flex', alignItems:'center', gap:'.5rem'}}>
+            <button className="fb-feedback-btn" onClick={() => setView('feedback')}>
+              Give Feedback
+            </button>
+            <button className="res-close-btn" onClick={() => setView('onboarding')}>
+              <Icon d={icons.x} size={20} />
+            </button>
+          </div>
+        </header>
+        <main className="res-main">
+
+          <section className="res-resonance">
+            <span className="res-badge">Current Resonance</span>
+            <h1 className="res-title">{stateName}</h1>
+            {!bioData
+              ? <button className="res-bio-btn" onClick={() => setShowBio(true)}>
+                  <Icon d={icons.activity} size={14} />
+                  <span>Check Body Resonance</span>
+                </button>
+              : <div className="res-bio-ok">
+                  <Icon d={icons.check} size={14} />
+                  <span>Synced ({bioData.hrv} ms HRV)</span>
+                </div>
+            }
+          </section>
+
+          <section className="res-circle-wrap">
+            <CircleOfControl />
+          </section>
+
+          <section>
+            <div className="res-card">
+              <div className="res-card-hd">
+                <div className="res-card-hd-glow" />
+                <div className="res-card-meta">
+                  <Icon d={icons.zap} size={14} style={{color:'#fbbf24'}} />
+                  <span className="res-card-meta-lbl">Recommended Protocol</span>
+                </div>
+                <h3 className="res-card-title">{content.title}</h3>
+                <p className="res-card-desc">{content.desc}</p>
+              </div>
+              <div className="res-card-body">
+                {[content.step1, content.step2].map((s, i) => (
+                  <div key={i} className="res-step">
+                    <div className="res-step-num">{i+1}</div>
+                    <div className="res-step-body">
+                      <h4>Step {i === 0 ? 'One' : 'Two'}</h4>
+                      <p>{s}</p>
+                    </div>
+                  </div>
+                ))}
+                <button className="res-action">
+                  <Icon d={icons.play} size={16} />
+                  <span>{content.action}</span>
+                </button>
+              </div>
+            </div>
+          </section>
+
+        </main>
+      </div>
+    </div>
+  );
+}
+
+/* ─── FEEDBACK ───────────────────────────────────── */
+function FeedbackView({ setView, sessionId, saveFeedback }) {
+  const [name, setName]         = useState('');
+  const [email, setEmail]       = useState('');
+  const [rating, setRating]     = useState(0);
+  const [hover, setHover]       = useState(0);
+  const [feedback, setFeedback] = useState('');
+  const [errors, setErrors]     = useState({});
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted]   = useState(false);
+
+  const validate = () => {
+    const e = {};
+    if (!name.trim()) e.name = 'Name is required';
+    if (!email.trim()) e.email = 'Email is required';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = 'Enter a valid email';
+    if (!rating) e.rating = 'Please select a rating';
+    if (!feedback.trim()) e.feedback = 'Feedback is required';
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+    setSubmitting(true);
+    try {
+      // Save to Supabase (primary)
+      await saveFeedback({ name: name.trim(), email: email.trim(), rating, feedback: feedback.trim(), sessionId });
+      // Also keep Google Sheets as backup
+      fetch('https://script.google.com/macros/s/AKfycby_2P5y_uCLLru2wugpFYQhbq9bXqOyEL5tMyv0Ce08yA3C--GoS4FajtCof4EXF7TpqA/exec', {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'feedback', name: name.trim(), email: email.trim(), rating, feedback: feedback.trim() }),
+      }).catch(() => {});
+      setSubmitted(true);
+    } catch {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div className="view">
+      <div className="fb-wrap">
+        <header className="fb-header">
+          <span className="fb-header-title">Feedback</span>
+          <button className="res-close-btn" onClick={() => setView('results')}>
+            <Icon d={icons.x} size={20} />
+          </button>
+        </header>
+        <main className="fb-main">
+          {submitted ? (
+            <div className="fb-success">
+              <div className="fb-success-icon"><Icon d={icons.check} size={36} /></div>
+              <h2 className="fb-success-title">Thank you!</h2>
+              <p className="fb-success-sub">Your feedback has been received. We appreciate you taking the time to help us improve.</p>
+              <button className="fb-back" onClick={() => setView('results')}>Back to Results</button>
+            </div>
+          ) : (
+            <>
+              <h1 className="fb-heading">Share Your Experience</h1>
+              <p className="fb-sub">Help us improve Sanctuary with your feedback.</p>
+              <form onSubmit={handleSubmit}>
+                <div className="fb-card">
+                  <div className="fb-group">
+                    <label className="fb-label">Name</label>
+                    <input className="fb-input" type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Your name" />
+                    {errors.name && <span className="fb-error">{errors.name}</span>}
+                  </div>
+                  <div className="fb-group">
+                    <label className="fb-label">Email</label>
+                    <input className="fb-input" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" />
+                    {errors.email && <span className="fb-error">{errors.email}</span>}
+                  </div>
+                  <div className="fb-group">
+                    <label className="fb-label">Rating</label>
+                    <div className="fb-stars">
+                      {[1,2,3,4,5].map(s => (
+                        <button type="button" key={s} className="fb-star"
+                          onMouseEnter={() => setHover(s)}
+                          onMouseLeave={() => setHover(0)}
+                          onClick={() => setRating(s)}>
+                          <svg width="28" height="28" viewBox="0 0 24 24"
+                            fill={s <= (hover || rating) ? '#5b5bd6' : 'none'}
+                            stroke={s <= (hover || rating) ? '#5b5bd6' : '#cbd5e1'}
+                            strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d={icons.star} />
+                          </svg>
+                        </button>
+                      ))}
+                    </div>
+                    {errors.rating && <span className="fb-error">{errors.rating}</span>}
+                  </div>
+                  <div className="fb-group">
+                    <label className="fb-label">Feedback</label>
+                    <textarea className="fb-textarea" value={feedback} onChange={e => setFeedback(e.target.value)} placeholder="Tell us about your experience..." />
+                    {errors.feedback && <span className="fb-error">{errors.feedback}</span>}
+                  </div>
+                  <button type="submit" className="fb-submit" disabled={submitting}>
+                    <Icon d={icons.send} size={16} />
+                    <span>{submitting ? 'Sending...' : 'Submit Feedback'}</span>
+                  </button>
+                </div>
+              </form>
+            </>
+          )}
+        </main>
+      </div>
+    </div>
+  );
+}
+
+/* ─── APP ────────────────────────────────────────── */
+function App() {
+  const [view, setView]         = useState('onboarding');
+  const [profile, setProfile]   = useState({ beliefLevel:'some', mindStyle:'balanced', spiritualStrength:'some' });
+  const [scores, setScores]     = useState({ sattva:0, rajas:0, tamas:0 });
+  const [currentQ, setCurrentQ] = useState(0);
+  const [bioData, setBioData]   = useState(null);
+  const [sessionId, setSessionId] = useState(null);
+
+  const goToAssessment = () => {
+    setScores({ sattva:0, rajas:0, tamas:0 });
+    setCurrentQ(0);
+    setView('assessment');
+  };
+
+  // Auto-save session to Supabase when results view loads
+  useEffect(() => {
+    if (view === 'results') {
+      saveSession({
+        name:      profile.name      || null,
+        email:     profile.email     || null,
+        age:       profile.age       || null,
+        gender:    profile.gender    || null,
+        mindStyle: profile.mindStyle || 'balanced',
+        scores,
+        hrv: bioData?.hrv || null,
+      }).then(sid => { if (sid) setSessionId(sid); });
+    }
+  }, [view]);
+
+  return (
+    <>
+      {view === 'onboarding'  && <OnboardingView  profile={profile} setProfile={setProfile} onEnter={goToAssessment} />}
+      {view === 'assessment'  && <AssessmentView  currentQ={currentQ} setCurrentQ={setCurrentQ} scores={scores} setScores={setScores} setView={setView} />}
+      {view === 'processing'  && <ProcessingView  setView={setView} />}
+      {view === 'results'     && <ResultsView     scores={scores} profile={profile} bioData={bioData} setBioData={setBioData} setView={setView} />}
+      {view === 'feedback'    && <FeedbackView    setView={setView} sessionId={sessionId} saveFeedback={saveFeedback} />}
+    </>
+  );
+}
+
+const root = createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
