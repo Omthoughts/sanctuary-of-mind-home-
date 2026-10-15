@@ -1,41 +1,94 @@
 # Sanctuary of Mind — Amazon Build, Ship, Shape Workspace
 
-This is a **working project workspace**, not a claim that the hackathon submission is finished.
+Sanctuary of Mind is an AI mental wellness platform combining Triguna psychology with simulated HRV biometrics and personalized guided wellness interventions.
 
-## Folder map
+This project is prepared for the **Amazon Build, Ship, Shape: Amazon Developer Hackathon 2026**.
 
-- `app/` — existing uploaded web app and its Netlify configuration. The original HTML was copied to `app/index.html`; its code has not been rewritten in this packaging step.
-- `docs/product/` — product vision, UI/UX design specification, user flows, and conversation/content guidance.
-- `docs/architecture/` — data/API contracts and decision log.
-- `docs/implementation/` — phased implementation roadmap, AI agent protocol, and handoff checklist.
-- `docs/safety/` — privacy, consent, and wellness safety requirements.
-- `docs/qa/` — test traceability and screen/component acceptance matrix.
-- `docs/hackathon/` — demo and submission playbook.
-- `docs/deployment/` — reproducible setup and deployment runbook.
-- `docs/original_master_docs/` — preserved original master documentation.
-- `prompts/` — Antigravity master prompt.
-- `hackathon-research/` — supplied Amazon hackathon research files.
-- `baseline/original-files/` — preserved copies of uploaded app/config files before implementation.
+---
 
-## Start here
+## 1. Quickstart & Local Execution
 
-1. Open this folder as the project workspace in Antigravity.
-2. Open `prompts/ANTIGRAVITY_MASTER_PROMPT.md`.
-3. Tell the agent to read `docs/README.md` and all relevant docs.
-4. **First task: audit the app** and report verified facts, build commands, existing behaviour, bugs, and risks. Do not rewrite it immediately.
-5. Ask it to implement the phases in `docs/implementation/03_IMPLEMENTATION_ROADMAP.md` one by one.
-6. Run and record tests; never mark a test as passed unless it was actually run.
-7. Re-check the current official hackathon rules, deadline, and submission requirements before final submission.
+The project requires **no paid APIs**, **no physical hardware**, and **no external accounts** to run locally.
 
-## Important boundaries
+```powershell
+# 1. Verify runtime (Node.js v20+ / v22+ recommended)
+node -v
+npm -v
 
-- The browser simulator must have a usable no-paid-API path.
-- Voice must have text/manual fallback.
-- Clearly label simulated sensor data and simulated smart-home actions.
-- Do not claim real Alexa+, smart-home, music, wearable, or cloud integration unless it is genuinely implemented and tested.
-- Do not commit API keys or secrets.
-- This packaging does not mean the app has been rebuilt, tested, or submitted.
+# 2. Run automated regression and protocol tests
+npm test
 
-## Baseline caveat
+# 3. Start local development server
+npm run serve
+# Navigate to http://localhost:3000
+```
 
-The existing app is preserved for the coding agent to inspect. `app/netlify.toml` is also preserved as uploaded; verify its publish directory against the actual app/build output before deployment.
+---
+
+## 2. Workspace Directory Structure
+
+```text
+Sanctuary_of_Mind/
+├── AGENTS.md                                   # Global project rules and safety constraints
+├── README.md                                   # Workspace instructions & runbook
+├── package.json                                # Scripts and test configuration
+├── mcp_config.example.json                     # Verified Model Context Protocol configuration
+├── .env.example                                # Template for optional environment variables
+├── .gitignore                                  # VCS exclusion list (secrets, logs, OS caches)
+├── index.html                                  # Root application entry point
+├── netlify.toml                                # Netlify deployment configuration
+├── .agents/
+│   └── rules/
+│       └── ponytail.md                         # Senior dev / YAGNI engineering rules
+├── app/
+│   ├── index.html                              # Preserved application working copy
+│   ├── netlify.toml                            # Preserved uploaded configuration
+│   └── .env.example                            # App environment template
+├── baseline/
+│   ├── BASELINE_PRESERVATION_NOTE.md           # Baseline preservation notes
+│   └── original-files/                         # Byte-for-byte immutable uploaded originals
+├── docs/
+│   ├── tooling/                                # Tooling, MCP, and verification documentation
+│   │   ├── TOOLING_AUDIT.md
+│   │   ├── PLUGIN_AND_MCP_COMPARISON.md
+│   │   ├── INSTALLATION_GUIDE.md
+│   │   └── TOOLING_VERIFICATION_REPORT.md
+│   ├── product/                                # Vision, UI design spec, user flows, content bible
+│   ├── architecture/                           # Data/API contracts and decision logs
+│   ├── implementation/                         # Phased roadmap, AI agent execution protocol
+│   ├── safety/                                 # Privacy, consent, and wellness safety
+│   ├── qa/                                     # Requirements traceability, screen acceptance
+│   ├── hackathon/                              # Submission guide and demo playbook
+│   ├── deployment/                             # Deployment and reproducibility runbook
+│   └── original_master_docs/                   # Preserved original master specifications
+├── prompts/                                    # Antigravity master prompts
+├── scripts/
+│   └── serve.js                                # Zero-dependency local static HTTP server
+└── tests/
+    └── baseline_protocols.test.mjs             # Unit tests for scoring, RMSSD, and 9 protocols
+```
+
+---
+
+## 3. Developer Tooling & Antigravity MCP Setup
+
+This workspace is integrated with Google Antigravity:
+- **Project Rules:** Located in `AGENTS.md` and `.agents/rules/ponytail.md`. Enforces YAGNI, non-diagnostic wellness copy, privacy-first defaults, and verification before code modification.
+- **MCP Servers:** Defined in `mcp_config.example.json` and loaded into `%USERPROFILE%\.gemini\config\mcp_config.json`:
+  - `playwright`: Headless browser automation via `@playwright/mcp@latest` for deterministic UI and accessibility tests.
+  - `context7`: Up-to-date documentation retrieval via `@upstash/context7-mcp`.
+
+For comprehensive details on tools and verification evidence, see:
+- [TOOLING_AUDIT.md](file:///c:/Users/hp/Downloads/santury%20updates/docs/tooling/TOOLING_AUDIT.md)
+- [PLUGIN_AND_MCP_COMPARISON.md](file:///c:/Users/hp/Downloads/santury%20updates/docs/tooling/PLUGIN_AND_MCP_COMPARISON.md)
+- [INSTALLATION_GUIDE.md](file:///c:/Users/hp/Downloads/santury%20updates/docs/tooling/INSTALLATION_GUIDE.md)
+- [TOOLING_VERIFICATION_REPORT.md](file:///c:/Users/hp/Downloads/santury%20updates/docs/tooling/TOOLING_VERIFICATION_REPORT.md)
+
+---
+
+## 4. Safety & Operating Boundaries
+
+1. **Non-Diagnostic:** Sanctuary of Mind is a self-reflection aid. It does not diagnose, treat, or cure psychiatric conditions. Triguna classifications and HRV must never be presented as clinical diagnoses.
+2. **Crisis Support:** When distress is detected, provide verified human helpline numbers (e.g., Tele-MANAS `14416` in India, `988` in US). Never claim emergency services are being called.
+3. **Privacy First:** Google Sheets transmissions are disabled by default. Explicit consent is required before saving or transmitting personal data.
+4. **Simulation Honesty:** Biometrics (camera PPG, watch HRV) and smart-home ambient controls (lights, audio) are browser-based simulations and are visibly labelled as such.

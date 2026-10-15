@@ -1,0 +1,25 @@
+{
+  "name": "sanctuary-of-mind",
+  "version": "1.0.0",
+  "description": "India's first AI mental wellness platform combining Triguna psychology with simulated HRV biometrics and voice guidance.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "node scratch/test_browser.js",
+    "serve": "node scripts/serve.js"
+  },
+  "keywords": [
+    "mental-wellness",
+    "triguna",
+    "ayurveda",
+    "hrv",
+    "alexa-hackathon",
+    "antigravity"
+  ],
+  "author": "Sanctuary of Mind Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/mcp": "^0.0.64",
+    "@upstash/context7-mcp": "^1.0.0"
+  }
+}
