@@ -788,6 +788,464 @@
     /* ─── UTILS ──────────────────────────────────── */
     .animate-pulse-op { animation: pulseOp 2s ease-in-out infinite; }
     .sr-only { position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0); }
+
+    /* ─── DESIGN SYSTEM TOKENS & ACCESSIBILITY ──── */
+    :root {
+      --indigo-hover: #4b4bc0;
+      --slate-800: #1e293b;
+      --slate-600: #475569;
+      --slate-400: #94a3b8;
+      --slate-200: #e2e8f0;
+      --green-light: #dcfce7;
+      --green-dark: #15803d;
+      --rose-light: #ffe4e6;
+      --rose-dark: #be123c;
+      --amber-light: #fef3c7;
+      --amber-dark: #b45309;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 14px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 30px rgba(0,0,0,0.12);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+    }
+
+    :focus-visible {
+      outline: 2.5px solid var(--indigo);
+      outline-offset: 2px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    .reduced-motion *, .reduced-motion *::before, .reduced-motion *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+
+    .high-contrast {
+      --indigo: #3730a3;
+      --indigo-light: #e0e7ff;
+      --slate-500: #1e293b;
+      --slate-700: #0f172a;
+      --slate-50: #ffffff;
+      --slate-100: #e2e8f0;
+    }
+
+    /* ─── SHELL & RESPONSIVE NAVIGATION ─────────── */
+    .shell-wrap {
+      min-height: 100vh; min-height: 100dvh;
+      display: flex; flex-direction: column;
+      background: var(--slate-50);
+    }
+    .shell-header {
+      position: sticky; top: 0; z-index: 40;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--slate-200);
+      padding: calc(var(--safe-top) + 0.6rem) 1.25rem 0.6rem;
+    }
+    .shell-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem;
+    }
+    .shell-brand {
+      display: flex; align-items: center; gap: 0.65rem;
+      cursor: pointer; text-decoration: none; color: inherit;
+    }
+    .shell-logo {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--indigo-light);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(91,91,214,.15);
+    }
+    .shell-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem; font-weight: 600;
+      color: var(--slate-900); display: block; line-height: 1.1;
+    }
+    .shell-tagline {
+      font-size: 0.68rem; color: var(--slate-500);
+      font-weight: 400; display: block;
+    }
+    .shell-nav {
+      display: flex; align-items: center; gap: 0.35rem;
+    }
+    @media (max-width: 768px) {
+      .shell-nav { display: none; }
+    }
+    .shell-nav-btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.5rem 0.85rem; border-radius: var(--radius-full);
+      font-size: 0.82rem; font-weight: 500;
+      color: var(--slate-600); background: transparent;
+      border: 1px solid transparent; cursor: pointer;
+      font-family: inherit; transition: all 0.15s ease;
+    }
+    .shell-nav-btn:hover {
+      background: var(--slate-100); color: var(--slate-900);
+    }
+    .shell-nav-btn.active {
+      background: var(--indigo-light); color: var(--indigo);
+      border-color: var(--indigo-mid); font-weight: 600;
+    }
+    .shell-actions {
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .shell-crisis-btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.45rem 0.8rem; border-radius: var(--radius-full);
+      font-size: 0.74rem; font-weight: 600;
+      color: var(--rose-dark); background: var(--rose-light);
+      border: 1px solid #fecdd3; cursor: pointer;
+      font-family: inherit; transition: transform 0.12s, box-shadow 0.15s;
+    }
+    .shell-crisis-btn:active { transform: scale(0.96); }
+
+    .shell-bottom-nav {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--slate-200);
+      padding: 0.4rem 0.75rem calc(var(--safe-bottom) + 0.4rem);
+      justify-content: space-around; align-items: center;
+    }
+    @media (max-width: 768px) {
+      .shell-bottom-nav { display: flex; }
+      .shell-wrap { padding-bottom: calc(var(--safe-bottom) + 4.5rem); }
+    }
+    .shell-bottom-tab {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.2rem; background: transparent; border: none;
+      color: var(--slate-500); font-size: 0.65rem; font-weight: 500;
+      font-family: inherit; cursor: pointer; padding: 0.35rem 0.5rem;
+      border-radius: 8px; min-width: 52px; transition: color 0.15s;
+    }
+    .shell-bottom-tab.active {
+      color: var(--indigo); font-weight: 700;
+    }
+    .shell-bottom-tab.crisis {
+      color: var(--rose);
+    }
+    .shell-content {
+      flex: 1; display: flex; flex-direction: column;
+    }
+
+    /* ─── PRACTICES LIBRARY VIEW ────────────────── */
+    .proto-wrap {
+      max-width: 1000px; width: 100%; margin: 0 auto;
+      padding: 2rem 1.5rem; display: flex; flex-direction: column; gap: 1.5rem;
+    }
+    .proto-header { text-align: center; }
+    .proto-title {
+      font-family: var(--font-serif); font-size: clamp(1.8rem, 5vw, 2.3rem);
+      font-weight: 400; color: var(--slate-900);
+    }
+    .proto-sub { font-size: 0.9rem; color: var(--slate-500); margin-top: 0.25rem; }
+    .proto-filters {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 0.45rem;
+      margin-top: 0.5rem;
+    }
+    .proto-filter-pill {
+      padding: 0.4rem 0.85rem; border-radius: var(--radius-full);
+      font-size: 0.78rem; font-weight: 600; border: 1px solid var(--slate-200);
+      background: white; color: var(--slate-700); cursor: pointer;
+      font-family: inherit; transition: all 0.15s ease;
+    }
+    .proto-filter-pill.active {
+      background: var(--indigo); color: white; border-color: var(--indigo);
+      box-shadow: 0 2px 8px rgba(91,91,214,0.25);
+    }
+    .proto-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.25rem;
+    }
+    .proto-card {
+      background: white; border-radius: var(--radius-md);
+      border: 1px solid var(--slate-200); padding: 1.25rem;
+      display: flex; flex-direction: column; justify-content: space-between;
+      box-shadow: var(--shadow-sm); transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .proto-card:hover {
+      transform: translateY(-2px); box-shadow: var(--shadow-md);
+    }
+    .proto-card-badge {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; padding: 3px 8px; border-radius: 6px;
+      margin-bottom: 0.5rem; width: fit-content;
+    }
+    .proto-card-badge.sattva { background: var(--green-light); color: var(--green-dark); }
+    .proto-card-badge.rajas { background: var(--amber-light); color: var(--amber-dark); }
+    .proto-card-badge.tamas { background: var(--indigo-light); color: var(--indigo); }
+    .proto-card-title {
+      font-size: 1.1rem; font-weight: 600; color: var(--slate-900); margin-bottom: 0.35rem;
+    }
+    .proto-card-desc {
+      font-size: 0.82rem; color: var(--slate-600); line-height: 1.45; margin-bottom: 1rem;
+    }
+    .proto-card-steps {
+      background: var(--slate-50); border: 1px solid var(--slate-100);
+      border-radius: 10px; padding: 0.75rem; margin-bottom: 1rem;
+      display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .proto-step-row {
+      font-size: 0.76rem; color: var(--slate-700); line-height: 1.35;
+    }
+    .proto-step-row strong { color: var(--slate-900); }
+    .proto-card-btn {
+      width: 100%; padding: 0.75rem; border-radius: 10px;
+      background: var(--slate-900); color: white; border: none;
+      font-size: 0.82rem; font-weight: 600; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+      font-family: inherit; transition: background 0.15s;
+    }
+    .proto-card-btn:hover { background: var(--indigo); }
+
+    /* ─── HISTORY VIEW ──────────────────────────── */
+    .hist-wrap {
+      max-width: 720px; width: 100%; margin: 0 auto;
+      padding: 2rem 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;
+    }
+    .hist-header {
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--slate-200); padding-bottom: 1rem;
+    }
+    .hist-title {
+      font-family: var(--font-serif); font-size: clamp(1.6rem, 5vw, 2rem);
+      font-weight: 400; color: var(--slate-900);
+    }
+    .hist-clear-btn {
+      font-size: 0.75rem; font-weight: 600; color: var(--rose);
+      background: transparent; border: 1px solid var(--rose-light);
+      padding: 0.4rem 0.75rem; border-radius: 8px; cursor: pointer;
+      font-family: inherit; transition: background 0.15s;
+    }
+    .hist-clear-btn:hover { background: var(--rose-light); }
+    .hist-card {
+      background: white; border-radius: var(--radius-md);
+      border: 1px solid var(--slate-200); padding: 1.15rem;
+      display: flex; flex-direction: column; gap: 0.65rem;
+      box-shadow: var(--shadow-sm); position: relative;
+    }
+    .hist-card-hd {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .hist-date {
+      font-size: 0.75rem; color: var(--slate-500); font-weight: 500;
+    }
+    .hist-delete-btn {
+      background: none; border: none; color: var(--slate-400);
+      cursor: pointer; padding: 4px; border-radius: 4px;
+    }
+    .hist-delete-btn:hover { color: var(--rose); }
+    .hist-metrics {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;
+    }
+    .hist-metric-pill {
+      font-size: 0.72rem; font-weight: 600; padding: 3px 8px;
+      border-radius: 6px; background: var(--slate-100); color: var(--slate-700);
+    }
+    .hist-empty {
+      text-align: center; padding: 3rem 1.5rem; background: white;
+      border-radius: var(--radius-md); border: 1px dashed var(--slate-300);
+      display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+    }
+
+    /* ─── PREFERENCES VIEW ──────────────────────── */
+    .pref-wrap {
+      max-width: 680px; width: 100%; margin: 0 auto;
+      padding: 2rem 1.5rem; display: flex; flex-direction: column; gap: 1.5rem;
+    }
+    .pref-title {
+      font-family: var(--font-serif); font-size: clamp(1.8rem, 5vw, 2.2rem);
+      font-weight: 400; color: var(--slate-900); text-align: center;
+    }
+    .pref-sub {
+      font-size: 0.88rem; color: var(--slate-500); text-align: center; margin-top: -0.5rem;
+    }
+    .pref-card {
+      background: white; border-radius: var(--radius-md);
+      border: 1px solid var(--slate-200); padding: 1.25rem;
+      display: flex; flex-direction: column; gap: 1rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .pref-section-title {
+      font-size: 0.82rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--slate-700); display: flex;
+      align-items: center; gap: 0.4rem;
+    }
+    .pref-btns-grid {
+      display: grid; gap: 0.45rem;
+    }
+    .pref-btns-grid.cols2 { grid-template-columns: repeat(2, 1fr); }
+    .pref-btns-grid.cols3 { grid-template-columns: repeat(3, 1fr); }
+    .pref-btns-grid.cols4 { grid-template-columns: repeat(4, 1fr); }
+    .pref-btn-pill {
+      padding: 0.65rem 0.5rem; border-radius: 10px; font-size: 0.8rem;
+      font-weight: 500; border: 1.5px solid var(--slate-200);
+      background: var(--slate-50); color: var(--slate-700); cursor: pointer;
+      font-family: inherit; transition: all 0.15s ease; text-align: center;
+    }
+    .pref-btn-pill.active {
+      background: var(--indigo); color: white; border-color: var(--indigo);
+      box-shadow: 0 2px 8px rgba(91,91,214,0.3); font-weight: 600;
+    }
+    .pref-toggle-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.65rem 0; border-bottom: 1px solid var(--slate-100);
+    }
+    .pref-toggle-info h4 {
+      font-size: 0.85rem; font-weight: 600; color: var(--slate-900);
+    }
+    .pref-toggle-info p {
+      font-size: 0.74rem; color: var(--slate-500); margin-top: 0.15rem;
+    }
+    .pref-checkbox-list {
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .pref-checkbox-item {
+      display: flex; align-items: flex-start; gap: 0.65rem;
+      padding: 0.65rem 0.85rem; border-radius: 10px;
+      background: var(--slate-50); border: 1px solid var(--slate-200);
+      cursor: pointer; transition: background 0.12s;
+    }
+    .pref-checkbox-item input[type="checkbox"] {
+      margin-top: 0.2rem; cursor: pointer; accent-color: var(--indigo);
+      width: 16px; height: 16px;
+    }
+    .pref-checkbox-title {
+      font-size: 0.82rem; font-weight: 600; color: var(--slate-900); display: block;
+    }
+    .pref-checkbox-desc {
+      font-size: 0.72rem; color: var(--slate-500); display: block; margin-top: 0.15rem;
+    }
+    .pref-actions {
+      display: flex; flex-direction: column; gap: 0.65rem; margin-top: 0.5rem;
+    }
+    .pref-save-btn {
+      width: 100%; padding: 0.95rem; border-radius: 12px;
+      background: var(--indigo); color: white; border: none;
+      font-size: 0.92rem; font-weight: 600; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      box-shadow: 0 4px 14px rgba(91,91,214,0.28); font-family: inherit;
+    }
+    .pref-reset-btn {
+      width: 100%; padding: 0.75rem; border-radius: 12px;
+      background: var(--slate-100); color: var(--slate-700); border: none;
+      font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: inherit;
+    }
+    .pref-danger-btn {
+      width: 100%; padding: 0.75rem; border-radius: 12px;
+      background: transparent; color: var(--rose); border: 1px solid var(--rose-light);
+      font-size: 0.82rem; font-weight: 600; cursor: pointer; font-family: inherit;
+    }
+
+    /* ─── RATIONALE CALLOUT & NON-DIAGNOSTIC NOTICE ── */
+    .res-rationale-box {
+      background: var(--indigo-light); border: 1px solid var(--indigo-mid);
+      border-radius: 12px; padding: 0.85rem 1rem; margin-top: 1rem;
+      text-align: left;
+    }
+    .res-rationale-title {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--indigo); margin-bottom: 0.25rem;
+    }
+    .res-rationale-text {
+      font-size: 0.8rem; color: var(--slate-700); line-height: 1.4;
+    }
+    .res-disclaimer-notice {
+      background: var(--slate-100); border-radius: 10px;
+      padding: 0.75rem 1rem; margin-top: 1rem; font-size: 0.72rem;
+      color: var(--slate-500); line-height: 1.4; text-align: center;
+    }
+    .res-alt-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.35rem;
+      padding: 0.65rem 1rem; border-radius: 10px;
+      background: white; border: 1.5px solid var(--slate-300);
+      color: var(--slate-700); font-size: 0.8rem; font-weight: 600;
+      cursor: pointer; font-family: inherit; margin-top: 0.75rem; width: 100%;
+    }
+    .res-alt-btn:hover { background: var(--slate-50); border-color: var(--indigo); color: var(--indigo); }
+
+    /* ─── VOICE EXPERIENCE & SIMULATION CONTROLS ── */
+    .session-voice-panel {
+      background: var(--slate-50); border: 1px solid var(--slate-200);
+      border-radius: 12px; padding: 0.85rem; margin-top: 1rem; text-align: left;
+    }
+    .session-voice-hd {
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--slate-600); margin-bottom: 0.5rem;
+    }
+    .session-voice-status {
+      font-size: 0.68rem; font-weight: 600; color: var(--indigo);
+      background: var(--indigo-light); padding: 2px 6px; border-radius: 4px;
+    }
+    .session-voice-btns {
+      display: flex; gap: 0.5rem; align-items: center;
+    }
+    .session-voice-speak-btn {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.5rem 0.85rem; border-radius: 8px; font-size: 0.78rem;
+      font-weight: 600; background: var(--indigo); color: white;
+      border: none; cursor: pointer; font-family: inherit;
+    }
+    .session-voice-stop-btn {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      padding: 0.5rem 0.85rem; border-radius: 8px; font-size: 0.78rem;
+      font-weight: 600; background: var(--slate-200); color: var(--slate-700);
+      border: none; cursor: pointer; font-family: inherit;
+    }
+    .session-reflection-box {
+      margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .session-reflection-input-row {
+      display: flex; gap: 0.4rem;
+    }
+    .session-reflection-inp {
+      flex: 1; padding: 0.45rem 0.7rem; border: 1px solid var(--slate-300);
+      border-radius: 8px; font-size: 0.78rem; font-family: inherit; outline: none;
+    }
+    .session-reflection-inp:focus { border-color: var(--indigo); }
+    .session-reflection-send {
+      padding: 0.45rem 0.75rem; border-radius: 8px; background: var(--slate-800);
+      color: white; border: none; font-size: 0.75rem; font-weight: 600;
+      cursor: pointer; font-family: inherit;
+    }
+    .session-reflection-reply {
+      background: white; border: 1px solid var(--indigo-mid);
+      border-radius: 8px; padding: 0.6rem 0.75rem; font-size: 0.76rem;
+      color: var(--slate-700); line-height: 1.4; animation: viewIn 0.2s ease both;
+    }
+
+    /* ─── TOAST BANNER ──────────────────────────── */
+    .toast-banner {
+      position: fixed; bottom: calc(var(--safe-bottom) + 5rem); left: 50%;
+      transform: translateX(-50%); z-index: 100;
+      background: var(--slate-900); color: white; font-size: 0.82rem;
+      font-weight: 500; padding: 0.65rem 1.25rem; border-radius: var(--radius-full);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25); animation: toastIn 0.25s ease both;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    @keyframes toastIn {
+      from { opacity: 0; transform: translate(-50%, 15px); }
+      to { opacity: 1; transform: translate(-50%, 0); }
+    }
+
   </style>
 </head>
 <body>
@@ -804,23 +1262,37 @@
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
 <script type="text/babel" data-type="module">
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+
+import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
 
 /* ─── PERSISTENCE (LOCAL STORAGE PRIMARY / PRIVACY-FIRST) ── */
 const STORAGE_KEYS = {
   SESSIONS: 'sanctuary_sessions',
   FEEDBACK: 'sanctuary_feedback',
+  PREFERENCES: 'sanctuary_preferences',
+};
+
+const DEFAULT_PREFERENCES = {
+  language: 'en',
+  narrationStyle: 'calm',
+  speechRate: 1.0,
+  sessionDuration: 3, // minutes
+  mindStyle: 'balanced',
+  ambientSound: 'rain',
+  reducedMotion: false,
+  highContrast: false,
+  excludedTechniques: [],
 };
 
 const localStore = {
-  get(key) {
+  get(key, fallback = []) {
     try {
       const item = localStorage.getItem(key);
-      return item ? JSON.parse(item) : [];
+      return item !== null ? JSON.parse(item) : fallback;
     } catch (e) {
       console.warn('LocalStorage read error (safe fallback):', e);
-      return [];
+      return fallback;
     }
   },
   set(key, val) {
@@ -833,10 +1305,28 @@ const localStore = {
     }
   },
   append(key, item) {
-    const list = this.get(key);
+    const list = this.get(key, []);
     list.push(item);
     this.set(key, list);
     return item;
+  },
+  remove(key) {
+    try {
+      localStorage.removeItem(key);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  },
+  clearAll() {
+    try {
+      localStorage.removeItem(STORAGE_KEYS.SESSIONS);
+      localStorage.removeItem(STORAGE_KEYS.FEEDBACK);
+      localStorage.removeItem(STORAGE_KEYS.PREFERENCES);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 };
 
@@ -867,7 +1357,6 @@ async function saveSession({ name, email, age, gender, mindStyle, scores, hrv })
 
   localStore.append(STORAGE_KEYS.SESSIONS, sessionRecord);
 
-  // Optional remote sync only if verified
   if (supabase) {
     try {
       // Remote branch (disabled by default)
@@ -937,9 +1426,17 @@ const icons = {
   play:     "M5 3l14 9-14 9V3z",
   star:     "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
   send:     "M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z",
+  home:     "M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z",
+  bookOpen: ["M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z", "M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"],
+  history:  ["M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", "M3 3v5h5", "M12 7v5l4 2"],
+  settings: ["M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z", "M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"],
+  trash:    ["M3 6h18", "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6", "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"],
+  volume:   ["M11 5L6 9H2v6h4l5 4V5z", "M15.54 8.46a5 5 0 0 1 0 7.07"],
+  volumeX:  ["M11 5L6 9H2v6h4l5 4V5z", "M23 9l-6 6", "M17 9l6 6"],
+  rotateCcw:["M1 4v6h6", "M3.51 15a9 9 0 1 0 2.13-9.36L1 10"],
 };
 
-/* ─── DATA ───────────────────────────────────────── */
+/* ─── DATA & PROTOCOLS ───────────────────────────── */
 const QUESTIONS = [
   { id:1, text:"How is your attention behaving right now?", options:[
     { text:"It is focused, clear, and steady.",              guna:"sattva", score:1 },
@@ -979,6 +1476,71 @@ const LIBRARY = {
     emotional: { title:"Savoring the Calm",        desc:"You are in a beautiful state of flow. Pause to feel gratitude for this peace, knowing it is a gift to be shared.", step1:"Smile internally.",      step2:"Send love outward.",      action:"Express Gratitude" },
     spiritual: { title:"Service to the Divine",   desc:"Clarity is a blessing. Offer this clear mind as an instrument for the greater good. Remain humble in this light.", step1:"Witness the peace.",     step2:"Dedicate it to all.",     action:"Offer Service" },
   },
+};
+
+const TECHNIQUE_DEFINITIONS = [
+  { id: 'vigorous_movement', label: 'Vigorous Movement / Shaking', desc: 'Active physical shaking, rapid standing gestures, or high-energy motor exertion' },
+  { id: 'rapid_breath', label: 'Rapid / Energizing Breath', desc: 'Hyperventilation-style quick breaths or fast breathing rhythms' },
+  { id: 'breath_retention', label: 'Breath Retention (Kumbhaka)', desc: 'Holding breath during inhalation or exhalation intervals' },
+  { id: 'mantra', label: 'Mantra / Vocalized Chanting', desc: 'Audible prayer chanting, repetition of sacred syllables, or vocal resonance' },
+  { id: 'body_scan', label: 'Prolonged Body Scanning', desc: 'Extended physical stillness focusing on body sensations' }
+];
+
+const ADAPTED_PROTOCOLS = {
+  rajas: {
+    logical: {
+      breath_retention: {
+        title: "Gentle Paced Respiration",
+        desc: "Adapted protocol avoiding breath retention: smooth 4-second inhalation and 6-second unhurried exhalation to calm the autonomic nervous system without holding breath.",
+        step1: "Inhale smoothly through your nose for 4 seconds without straining.",
+        step2: "Exhale softly and steadily for 6 seconds without pausing.",
+        action: "Begin Paced Respiration",
+        adaptationReason: "Adapted because breath retention is in your avoided techniques."
+      }
+    },
+    spiritual: {
+      mantra: {
+        title: "Silent Trust & Contemplation",
+        desc: "Adapted protocol avoiding vocal chanting: silent inner witnessing and unhurried breath to cultivate surrender without audible recitation.",
+        step1: "Silently observe the natural rhythm of breath.",
+        step2: "Inwardly release control on each slow exhale.",
+        action: "Begin Silent Contemplation",
+        adaptationReason: "Adapted because mantra/vocal prayer is in your avoided techniques."
+      }
+    }
+  },
+  tamas: {
+    logical: {
+      vigorous_movement: {
+        title: "Seated Isometric Grounding",
+        desc: "Adapted protocol avoiding vigorous movement: gentle seated foot pressure and wrist extensions to awaken the motor cortex and sensory pathways smoothly.",
+        step1: "Press both soles firmly into the ground for 5 seconds.",
+        step2: "Gently stretch your palms open and rotate wrists slowly.",
+        action: "Begin Gentle Grounding",
+        adaptationReason: "Adapted because vigorous movement is in your avoided techniques."
+      }
+    },
+    emotional: {
+      vigorous_movement: {
+        title: "Warm Self-Embrace & Soft Breath",
+        desc: "Adapted protocol avoiding vigorous movement: cross arms to hold your shoulders gently with slow rhythmic rocking.",
+        step1: "Place hands over opposite shoulders in a gentle hug.",
+        step2: "Rock softly with each calm breath.",
+        action: "Embrace Gently",
+        adaptationReason: "Adapted because vigorous movement is in your avoided techniques."
+      }
+    },
+    spiritual: {
+      vigorous_movement: {
+        title: "Mindful Heart Awakening",
+        desc: "Adapted protocol avoiding vigorous movement: gentle hand placement on heart with steady vertical posture to renew vitality without jarring motions.",
+        step1: "Place one hand gently over your chest.",
+        step2: "Feel the warm expansion of each breath.",
+        action: "Awaken Gently",
+        adaptationReason: "Adapted because vigorous movement is in your avoided techniques."
+      }
+    }
+  }
 };
 
 /* ─── MATH ───────────────────────────────────────── */
@@ -1090,7 +1652,7 @@ function BiometricSheet({ onClose, onComplete }) {
     <div className="bio-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
       <div className="bio-sheet" style={{position:'relative'}}>
         <div className="bio-handle" />
-        <button className="bio-close" onClick={onClose}><Icon d={icons.x} /></button>
+        <button className="bio-close" onClick={onClose} aria-label="Close sensor modal"><Icon d={icons.x} /></button>
         <div className="bio-inner">
 
           {status === 'idle' && <>
@@ -1332,7 +1894,6 @@ function ProcessingView({ setView }) {
   );
 }
 
-
 /* ─── DISTRESS & CRISIS SUPPORT MODAL ────────────── */
 function DistressSupportModal({ onReturnAssessment, onContinueReflection }) {
   const [region, setRegion] = useState('india');
@@ -1460,16 +2021,70 @@ function DistressSupportModal({ onReturnAssessment, onContinueReflection }) {
   );
 }
 
-/* ─── GUIDED SESSION MODAL ───────────────────────── */
-function GuidedSessionModal({ content, stateName, onClose }) {
-  const [seconds, setSeconds] = useState(60);
+/* ─── GUIDED SESSION MODAL (VOICE & SIMULATION) ───── */
+function GuidedSessionModal({ content, stateName, durationMinutes = 3, speechRate = 1.0, onClose }) {
+  const initialSeconds = Math.max(durationMinutes * 60, 30);
+  const [seconds, setSeconds] = useState(initialSeconds);
   const [isPaused, setIsPaused] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [speechSupported, setSpeechSupported] = useState(false);
+  const [reflectionInput, setReflectionInput] = useState('');
+  const [reflectionReply, setReflectionReply] = useState('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      setSpeechSupported(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (isPaused || seconds <= 0) return;
     const timer = setInterval(() => setSeconds(s => s - 1), 1000);
     return () => clearInterval(timer);
   }, [isPaused, seconds]);
+
+  // Clean up speech synthesis on unmount
+  useEffect(() => {
+    return () => {
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
+
+  const toggleSpeech = () => {
+    if (!speechSupported) return;
+    if (isSpeaking) {
+      window.speechSynthesis.cancel();
+      setIsSpeaking(false);
+    } else {
+      window.speechSynthesis.cancel();
+      const narrationText = `${content.title}. ${content.desc}. Step one: ${content.step1}. Step two: ${content.step2}.`;
+      const utterance = new SpeechSynthesisUtterance(narrationText);
+      utterance.rate = speechRate || 1.0;
+      utterance.pitch = 1.0;
+      utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = () => setIsSpeaking(false);
+      window.speechSynthesis.speak(utterance);
+      setIsSpeaking(true);
+    }
+  };
+
+  const handleReflectionSubmit = (e) => {
+    e.preventDefault();
+    if (!reflectionInput.trim()) return;
+    const q = reflectionInput.toLowerCase();
+    let reply = "Sanctuary Guide: Notice the feeling without judgment. Bring your gentle attention back to the rhythm of the inhale and exhale.";
+    if (q.includes('distract') || q.includes('wander') || q.includes('thought')) {
+      reply = "Sanctuary Guide: It is completely natural for thoughts to drift. Acknowledge the thought like a passing cloud, and softly anchor back to the breath.";
+    } else if (q.includes('tense') || q.includes('tight') || q.includes('shoulder') || q.includes('pain')) {
+      reply = "Sanctuary Guide: Invite a gentle softening in the jaw and shoulders. Exhale fully, letting gravity support your posture.";
+    } else if (q.includes('restless') || q.includes('anxious') || q.includes('fast')) {
+      reply = "Sanctuary Guide: Lengthen your exhale slightly. A calm, slow exhale signals safety to your nervous system.";
+    }
+    setReflectionReply(reply);
+    setReflectionInput('');
+  };
 
   const mins = Math.floor(seconds / 60);
   const secs = seconds % 60;
@@ -1498,7 +2113,57 @@ function GuidedSessionModal({ content, stateName, onClose }) {
           <p>{content.step2}</p>
         </div>
 
-        <span className="sim-tag">Simulation Mode: Browser-guided pacing (No paid API or physical hardware required)</span>
+        {/* Voice Narration & Simulation Panel */}
+        <div className="session-voice-panel">
+          <div className="session-voice-hd">
+            <span>Voice &amp; Audio Pacing</span>
+            <span className="session-voice-status">
+              {speechSupported ? (isSpeaking ? 'Narrating...' : 'Ready') : 'Visual Only'}
+            </span>
+          </div>
+
+          <div className="session-voice-btns">
+            {speechSupported ? (
+              <button
+                type="button"
+                className={isSpeaking ? "session-voice-stop-btn" : "session-voice-speak-btn"}
+                onClick={toggleSpeech}
+              >
+                <Icon d={isSpeaking ? icons.volumeX : icons.volume} size={15} />
+                <span>{isSpeaking ? 'Stop Voice' : 'Listen to Narration'}</span>
+              </button>
+            ) : (
+              <span style={{fontSize: '0.74rem', color: 'var(--slate-500)'}}>
+                Speech synthesis not supported in this browser.
+              </span>
+            )}
+          </div>
+
+          {/* Text/Voice Reflection Fallback */}
+          <div className="session-reflection-box">
+            <form onSubmit={handleReflectionSubmit} className="session-reflection-input-row">
+              <input
+                type="text"
+                className="session-reflection-inp"
+                placeholder="Ask guide or share feeling (e.g. restless, mind wandering)..."
+                value={reflectionInput}
+                onChange={e => setReflectionInput(e.target.value)}
+              />
+              <button type="submit" className="session-reflection-send">
+                Ask
+              </button>
+            </form>
+            {reflectionReply && (
+              <div className="session-reflection-reply">
+                {reflectionReply}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <span className="sim-tag">
+          Simulation Mode: Browser-guided pacing &amp; speech synthesis (No paid API or physical hardware required)
+        </span>
 
         <div className="session-ctrls" style={{marginTop: '1.25rem'}}>
           <button
@@ -1511,7 +2176,10 @@ function GuidedSessionModal({ content, stateName, onClose }) {
           <button
             type="button"
             className="session-btn-end"
-            onClick={onClose}
+            onClick={() => {
+              if (speechSupported && window.speechSynthesis) window.speechSynthesis.cancel();
+              onClose();
+            }}
           >
             End Session & Return
           </button>
@@ -1521,12 +2189,417 @@ function GuidedSessionModal({ content, stateName, onClose }) {
   );
 }
 
+/* ─── PRACTICES LIBRARY VIEW ─────────────────────── */
+function ProtocolsView({ onStartSession }) {
+  const [gunaFilter, setGunaFilter] = useState('all');
+  const [styleFilter, setStyleFilter] = useState('all');
+
+  const items = useMemo(() => {
+    const list = [];
+    ['sattva', 'rajas', 'tamas'].forEach(guna => {
+      ['logical', 'emotional', 'spiritual'].forEach(style => {
+        const p = LIBRARY[guna][style];
+        list.push({
+          guna,
+          style,
+          ...p,
+          stateName: guna === 'sattva' ? 'Clear Energy (Sattva)' : guna === 'rajas' ? 'Active Energy (Rajas)' : 'Resting Energy (Tamas)'
+        });
+      });
+    });
+    return list;
+  }, []);
+
+  const filtered = items.filter(it => {
+    if (gunaFilter !== 'all' && it.guna !== gunaFilter) return false;
+    if (styleFilter !== 'all' && it.style !== styleFilter) return false;
+    return true;
+  });
+
+  return (
+    <div className="view">
+      <div className="proto-wrap">
+        <header className="proto-header">
+          <h1 className="proto-title">Guided Practice Library</h1>
+          <p className="proto-sub">Explore the nine evidence-based and contemplative protocols tailored for every inner state.</p>
+          <div className="proto-filters">
+            {['all', 'sattva', 'rajas', 'tamas'].map(g => (
+              <button
+                key={g}
+                type="button"
+                className={`proto-filter-pill ${gunaFilter === g ? 'active' : ''}`}
+                onClick={() => setGunaFilter(g)}
+              >
+                {g === 'all' ? 'All Gunas (9)' : g.charAt(0).toUpperCase() + g.slice(1)}
+              </button>
+            ))}
+          </div>
+        </header>
+
+        <div className="proto-grid">
+          {filtered.map((proto, idx) => (
+            <div key={idx} className="proto-card">
+              <div>
+                <span className={`proto-card-badge ${proto.guna}`}>
+                  {proto.guna} · {proto.style}
+                </span>
+                <h3 className="proto-card-title">{proto.title}</h3>
+                <p className="proto-card-desc">{proto.desc}</p>
+                <div className="proto-card-steps">
+                  <div className="proto-step-row"><strong>1:</strong> {proto.step1}</div>
+                  <div className="proto-step-row"><strong>2:</strong> {proto.step2}</div>
+                </div>
+              </div>
+              <button
+                type="button"
+                className="proto-card-btn"
+                onClick={() => onStartSession(proto, proto.stateName)}
+              >
+                <Icon d={icons.play} size={15} />
+                <span>{proto.action}</span>
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── HISTORY VIEW ───────────────────────────────── */
+function HistoryView({ onTakeCheckin }) {
+  const [sessions, setSessions] = useState(() => localStore.get(STORAGE_KEYS.SESSIONS, []));
+
+  const handleDelete = (id) => {
+    const updated = sessions.filter(s => s.id !== id);
+    localStore.set(STORAGE_KEYS.SESSIONS, updated);
+    setSessions(updated);
+  };
+
+  const handleClearAll = () => {
+    if (window.confirm('Are you sure you want to clear your local session history?')) {
+      localStore.set(STORAGE_KEYS.SESSIONS, []);
+      setSessions([]);
+    }
+  };
+
+  return (
+    <div className="view">
+      <div className="hist-wrap">
+        <header className="hist-header">
+          <div>
+            <h1 className="hist-title">Session History</h1>
+            <p style={{fontSize:'.82rem', color:'var(--slate-500)', marginTop:'.2rem'}}>
+              Privately stored on this device ({sessions.length} recorded {sessions.length === 1 ? 'reflection' : 'reflections'})
+            </p>
+          </div>
+          {sessions.length > 0 && (
+            <button type="button" className="hist-clear-btn" onClick={handleClearAll}>
+              Clear All
+            </button>
+          )}
+        </header>
+
+        {sessions.length === 0 ? (
+          <div className="hist-empty">
+            <Icon d={icons.history} size={36} style={{color:'var(--slate-300)'}} />
+            <h3 style={{fontSize:'1.1rem', fontWeight:600, color:'var(--slate-700)'}}>No recorded sessions yet</h3>
+            <p style={{fontSize:'.84rem', color:'var(--slate-500)', maxWidth:360}}>
+              Your wellness check-ins will be securely saved locally on this device.
+            </p>
+            <button
+              type="button"
+              className="proto-card-btn"
+              style={{width:'auto', padding:'.65rem 1.25rem', marginTop:'.5rem'}}
+              onClick={onTakeCheckin}
+            >
+              Take a Check-in Now
+            </button>
+          </div>
+        ) : (
+          <div style={{display:'flex', flexDirection:'column', gap:'0.85rem'}}>
+            {sessions.slice().reverse().map(s => {
+              const dateStr = s.timestamp ? new Date(s.timestamp).toLocaleString([], { dateStyle:'medium', timeStyle:'short' }) : 'Earlier Session';
+              return (
+                <div key={s.id} className="hist-card">
+                  <div className="hist-card-hd">
+                    <span className="hist-date">{dateStr}</span>
+                    <button
+                      type="button"
+                      className="hist-delete-btn"
+                      onClick={() => handleDelete(s.id)}
+                      title="Delete entry"
+                      aria-label="Delete entry"
+                    >
+                      <Icon d={icons.trash} size={15} />
+                    </button>
+                  </div>
+                  <div>
+                    <span className={`proto-card-badge ${s.dominant_guna || 'sattva'}`}>
+                      Dominant: {(s.dominant_guna || 'sattva').toUpperCase()}
+                    </span>
+                  </div>
+                  <div className="hist-metrics">
+                    <span className="hist-metric-pill">Sattva: {s.sattva_score ?? 0}</span>
+                    <span className="hist-metric-pill">Rajas: {s.rajas_score ?? 0}</span>
+                    <span className="hist-metric-pill">Tamas: {s.tamas_score ?? 0}</span>
+                    {s.hrv && <span className="hist-metric-pill" style={{color:'var(--rose-dark)'}}>HRV: {s.hrv} ms</span>}
+                    <span className="hist-metric-pill" style={{color:'var(--slate-400)', fontSize:'.68rem'}}>{s.mindstyle || 'balanced'}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ─── PREFERENCES VIEW ───────────────────────────── */
+function PreferencesView({ preferences, setPreferences, onClearAllData }) {
+  const [form, setForm] = useState(() => ({ ...DEFAULT_PREFERENCES, ...preferences }));
+  const [savedToast, setSavedToast] = useState(false);
+
+  const toggleTechnique = (techId) => {
+    setForm(prev => {
+      const list = prev.excludedTechniques || [];
+      const next = list.includes(techId)
+        ? list.filter(id => id !== techId)
+        : [...list, techId];
+      return { ...prev, excludedTechniques: next };
+    });
+  };
+
+  const handleSave = (e) => {
+    e?.preventDefault();
+    localStore.set(STORAGE_KEYS.PREFERENCES, form);
+    setPreferences(form);
+    setSavedToast(true);
+    setTimeout(() => setSavedToast(false), 3000);
+  };
+
+  const handleReset = () => {
+    if (window.confirm('Reset all personalization settings to defaults?')) {
+      localStore.set(STORAGE_KEYS.PREFERENCES, DEFAULT_PREFERENCES);
+      setForm(DEFAULT_PREFERENCES);
+      setPreferences(DEFAULT_PREFERENCES);
+      setSavedToast(true);
+      setTimeout(() => setSavedToast(false), 3000);
+    }
+  };
+
+  return (
+    <div className="view">
+      <div className="pref-wrap">
+        <div>
+          <h1 className="pref-title">Personal Preferences</h1>
+          <p className="pref-sub">Customize your experience. All settings remain 100% private on your device.</p>
+        </div>
+
+        {savedToast && (
+          <div className="toast-banner" role="status">
+            <Icon d={icons.check} size={16} style={{color:'var(--green)'}} />
+            <span>Preferences saved privately on this device.</span>
+          </div>
+        )}
+
+        {/* Guided Session Duration */}
+        <div className="pref-card">
+          <div className="pref-section-title">
+            <Icon d={icons.watch} size={16} />
+            <span>Guided Session Duration</span>
+          </div>
+          <div className="pref-btns-grid cols4">
+            {[1, 3, 5, 10].map(m => (
+              <button
+                key={m}
+                type="button"
+                className={`pref-btn-pill ${form.sessionDuration === m ? 'active' : ''}`}
+                onClick={() => setForm({ ...form, sessionDuration: m })}
+              >
+                {m} {m === 1 ? 'min' : 'mins'}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Narration & Voice Style */}
+        <div className="pref-card">
+          <div className="pref-section-title">
+            <Icon d={icons.volume} size={16} />
+            <span>Voice &amp; Narration Tone</span>
+          </div>
+          <div className="pref-btns-grid cols3">
+            {[
+              { id: 'calm', label: 'Calm & Serene' },
+              { id: 'grounded', label: 'Grounded & Centered' },
+              { id: 'uplifting', label: 'Uplifting & Inspiring' }
+            ].map(v => (
+              <button
+                key={v.id}
+                type="button"
+                className={`pref-btn-pill ${form.narrationStyle === v.id ? 'active' : ''}`}
+                onClick={() => setForm({ ...form, narrationStyle: v.id })}
+              >
+                {v.label}
+              </button>
+            ))}
+          </div>
+
+          <div style={{marginTop:'.5rem'}}>
+            <span style={{fontSize:'.75rem', fontWeight:600, color:'var(--slate-500)'}}>Speech Pacing (Simulator):</span>
+            <div className="pref-btns-grid cols3" style={{marginTop:'.35rem'}}>
+              {[
+                { r: 0.8, l: '0.8x (Gentle)' },
+                { r: 1.0, l: '1.0x (Standard)' },
+                { r: 1.2, l: '1.2x (Brisk)' }
+              ].map(sp => (
+                <button
+                  key={sp.r}
+                  type="button"
+                  className={`pref-btn-pill ${form.speechRate === sp.r ? 'active' : ''}`}
+                  onClick={() => setForm({ ...form, speechRate: sp.r })}
+                >
+                  {sp.l}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Practice Orientation */}
+        <div className="pref-card">
+          <div className="pref-section-title">
+            <Icon d={icons.wind} size={16} />
+            <span>Practice Orientation</span>
+          </div>
+          <div className="pref-btns-grid cols3">
+            {[
+              { id: 'logical', label: 'Secular / Cognitive' },
+              { id: 'balanced', label: 'Balanced' },
+              { id: 'emotional', label: 'Heart-Centered' }
+            ].map(m => (
+              <button
+                key={m.id}
+                type="button"
+                className={`pref-btn-pill ${form.mindStyle === m.id ? 'active' : ''}`}
+                onClick={() => setForm({ ...form, mindStyle: m.id })}
+              >
+                {m.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Ambient Soundscapes */}
+        <div className="pref-card">
+          <div className="pref-section-title">
+            <Icon d={icons.wind} size={16} />
+            <span>Ambient Soundscape Preference</span>
+          </div>
+          <div className="pref-btns-grid cols4">
+            {[
+              { id: 'rain', label: 'Gentle Rain' },
+              { id: 'forest', label: 'Forest Birds' },
+              { id: 'temple', label: 'Temple Chimes' },
+              { id: 'silent', label: 'Silence' }
+            ].map(s => (
+              <button
+                key={s.id}
+                type="button"
+                className={`pref-btn-pill ${form.ambientSound === s.id ? 'active' : ''}`}
+                onClick={() => setForm({ ...form, ambientSound: s.id })}
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Disliked Techniques (Exclusion Filters) */}
+        <div className="pref-card">
+          <div className="pref-section-title">
+            <Icon d={icons.shield} size={16} />
+            <span>Avoided Practice Techniques</span>
+          </div>
+          <p style={{fontSize:'.78rem', color:'var(--slate-500)', marginTop:'-.4rem'}}>
+            Select any techniques you dislike or wish to avoid. Sanctuary will automatically adapt your recommended protocols.
+          </p>
+          <div className="pref-checkbox-list">
+            {TECHNIQUE_DEFINITIONS.map(tech => (
+              <label key={tech.id} className="pref-checkbox-item">
+                <input
+                  type="checkbox"
+                  checked={(form.excludedTechniques || []).includes(tech.id)}
+                  onChange={() => toggleTechnique(tech.id)}
+                />
+                <div>
+                  <span className="pref-checkbox-title">{tech.label}</span>
+                  <span className="pref-checkbox-desc">{tech.desc}</span>
+                </div>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {/* Accessibility & Sensory Considerations */}
+        <div className="pref-card">
+          <div className="pref-section-title">
+            <Icon d={icons.settings} size={16} />
+            <span>Accessibility &amp; Sensory</span>
+          </div>
+          <div className="pref-toggle-row">
+            <div className="pref-toggle-info">
+              <h4>Reduce Animations &amp; Motion</h4>
+              <p>Minimizes visual movement and transitions</p>
+            </div>
+            <input
+              type="checkbox"
+              style={{width:18, height:18, accentColor:'var(--indigo)'}}
+              checked={form.reducedMotion}
+              onChange={e => setForm({ ...form, reducedMotion: e.target.checked })}
+            />
+          </div>
+          <div className="pref-toggle-row">
+            <div className="pref-toggle-info">
+              <h4>High Contrast Mode</h4>
+              <p>Increases text and border legibility</p>
+            </div>
+            <input
+              type="checkbox"
+              style={{width:18, height:18, accentColor:'var(--indigo)'}}
+              checked={form.highContrast}
+              onChange={e => setForm({ ...form, highContrast: e.target.checked })}
+            />
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="pref-actions">
+          <button type="button" className="pref-save-btn" onClick={handleSave}>
+            <Icon d={icons.check} size={18} />
+            <span>Save Preferences</span>
+          </button>
+          <button type="button" className="pref-reset-btn" onClick={handleReset}>
+            Reset to Defaults
+          </button>
+          <button type="button" className="pref-danger-btn" onClick={onClearAllData}>
+            Erase All Stored Data (Privacy Reset)
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ─── RESULTS ────────────────────────────────────── */
-function ResultsView({ scores, profile, bioData, setBioData, setView }) {
+function ResultsView({ scores, profile, preferences, bioData, setBioData, setView, onOpenGuidedSession }) {
   const [showBio, setShowBio] = useState(false);
   const isDistress = scores.tamas >= 3 || (scores.tamas >= 2 && scores.rajas >= 2);
   const [showDistressModal, setShowDistressModal] = useState(isDistress);
   const [activeSession, setActiveSession] = useState(false);
+  const [altIndex, setAltIndex] = useState(0);
 
   const dominant = (() => {
     const sv = (scores.sattva/4)*100;
@@ -1545,7 +2618,33 @@ function ResultsView({ scores, profile, bioData, setBioData, setView }) {
     : (profile.beliefLevel === 'strong' || profile.spiritualStrength === 'strong') ? 'spiritual'
     : 'logical';
 
-  const content = LIBRARY[dominant][mindKey];
+  // Available options for this dominant Guna to support alternative cycling
+  const availableStyles = ['logical', 'emotional', 'spiritual'];
+  const activeStyle = availableStyles[altIndex % 3];
+
+  // Base protocol
+  const baseContent = LIBRARY[dominant][activeStyle];
+
+  // Check for safe adaptation if excluded techniques are configured
+  const excluded = preferences?.excludedTechniques || [];
+  let finalContent = { ...baseContent };
+  let isAdapted = false;
+  let adaptationReason = '';
+
+  if (ADAPTED_PROTOCOLS[dominant]?.[activeStyle]) {
+    for (const techId of excluded) {
+      if (ADAPTED_PROTOCOLS[dominant][activeStyle][techId]) {
+        finalContent = {
+          ...baseContent,
+          ...ADAPTED_PROTOCOLS[dominant][activeStyle][techId]
+        };
+        isAdapted = true;
+        adaptationReason = ADAPTED_PROTOCOLS[dominant][activeStyle][techId].adaptationReason;
+        break;
+      }
+    }
+  }
+
   const stateName = dominant === 'rajas' ? 'Active Energy (Rajas)'
     : dominant === 'tamas' ? 'Resting Energy (Tamas)' : 'Clear Energy (Sattva)';
 
@@ -1560,8 +2659,10 @@ function ResultsView({ scores, profile, bioData, setBioData, setView }) {
       )}
       {activeSession && (
         <GuidedSessionModal
-          content={content}
+          content={finalContent}
           stateName={stateName}
+          durationMinutes={preferences?.sessionDuration || 3}
+          speechRate={preferences?.speechRate || 1.0}
           onClose={() => setActiveSession(false)}
         />
       )}
@@ -1607,13 +2708,15 @@ function ResultsView({ scores, profile, bioData, setBioData, setView }) {
                 <div className="res-card-hd-glow" />
                 <div className="res-card-meta">
                   <Icon d={icons.zap} size={14} style={{color:'#fbbf24'}} />
-                  <span className="res-card-meta-lbl">Recommended Protocol</span>
+                  <span className="res-card-meta-lbl">
+                    {isAdapted ? 'Adapted Personalized Protocol' : 'Recommended Protocol'}
+                  </span>
                 </div>
-                <h3 className="res-card-title">{content.title}</h3>
-                <p className="res-card-desc">{content.desc}</p>
+                <h3 className="res-card-title">{finalContent.title}</h3>
+                <p className="res-card-desc">{finalContent.desc}</p>
               </div>
               <div className="res-card-body">
-                {[content.step1, content.step2].map((s, i) => (
+                {[finalContent.step1, finalContent.step2].map((s, i) => (
                   <div key={i} className="res-step">
                     <div className="res-step-num">{i+1}</div>
                     <div className="res-step-body">
@@ -1622,16 +2725,44 @@ function ResultsView({ scores, profile, bioData, setBioData, setView }) {
                     </div>
                   </div>
                 ))}
+
+                {/* Personalization Rationale Callout */}
+                <div className="res-rationale-box">
+                  <div className="res-rationale-title">Why this protocol was chosen</div>
+                  <div className="res-rationale-text">
+                    Selected based on your dominant <strong>{dominant}</strong> self-reflection and <strong>{activeStyle}</strong> orientation.
+                    {isAdapted && (
+                      <span style={{display:'block', marginTop:'.3rem', color:'var(--indigo)'}}>
+                        Notice: {adaptationReason}
+                      </span>
+                    )}
+                  </div>
+                </div>
+
                 <button
                   type="button"
                   className="res-action"
                   onClick={() => setActiveSession(true)}
-                  aria-label={`Start guided session: ${content.action}`}
+                  aria-label={`Start guided session: ${finalContent.action}`}
                 >
                   <Icon d={icons.play} size={16} />
-                  <span>{content.action}</span>
+                  <span>{finalContent.action}</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="res-alt-btn"
+                  onClick={() => setAltIndex(i => i + 1)}
+                >
+                  <Icon d={icons.rotateCcw} size={14} />
+                  <span>Try Alternative Practice for {stateName.split(' ')[0]}</span>
                 </button>
               </div>
+            </div>
+
+            {/* Non-Diagnostic Safety Notice */}
+            <div className="res-disclaimer-notice">
+              <strong>Non-Diagnostic Notice:</strong> Triguna psychological states (Sattva, Rajas, Tamas) and Heart Rate Variability (HRV) are reflective wellness principles, not psychiatric or medical diagnoses.
             </div>
           </section>
 
@@ -1657,7 +2788,7 @@ function FeedbackView({ setView, sessionId, saveFeedback }) {
     const e = {};
     if (!name.trim()) e.name = 'Name is required';
     if (!email.trim()) e.email = 'Email is required';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = 'Enter a valid email';
+    else if (!/^[^s@]+@[^s@]+.[^s@]+$/.test(email)) e.email = 'Enter a valid email';
     if (!rating) e.rating = 'Please select a rating';
     if (!feedback.trim()) e.feedback = 'Feedback is required';
     setErrors(e);
@@ -1768,22 +2899,164 @@ function FeedbackView({ setView, sessionId, saveFeedback }) {
   );
 }
 
-/* ─── APP ────────────────────────────────────────── */
+/* ─── APP SHELL ──────────────────────────────────── */
+function AppShell({ currentTab, onSelectTab, onOpenSupport, preferences, children }) {
+  return (
+    <div className={`shell-wrap ${preferences?.highContrast ? 'high-contrast' : ''} ${preferences?.reducedMotion ? 'reduced-motion' : ''}`}>
+      <header className="shell-header" role="banner">
+        <div className="shell-inner">
+          <div
+            className="shell-brand"
+            onClick={() => onSelectTab('checkin')}
+            role="button"
+            tabIndex={0}
+            onKeyDown={e => e.key === 'Enter' && onSelectTab('checkin')}
+            aria-label="Sanctuary of Mind Home"
+          >
+            <div className="shell-logo">
+              <Icon d={icons.wind} size={20} style={{ color: 'var(--indigo)' }} />
+            </div>
+            <div>
+              <span className="shell-title">Sanctuary of Mind</span>
+              <span className="shell-tagline">Triguna &amp; HRV Self-Reflection</span>
+            </div>
+          </div>
+
+          <nav className="shell-nav" aria-label="Main Navigation">
+            <button
+              type="button"
+              className={`shell-nav-btn ${currentTab === 'checkin' ? 'active' : ''}`}
+              onClick={() => onSelectTab('checkin')}
+            >
+              <Icon d={icons.home} size={16} />
+              <span>Check-in</span>
+            </button>
+            <button
+              type="button"
+              className={`shell-nav-btn ${currentTab === 'protocols' ? 'active' : ''}`}
+              onClick={() => onSelectTab('protocols')}
+            >
+              <Icon d={icons.bookOpen} size={16} />
+              <span>Practices</span>
+            </button>
+            <button
+              type="button"
+              className={`shell-nav-btn ${currentTab === 'history' ? 'active' : ''}`}
+              onClick={() => onSelectTab('history')}
+            >
+              <Icon d={icons.history} size={16} />
+              <span>History</span>
+            </button>
+            <button
+              type="button"
+              className={`shell-nav-btn ${currentTab === 'preferences' ? 'active' : ''}`}
+              onClick={() => onSelectTab('preferences')}
+            >
+              <Icon d={icons.settings} size={16} />
+              <span>Preferences</span>
+            </button>
+          </nav>
+
+          <div className="shell-actions">
+            <button
+              type="button"
+              className="shell-crisis-btn"
+              onClick={onOpenSupport}
+              aria-label="Direct Crisis & Helpline Support: Tele-MANAS 14416 or 988"
+            >
+              <Icon d={icons.heart} size={14} style={{ color: 'var(--rose)' }} />
+              <span>Crisis Support (14416 / 988)</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main className="shell-content" role="main">
+        {children}
+      </main>
+
+      <nav className="shell-bottom-nav" aria-label="Mobile Navigation">
+        <button
+          type="button"
+          className={`shell-bottom-tab ${currentTab === 'checkin' ? 'active' : ''}`}
+          onClick={() => onSelectTab('checkin')}
+        >
+          <Icon d={icons.home} size={18} />
+          <span>Check-in</span>
+        </button>
+        <button
+          type="button"
+          className={`shell-bottom-tab ${currentTab === 'protocols' ? 'active' : ''}`}
+          onClick={() => onSelectTab('protocols')}
+        >
+          <Icon d={icons.bookOpen} size={18} />
+          <span>Practices</span>
+        </button>
+        <button
+          type="button"
+          className={`shell-bottom-tab ${currentTab === 'history' ? 'active' : ''}`}
+          onClick={() => onSelectTab('history')}
+        >
+          <Icon d={icons.history} size={18} />
+          <span>History</span>
+        </button>
+        <button
+          type="button"
+          className={`shell-bottom-tab ${currentTab === 'preferences' ? 'active' : ''}`}
+          onClick={() => onSelectTab('preferences')}
+        >
+          <Icon d={icons.settings} size={18} />
+          <span>Settings</span>
+        </button>
+        <button
+          type="button"
+          className="shell-bottom-tab crisis"
+          onClick={onOpenSupport}
+        >
+          <Icon d={icons.heart} size={18} style={{ color: 'var(--rose)' }} />
+          <span>Support</span>
+        </button>
+      </nav>
+    </div>
+  );
+}
+
+/* ─── MAIN APP ───────────────────────────────────── */
 function App() {
+  const [tab, setTab]           = useState('checkin');
   const [view, setView]         = useState('onboarding');
   const [profile, setProfile]   = useState({ beliefLevel:'some', mindStyle:'balanced', spiritualStrength:'some' });
   const [scores, setScores]     = useState({ sattva:0, rajas:0, tamas:0 });
   const [currentQ, setCurrentQ] = useState(0);
   const [bioData, setBioData]   = useState(null);
   const [sessionId, setSessionId] = useState(null);
+  const [showGlobalSupport, setShowGlobalSupport] = useState(false);
+  const [librarySession, setLibrarySession] = useState(null);
+
+  // Load preferences from local storage
+  const [preferences, setPreferences] = useState(() => {
+    return localStore.get(STORAGE_KEYS.PREFERENCES, DEFAULT_PREFERENCES);
+  });
 
   const goToAssessment = () => {
     setScores({ sattva:0, rajas:0, tamas:0 });
     setCurrentQ(0);
     setView('assessment');
+    setTab('checkin');
   };
 
-  // Auto-save session to Supabase when results view loads
+  const handleClearAllData = () => {
+    if (window.confirm('Erase all local sessions, feedback, and preferences from this device?')) {
+      localStore.clearAll();
+      setPreferences(DEFAULT_PREFERENCES);
+      setScores({ sattva:0, rajas:0, tamas:0 });
+      setView('onboarding');
+      setTab('checkin');
+      alert('All local Sanctuary data has been reset.');
+    }
+  };
+
+  // Auto-save session to localStorage when results view loads
   useEffect(() => {
     if (view === 'results') {
       saveSession({
@@ -1791,7 +3064,7 @@ function App() {
         email:     profile.email     || null,
         age:       profile.age       || null,
         gender:    profile.gender    || null,
-        mindStyle: profile.mindStyle || 'balanced',
+        mindStyle: profile.mindStyle || preferences.mindStyle || 'balanced',
         scores,
         hrv: bioData?.hrv || null,
       }).then(sid => { if (sid) setSessionId(sid); });
@@ -1799,18 +3072,86 @@ function App() {
   }, [view]);
 
   return (
-    <>
-      {view === 'onboarding'  && <OnboardingView  profile={profile} setProfile={setProfile} onEnter={goToAssessment} />}
-      {view === 'assessment'  && <AssessmentView  currentQ={currentQ} setCurrentQ={setCurrentQ} scores={scores} setScores={setScores} setView={setView} />}
-      {view === 'processing'  && <ProcessingView  setView={setView} />}
-      {view === 'results'     && <ResultsView     scores={scores} profile={profile} bioData={bioData} setBioData={setBioData} setView={setView} />}
-      {view === 'feedback'    && <FeedbackView    setView={setView} sessionId={sessionId} saveFeedback={saveFeedback} />}
-    </>
+    <AppShell
+      currentTab={tab}
+      onSelectTab={(selected) => {
+        setTab(selected);
+        if (selected === 'checkin' && view === 'feedback') {
+          setView('results');
+        }
+      }}
+      onOpenSupport={() => setShowGlobalSupport(true)}
+      preferences={preferences}
+    >
+      {/* Global Direct Crisis Modal */}
+      {showGlobalSupport && (
+        <DistressSupportModal
+          onReturnAssessment={() => setShowGlobalSupport(false)}
+          onContinueReflection={() => setShowGlobalSupport(false)}
+        />
+      )}
+
+      {/* Guided Session Modal launched from Library */}
+      {librarySession && (
+        <GuidedSessionModal
+          content={librarySession.protocol}
+          stateName={librarySession.stateName}
+          durationMinutes={preferences.sessionDuration || 3}
+          speechRate={preferences.speechRate || 1.0}
+          onClose={() => setLibrarySession(null)}
+        />
+      )}
+
+      {/* Tab: Check-in / Assessment flow */}
+      {tab === 'checkin' && (
+        <>
+          {view === 'onboarding'  && <OnboardingView profile={profile} setProfile={setProfile} onEnter={goToAssessment} />}
+          {view === 'assessment'  && <AssessmentView currentQ={currentQ} setCurrentQ={setCurrentQ} scores={scores} setScores={setScores} setView={setView} />}
+          {view === 'processing'  && <ProcessingView setView={setView} />}
+          {view === 'results'     && (
+            <ResultsView
+              scores={scores}
+              profile={profile}
+              preferences={preferences}
+              bioData={bioData}
+              setBioData={setBioData}
+              setView={setView}
+              onOpenGuidedSession={(proto, stName) => setLibrarySession({ protocol: proto, stateName: stName })}
+            />
+          )}
+          {view === 'feedback'    && <FeedbackView setView={setView} sessionId={sessionId} saveFeedback={saveFeedback} />}
+        </>
+      )}
+
+      {/* Tab: Practices Library */}
+      {tab === 'protocols' && (
+        <ProtocolsView
+          onStartSession={(proto, stName) => setLibrarySession({ protocol: proto, stateName: stName })}
+        />
+      )}
+
+      {/* Tab: Session History */}
+      {tab === 'history' && (
+        <HistoryView
+          onTakeCheckin={goToAssessment}
+        />
+      )}
+
+      {/* Tab: Personal Preferences */}
+      {tab === 'preferences' && (
+        <PreferencesView
+          preferences={preferences}
+          setPreferences={setPreferences}
+          onClearAllData={handleClearAllData}
+        />
+      )}
+    </AppShell>
   );
 }
 
 const root = createRoot(document.getElementById('root'));
 root.render(<App />);
+
 </script>
 </body>
 </html>
