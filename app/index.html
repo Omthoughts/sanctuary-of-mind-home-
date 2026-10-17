@@ -1246,6 +1246,338 @@
       to { opacity: 1; transform: translate(-50%, 0); }
     }
 
+
+    
+    /* ─── SANCTUARY HOME / SMART ENVIRONMENT STYLES ──── */
+    .home-wrap {
+      max-width: 1040px; margin: 0 auto; padding: 2rem 1.25rem 4rem;
+      animation: viewIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    .home-sim-notice {
+      background: #fffbeb; color: #92400e; border: 1.5px solid #fde68a;
+      border-radius: var(--radius-md); padding: 0.85rem 1.15rem;
+      font-size: 0.78rem; font-weight: 600; line-height: 1.45;
+      margin-bottom: 1.5rem; display: flex; align-items: flex-start; gap: 0.75rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .home-hero {
+      margin-bottom: 1.5rem; display: flex; flex-wrap: wrap;
+      align-items: flex-start; justify-content: space-between; gap: 1rem;
+    }
+    .home-hero-title {
+      font-family: var(--font-serif); font-size: 1.75rem;
+      font-weight: 600; color: var(--slate-900); margin: 0 0 0.35rem;
+    }
+    .home-hero-sub {
+      font-size: 0.86rem; color: var(--slate-600); margin: 0; line-height: 1.5;
+    }
+    .home-mcp-status {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.35rem 0.8rem; border-radius: var(--radius-full);
+      font-size: 0.72rem; font-weight: 700; background: white;
+      border: 1px solid var(--slate-200); box-shadow: var(--shadow-sm);
+    }
+    .home-mcp-status.live { color: #15803d; border-color: #86efac; background: #f0fdf4; }
+    .home-mcp-status.fallback { color: #475569; border-color: var(--slate-200); background: var(--slate-50); }
+
+    .home-scenes-hd {
+      display: flex; align-items: center; justify-content: space-between;
+      margin: 1.75rem 0 0.85rem;
+    }
+    .home-section-title {
+      font-size: 1.05rem; font-weight: 700; color: var(--slate-900); margin: 0;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .home-scenes-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.25rem; margin-bottom: 1.75rem;
+    }
+    .scene-card {
+      background: white; border-radius: var(--radius-md);
+      border: 1.5px solid var(--slate-200); padding: 1.25rem;
+      display: flex; flex-direction: column; justify-content: space-between;
+      transition: all 0.2s ease; box-shadow: var(--shadow-sm); position: relative;
+    }
+    .scene-card:hover {
+      transform: translateY(-2px); box-shadow: var(--shadow-md);
+    }
+    .scene-card.active {
+      border-color: var(--indigo); background: #f8faff;
+      box-shadow: 0 0 0 2px var(--indigo-light), var(--shadow-md);
+    }
+    .scene-badge {
+      display: inline-block; font-size: 0.65rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 7px;
+      border-radius: 4px; margin-bottom: 0.45rem;
+    }
+    .scene-badge.calm { background: #fef3c7; color: #b45309; }
+    .scene-badge.focus { background: #e0f2fe; color: #0369a1; }
+    .scene-badge.sleep { background: #ede9fe; color: #6d28d9; }
+
+    .scene-title {
+      font-size: 1.1rem; font-weight: 700; color: var(--slate-900); margin: 0;
+    }
+    .scene-desc {
+      font-size: 0.8rem; color: var(--slate-600); margin: 0.4rem 0 0.9rem; line-height: 1.45;
+    }
+    .scene-targets-box {
+      background: var(--slate-50); border: 1px solid var(--slate-200);
+      border-radius: var(--radius-sm); padding: 0.65rem 0.85rem;
+      font-size: 0.74rem; color: var(--slate-700); margin-bottom: 1.15rem;
+    }
+    .scene-target-row {
+      display: flex; align-items: center; justify-content: space-between; padding: 0.2rem 0;
+    }
+    .scene-actions {
+      display: flex; gap: 0.5rem;
+    }
+    .scene-btn {
+      flex: 1; padding: 0.55rem 0.8rem; border-radius: var(--radius-sm);
+      font-size: 0.78rem; font-weight: 600; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
+      border: none; transition: all 0.15s ease;
+    }
+    .scene-btn-primary { background: var(--indigo); color: white; }
+    .scene-btn-primary:hover { background: var(--indigo-hover); }
+    .scene-btn-secondary { background: var(--slate-100); color: var(--slate-700); border: 1px solid var(--slate-200); }
+    .scene-btn-secondary:hover { background: var(--slate-200); }
+
+    .home-active-banner {
+      background: #eff6ff; border: 1.5px solid #bfdbfe; border-radius: var(--radius-md);
+      padding: 1.1rem 1.35rem; margin-bottom: 1.75rem; display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: space-between; gap: 1rem;
+      animation: viewIn 0.25s ease both;
+    }
+    .home-active-left {
+      display: flex; align-items: center; gap: 0.85rem;
+    }
+    .home-active-dot {
+      width: 12px; height: 12px; border-radius: 50%; background: #2563eb;
+      box-shadow: 0 0 0 4px #dbeafe; animation: pulse 2s infinite;
+    }
+    .home-active-title {
+      font-size: 0.95rem; font-weight: 700; color: #1e3a8a; margin: 0;
+    }
+    .home-active-sub {
+      font-size: 0.76rem; color: #3b82f6; margin: 0.2rem 0 0;
+    }
+    .home-active-btns {
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+
+    .home-devices-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem; margin-bottom: 2rem;
+    }
+    .device-card {
+      background: white; border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md); padding: 1.25rem;
+      box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .device-hd {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;
+    }
+    .device-title-wrap {
+      display: flex; align-items: center; gap: 0.55rem;
+    }
+    .device-title {
+      font-size: 0.92rem; font-weight: 700; color: var(--slate-900); margin: 0;
+    }
+    .device-power-btn {
+      padding: 0.25rem 0.75rem; border-radius: var(--radius-full);
+      font-size: 0.72rem; font-weight: 700; border: none; cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .device-power-btn.on { background: #dcfce7; color: #15803d; }
+    .device-power-btn.off { background: var(--slate-100); color: var(--slate-500); }
+
+    .device-control-row {
+      margin-bottom: 0.85rem;
+    }
+    .device-label-row {
+      display: flex; justify-content: space-between; font-size: 0.75rem;
+      color: var(--slate-600); font-weight: 500; margin-bottom: 0.35rem;
+    }
+    .device-slider {
+      width: 100%; accent-color: var(--indigo); cursor: pointer;
+    }
+    .device-swatch-box {
+      display: flex; align-items: center; gap: 0.65rem; margin-top: 0.35rem;
+    }
+    .device-swatch {
+      width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--slate-300);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1); flex-shrink: 0;
+    }
+    .device-pills {
+      display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.35rem;
+    }
+    .device-pill-btn {
+      padding: 0.3rem 0.65rem; border-radius: var(--radius-full);
+      font-size: 0.72rem; font-weight: 600; border: 1px solid var(--slate-200);
+      background: var(--slate-50); color: var(--slate-700); cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .device-pill-btn.active {
+      background: var(--indigo-light); color: var(--indigo); border-color: var(--indigo-mid);
+    }
+    .device-temp-stepper {
+      display: flex; align-items: center; gap: 0.75rem; margin-top: 0.35rem;
+    }
+    .device-step-btn {
+      width: 32px; height: 32px; border-radius: var(--radius-sm);
+      border: 1px solid var(--slate-200); background: var(--slate-100);
+      color: var(--slate-800); font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .device-step-btn:hover { background: var(--slate-200); }
+
+    /* Timeline styles */
+    .timeline-card {
+      background: white; border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md); padding: 1.25rem 1.35rem; margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .timeline-hd {
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--slate-100); padding-bottom: 0.75rem; margin-bottom: 0.75rem;
+    }
+    .timeline-item {
+      display: flex; gap: 0.85rem; padding: 0.65rem 0;
+      border-bottom: 1px solid var(--slate-100); font-size: 0.78rem;
+    }
+    .timeline-item:last-child { border-bottom: none; }
+    .timeline-time {
+      font-size: 0.7rem; color: var(--slate-400); font-family: monospace; white-space: nowrap; margin-top: 2px;
+    }
+    .timeline-content {
+      flex: 1;
+    }
+    .timeline-title-row {
+      display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.2rem;
+    }
+    .timeline-badge {
+      font-size: 0.62rem; font-weight: 700; text-transform: uppercase;
+      padding: 1px 6px; border-radius: 4px; white-space: nowrap;
+    }
+    .timeline-badge.user_action { background: #ede9fe; color: #6d28d9; }
+    .timeline-badge.mcp_tool_call { background: #dcfce7; color: #15803d; }
+    .timeline-badge.simulated_hardware { background: #fae8ff; color: #86198f; }
+    .timeline-badge.wellness_ready { background: #fee2e2; color: #b91c1c; }
+
+    /* ─── MCP CLIENT & ACTIVITY DRAWER STYLES ──── */
+    .mcp-bar {
+      background: white; border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md); padding: 0.85rem 1.15rem;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 0.75rem; box-shadow: var(--shadow-sm); margin-bottom: 1.25rem;
+    }
+    .mcp-bar-left {
+      display: flex; align-items: center; gap: 0.65rem;
+    }
+    .mcp-dot {
+      width: 10px; height: 10px; border-radius: 50%; display: inline-block;
+    }
+    .mcp-dot.online { background: var(--green); box-shadow: 0 0 8px rgba(34,197,94,0.5); }
+    .mcp-dot.offline { background: var(--slate-400); }
+    .mcp-dot.connecting { background: var(--amber); animation: pulseOp 1s infinite; }
+    .mcp-status-title {
+      font-size: 0.82rem; font-weight: 700; color: var(--slate-900); display: block;
+    }
+    .mcp-status-endpoint {
+      font-size: 0.7rem; color: var(--slate-500); font-family: monospace; display: block;
+    }
+    .mcp-bar-actions {
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .mcp-btn {
+      padding: 0.45rem 0.8rem; border-radius: var(--radius-sm); font-size: 0.75rem;
+      font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.15s ease;
+      display: inline-flex; align-items: center; gap: 0.35rem;
+    }
+    .mcp-btn-primary {
+      background: var(--indigo); color: white; border: none;
+    }
+    .mcp-btn-primary:hover { background: var(--indigo-hover); }
+    .mcp-btn-secondary {
+      background: var(--slate-100); color: var(--slate-700); border: 1px solid var(--slate-200);
+    }
+    .mcp-btn-secondary:hover { background: var(--slate-200); }
+
+    /* MCP Activity Drawer */
+    .mcp-activity-drawer {
+      background: var(--slate-900); color: var(--slate-100);
+      border-radius: var(--radius-md); padding: 1rem 1.15rem;
+      margin-bottom: 1.25rem; font-family: monospace; font-size: 0.74rem;
+      animation: viewIn 0.25s ease both;
+    }
+    .mcp-activity-hd {
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--slate-700); padding-bottom: 0.5rem; margin-bottom: 0.65rem;
+    }
+    .mcp-activity-title {
+      font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--indigo-light);
+    }
+    .mcp-activity-list {
+      max-height: 180px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .mcp-log-item {
+      display: flex; align-items: baseline; justify-content: space-between; gap: 0.5rem;
+      padding: 0.25rem 0.4rem; border-radius: 4px; background: rgba(255,255,255,0.05);
+    }
+    .mcp-log-time { color: var(--slate-400); font-size: 0.68rem; }
+    .mcp-log-method { color: #38bdf8; font-weight: 600; }
+    .mcp-log-status { color: #4ade80; }
+    .mcp-log-status.err { color: #f87171; }
+    .mcp-log-latency { color: var(--slate-400); font-size: 0.68rem; }
+
+    /* Source Badges on Cards */
+    .mcp-source-badge {
+      font-size: 0.64rem; font-weight: 600; padding: 2px 6px; border-radius: 4px;
+      display: inline-flex; align-items: center; gap: 0.25rem; margin-bottom: 0.45rem;
+    }
+    .mcp-source-badge.live {
+      background: #e0e7ff; color: #4338ca; border: 1px solid #c7d2fe;
+    }
+    .mcp-source-badge.fallback {
+      background: var(--slate-100); color: var(--slate-600); border: 1px solid var(--slate-200);
+    }
+
+    /* Ambient Simulation Box in Guided Session */
+    .session-ambient-sim {
+      background: #fdf4ff; border: 1px solid #f0abfc;
+      border-radius: 12px; padding: 0.85rem; margin-top: 1rem; text-align: left;
+    }
+    .session-ambient-hd {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: #86198f; margin-bottom: 0.35rem;
+    }
+    .session-ambient-btns {
+      display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.4rem;
+    }
+    .session-ambient-btn {
+      padding: 0.35rem 0.65rem; border-radius: 6px; font-size: 0.72rem;
+      font-weight: 600; background: white; border: 1px solid #d946ef;
+      color: #86198f; cursor: pointer; font-family: inherit;
+    }
+    .session-ambient-feedback {
+      background: white; border: 1px solid #e879f9; border-radius: 8px;
+      padding: 0.5rem 0.65rem; font-size: 0.74rem; color: #701a75;
+      margin-top: 0.5rem; line-height: 1.35;
+    }
+
+    /* Practice Detail Modal */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 80; display: flex; align-items: center; justify-content: center;
+      background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px); padding: 1.5rem;
+      animation: overlayIn .25s ease both;
+    }
+    .modal-card {
+      background: white; border-radius: 20px; padding: 1.75rem; max-width: 480px; width: 100%;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25); text-align: left; animation: sheetIn .35s ease both;
+      position: relative; max-height: 90vh; overflow-y: auto;
+    }
+
   </style>
 </head>
 <body>
@@ -1271,6 +1603,7 @@ const STORAGE_KEYS = {
   SESSIONS: 'sanctuary_sessions',
   FEEDBACK: 'sanctuary_feedback',
   PREFERENCES: 'sanctuary_preferences',
+  AGENT_CONSENT: 'sanctuary_agent_consent',
 };
 
 const DEFAULT_PREFERENCES = {
@@ -1323,6 +1656,7 @@ const localStore = {
       localStorage.removeItem(STORAGE_KEYS.SESSIONS);
       localStorage.removeItem(STORAGE_KEYS.FEEDBACK);
       localStorage.removeItem(STORAGE_KEYS.PREFERENCES);
+      localStorage.removeItem(STORAGE_KEYS.AGENT_CONSENT);
       return true;
     } catch (e) {
       return false;
@@ -1356,15 +1690,6 @@ async function saveSession({ name, email, age, gender, mindStyle, scores, hrv })
   };
 
   localStore.append(STORAGE_KEYS.SESSIONS, sessionRecord);
-
-  if (supabase) {
-    try {
-      // Remote branch (disabled by default)
-    } catch (err) {
-      console.warn('Optional remote save skipped:', err);
-    }
-  }
-
   return localId;
 }
 
@@ -1384,8 +1709,6 @@ async function saveFeedback({ name, email, rating, feedback, sessionId, consentS
 
   localStore.append(STORAGE_KEYS.FEEDBACK, feedbackRecord);
 
-  // External Google Sheets is disabled by default.
-  // Transmit only if explicit user consent toggle was checked
   if (consentShare) {
     try {
       await fetch('https://script.google.com/macros/s/AKfycby_2P5y_uCLLru2wugpFYQhbq9bXqOyEL5tMyv0Ce08yA3C--GoS4FajtCof4EXF7TpqA/exec', {
@@ -1399,6 +1722,90 @@ async function saveFeedback({ name, email, rating, feedback, sessionId, consentS
   }
 
   return localId;
+}
+
+/* ─── BROWSER MCP STREAMABLE HTTP CLIENT ─────────── */
+class BrowserMcpClient {
+  constructor(endpoint = 'http://127.0.0.1:3333/mcp') {
+    this.endpoint = endpoint;
+    this.sessionId = null;
+    this.protocolVersion = '2025-11-25';
+    this.reqId = 1;
+  }
+
+  async sendJsonRpc(method, params = {}) {
+    const id = this.reqId++;
+    const headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json, text/event-stream'
+    };
+    if (this.sessionId) {
+      headers['Mcp-Session-Id'] = this.sessionId;
+    }
+    if (method !== 'initialize') {
+      headers['Mcp-Protocol-Version'] = this.protocolVersion;
+    }
+
+    const t0 = performance.now();
+    const res = await fetch(this.endpoint, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        jsonrpc: '2.0',
+        id,
+        method,
+        params
+      })
+    });
+
+    const latencyMs = Math.round(performance.now() - t0);
+
+    const newSessionId = res.headers.get('mcp-session-id');
+    if (newSessionId) {
+      this.sessionId = newSessionId;
+    }
+
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`HTTP ${res.status}: ${errText || res.statusText}`);
+    }
+
+    if (res.status === 202) {
+      return { status: 202, latencyMs };
+    }
+
+    const contentType = res.headers.get('content-type') || '';
+    if (contentType.includes('text/event-stream')) {
+      const text = await res.text();
+      const match = text.match(/data:\s*(.+)/);
+      if (match) {
+        return { data: JSON.parse(match[1]), latencyMs };
+      }
+      return { data: null, latencyMs };
+    }
+
+    const data = await res.json();
+    return { data, latencyMs };
+  }
+
+  async connect() {
+    const initRes = await this.sendJsonRpc('initialize', {
+      protocolVersion: this.protocolVersion,
+      capabilities: {},
+      clientInfo: { name: 'sanctuary-web-client', version: '1.0.0' }
+    });
+
+    await this.sendJsonRpc('notifications/initialized');
+    return initRes;
+  }
+
+  async listTools() {
+    return this.sendJsonRpc('tools/list', {});
+  }
+
+  async callTool(name, args = {}) {
+    return this.sendJsonRpc('tools/call', { name, arguments: args });
+  }
 }
 
 /* ─── ICONS ─────────────────────────────────────── */
@@ -1427,6 +1834,8 @@ const icons = {
   star:     "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z",
   send:     "M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z",
   home:     "M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z",
+  sliders:  ["M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"],
+  fan:      ["M12 12m-3 0a3 3 0 1 0 6 0 3 3 0 1 0-6 0", "M12 9C10.5 4 6 5 6 7c0 2.5 3.5 3 6 2", "M15 12c5 1.5 4 6 2 6-2.5 0-3-3.5-2-6", "M12 15c1.5 5 6 4 6 2 0-2.5-3.5-3-6-2", "M9 12c-5-1.5-4-6-2-6 2.5 0 3 3.5 2 6"],
   bookOpen: ["M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z", "M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"],
   history:  ["M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8", "M3 3v5h5", "M12 7v5l4 2"],
   settings: ["M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z", "M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"],
@@ -1434,6 +1843,7 @@ const icons = {
   volume:   ["M11 5L6 9H2v6h4l5 4V5z", "M15.54 8.46a5 5 0 0 1 0 7.07"],
   volumeX:  ["M11 5L6 9H2v6h4l5 4V5z", "M23 9l-6 6", "M17 9l6 6"],
   rotateCcw:["M1 4v6h6", "M3.51 15a9 9 0 1 0 2.13-9.36L1 10"],
+  terminal: ["M4 17l6-6-6-6", "M12 19h8"],
 };
 
 /* ─── DATA & PROTOCOLS ───────────────────────────── */
@@ -1462,19 +1872,19 @@ const QUESTIONS = [
 
 const LIBRARY = {
   rajas: {
-    logical:   { title:"Sympathetic Down-Regulation", desc:"Your amygdala is over-firing. Use a 4-7-8 breath ratio to mechanically trigger the parasympathetic (Vagus Nerve).", step1:"Inhale for 4 seconds to oxygenate.", step2:"Exhale for 8 seconds to signal safety.", action:"Initiate Regulation" },
-    emotional: { title:"Holding Space for Yourself",  desc:"Your heart is racing because it cares. Let's wrap that anxiety in a blanket of breath. You are safe to let go.", step1:"Breathe in acceptance.",               step2:"Breathe out the weight.",             action:"Begin Breathing" },
-    spiritual: { title:"Surrendering to Divine Will", desc:"This restlessness is a call to trust. Release the burden of being the Doer. Breathe in Grace, breathe out control.", step1:"Inhale the present moment.",          step2:"Exhale into the unknown.",            action:"Offer Prayer" },
+    logical:   { id: 'rajas_logical', title:"Sympathetic Down-Regulation", desc:"Your amygdala is over-firing. Use a 4-7-8 breath ratio to mechanically trigger the parasympathetic (Vagus Nerve).", step1:"Inhale for 4 seconds to oxygenate.", step2:"Exhale for 8 seconds to signal safety.", action:"Initiate Regulation", techniques:["breath_retention", "paced_breathing"] },
+    emotional: { id: 'rajas_emotional', title:"Holding Space for Yourself",  desc:"Your heart is racing because it cares. Let's wrap that anxiety in a blanket of breath. You are safe to let go.", step1:"Breathe in acceptance.",               step2:"Breathe out the weight.",             action:"Begin Breathing", techniques:["gentle_breathing", "self_compassion"] },
+    spiritual: { id: 'rajas_spiritual', title:"Surrendering to Divine Will", desc:"This restlessness is a call to trust. Release the burden of being the Doer. Breathe in Grace, breathe out control.", step1:"Inhale the present moment.",          step2:"Exhale into the unknown.",            action:"Offer Prayer", techniques:["mantra", "contemplation"] },
   },
   tamas: {
-    logical:   { title:"Motor Cortex Activation",  desc:"The Default Mode Network is trapping you in rumination. Immediate motor engagement switches neural networks.", step1:"Stand up immediately.",      step2:"Shake hands vigorously.", action:"Activate Protocol" },
-    emotional: { title:"Igniting the Spark",        desc:"You feel heavy, and that is okay. We are going to gently move together to remind your body it is capable of change.", step1:"Rise like the sun.", step2:"Shake off the dust.", action:"Move Gently" },
-    spiritual: { title:"Awakening the Spirit",      desc:"The veil of inertia is heavy, but your spirit is light. Use movement to break the shell and let your inner light shine.", step1:"Stand and offer presence.", step2:"Release the stagnation.", action:"Awaken Now" },
+    logical:   { id: 'tamas_logical', title:"Motor Cortex Activation",  desc:"The Default Mode Network is trapping you in rumination. Immediate motor engagement switches neural networks.", step1:"Stand up immediately.",      step2:"Shake hands vigorously.", action:"Activate Protocol", techniques:["vigorous_movement", "motor_activation"] },
+    emotional: { id: 'tamas_emotional', title:"Igniting the Spark",        desc:"You feel heavy, and that is okay. We are going to gently move together to remind your body it is capable of change.", step1:"Rise like the sun.", step2:"Shake off the dust.", action:"Move Gently", techniques:["vigorous_movement", "emotional_activation"] },
+    spiritual: { id: 'tamas_spiritual', title:"Awakening the Spirit",      desc:"The veil of inertia is heavy, but your spirit is light. Use movement to break the shell and let your inner light shine.", step1:"Stand and offer presence.", step2:"Release the stagnation.", action:"Awaken Now", techniques:["vigorous_movement", "spiritual_activation"] },
   },
   sattva: {
-    logical:   { title:"Maintenance of Clarity",  desc:"Your executive functions are optimal. Use this state for high-cognitive load tasks without attachment to the result.", step1:"Observe the clarity.",  step2:"Direct it to purpose.",  action:"Deep Focus" },
-    emotional: { title:"Savoring the Calm",        desc:"You are in a beautiful state of flow. Pause to feel gratitude for this peace, knowing it is a gift to be shared.", step1:"Smile internally.",      step2:"Send love outward.",      action:"Express Gratitude" },
-    spiritual: { title:"Service to the Divine",   desc:"Clarity is a blessing. Offer this clear mind as an instrument for the greater good. Remain humble in this light.", step1:"Witness the peace.",     step2:"Dedicate it to all.",     action:"Offer Service" },
+    logical:   { id: 'sattva_logical', title:"Maintenance of Clarity",  desc:"Your executive functions are optimal. Use this state for high-cognitive load tasks without attachment to the result.", step1:"Observe the clarity.",  step2:"Direct it to purpose.",  action:"Deep Focus", techniques:["mindful_focus", "cognitive_clarity"] },
+    emotional: { id: 'sattva_emotional', title:"Savoring the Calm",        desc:"You are in a beautiful state of flow. Pause to feel gratitude for this peace, knowing it is a gift to be shared.", step1:"Smile internally.",      step2:"Send love outward.",      action:"Express Gratitude", techniques:["gratitude", "heart_resonance"] },
+    spiritual: { id: 'sattva_spiritual', title:"Service to the Divine",   desc:"Clarity is a blessing. Offer this clear mind as an instrument for the greater good. Remain humble in this light.", step1:"Witness the peace.",     step2:"Dedicate it to all.",     action:"Offer Service", techniques:["reverence", "devotional_service"] },
   },
 };
 
@@ -2021,8 +2431,58 @@ function DistressSupportModal({ onReturnAssessment, onContinueReflection }) {
   );
 }
 
-/* ─── GUIDED SESSION MODAL (VOICE & SIMULATION) ───── */
-function GuidedSessionModal({ content, stateName, durationMinutes = 3, speechRate = 1.0, onClose }) {
+/* ─── PRACTICE DETAIL MODAL ───────────────────────── */
+function PracticeDetailModal({ practice, onClose }) {
+  if (!practice) return null;
+  return (
+    <div className="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()} role="dialog" aria-modal="true">
+      <div className="modal-card">
+        <button
+          type="button"
+          className="bio-close"
+          onClick={onClose}
+          aria-label="Close details"
+          style={{position:'absolute', top:'1rem', right:'1rem', background:'none', border:'none', cursor:'pointer'}}
+        >
+          <Icon d={icons.x} size={20} />
+        </button>
+
+        <span className={`proto-card-badge ${practice.guna}`}>
+          {practice.guna} · {practice.worldview || practice.style}
+        </span>
+        <h2 style={{fontSize:'1.3rem', fontWeight:700, color:'var(--slate-900)', marginTop:'.5rem', marginBottom:'.4rem'}}>
+          {practice.title}
+        </h2>
+        <p style={{fontSize:'.84rem', color:'var(--slate-600)', lineHeight:1.45, marginBottom:'1rem'}}>
+          {practice.description || practice.desc}
+        </p>
+
+        <div style={{background:'var(--slate-50)', border:'1px solid var(--slate-200)', borderRadius:12, padding:'0.85rem', marginBottom:'1rem'}}>
+          <h4 style={{fontSize:'.8rem', fontWeight:700, color:'var(--slate-900)', marginBottom:'.4rem'}}>Step-by-Step Instructions</h4>
+          <p style={{fontSize:'.8rem', color:'var(--slate-700)', marginBottom:'.35rem'}}>
+            <strong>Step 1:</strong> {practice.step1 || (practice.steps && practice.steps[0]?.instruction)}
+          </p>
+          <p style={{fontSize:'.8rem', color:'var(--slate-700)'}}>
+            <strong>Step 2:</strong> {practice.step2 || (practice.steps && practice.steps[1]?.instruction)}
+          </p>
+        </div>
+
+        {practice.adaptation_notice && (
+          <div style={{background:'var(--indigo-light)', border:'1px solid var(--indigo-mid)', borderRadius:10, padding:'.65rem .85rem', marginBottom:'1rem', fontSize:'.76rem', color:'var(--indigo)'}}>
+            <strong>Adaptation Notice:</strong> {practice.adaptation_notice}
+          </div>
+        )}
+
+        <div className="res-disclaimer-notice" style={{marginTop:'.5rem', textAlign:'left'}}>
+          <strong>Safety &amp; Wellness Notice:</strong> This protocol is for self-reflection and nervous system regulation. It is strictly non-diagnostic and not a medical intervention.
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── GUIDED SESSION MODAL (VOICE & AMBIENT SIM) ─── */
+function GuidedSessionModal({ content, stateName, durationMinutes = 3, speechRate = 1.0, onTriggerAmbient, onClose }) {
   const initialSeconds = Math.max(durationMinutes * 60, 30);
   const [seconds, setSeconds] = useState(initialSeconds);
   const [isPaused, setIsPaused] = useState(false);
@@ -2030,6 +2490,7 @@ function GuidedSessionModal({ content, stateName, durationMinutes = 3, speechRat
   const [speechSupported, setSpeechSupported] = useState(false);
   const [reflectionInput, setReflectionInput] = useState('');
   const [reflectionReply, setReflectionReply] = useState('');
+  const [ambientSimFeedback, setAmbientSimFeedback] = useState(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
@@ -2043,7 +2504,6 @@ function GuidedSessionModal({ content, stateName, durationMinutes = 3, speechRat
     return () => clearInterval(timer);
   }, [isPaused, seconds]);
 
-  // Clean up speech synthesis on unmount
   useEffect(() => {
     return () => {
       if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
@@ -2059,7 +2519,9 @@ function GuidedSessionModal({ content, stateName, durationMinutes = 3, speechRat
       setIsSpeaking(false);
     } else {
       window.speechSynthesis.cancel();
-      const narrationText = `${content.title}. ${content.desc}. Step one: ${content.step1}. Step two: ${content.step2}.`;
+      const step1Text = content.step1 || (content.steps && content.steps[0]?.instruction) || '';
+      const step2Text = content.step2 || (content.steps && content.steps[1]?.instruction) || '';
+      const narrationText = `${content.title}. ${content.desc || content.description}. Step one: ${step1Text}. Step two: ${step2Text}.`;
       const utterance = new SpeechSynthesisUtterance(narrationText);
       utterance.rate = speechRate || 1.0;
       utterance.pitch = 1.0;
@@ -2086,6 +2548,13 @@ function GuidedSessionModal({ content, stateName, durationMinutes = 3, speechRat
     setReflectionInput('');
   };
 
+  const handleAmbientSim = async (actionType, setting) => {
+    if (onTriggerAmbient) {
+      const res = await onTriggerAmbient(actionType, setting);
+      setAmbientSimFeedback(res);
+    }
+  };
+
   const mins = Math.floor(seconds / 60);
   const secs = seconds % 60;
   const timeFormatted = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
@@ -2096,7 +2565,7 @@ function GuidedSessionModal({ content, stateName, durationMinutes = 3, speechRat
         <span className="session-badge">{stateName}</span>
         <h3 id="session-title" className="session-title">{content.title}</h3>
         <p style={{fontSize: '.85rem', color: 'var(--slate-500)', marginBottom: '1rem'}}>
-          {content.desc}
+          {content.desc || content.description}
         </p>
 
         <div className="session-timer-circle" aria-live="polite">
@@ -2106,14 +2575,56 @@ function GuidedSessionModal({ content, stateName, durationMinutes = 3, speechRat
 
         <div className="session-step-box">
           <h5>Step 1</h5>
-          <p>{content.step1}</p>
+          <p>{content.step1 || (content.steps && content.steps[0]?.instruction)}</p>
         </div>
         <div className="session-step-box">
           <h5>Step 2</h5>
-          <p>{content.step2}</p>
+          <p>{content.step2 || (content.steps && content.steps[1]?.instruction)}</p>
         </div>
 
-        {/* Voice Narration & Simulation Panel */}
+        {/* Ambient Simulation Controls */}
+        <div className="session-ambient-sim">
+          <div className="session-ambient-hd">
+            Simulate Smart-Home &amp; Ambient Actions (MCP simulate_ambient_action)
+          </div>
+          <p style={{fontSize:'.72rem', color:'#86198f', margin:0}}>
+            Test simulated environment adaptations. Software simulation only—no physical Echo, bulb, or IoT hardware connected.
+          </p>
+          <div className="session-ambient-btns">
+            <button
+              type="button"
+              className="session-ambient-btn"
+              onClick={() => handleAmbientSim('dim_lights', 'warm amber 2700K')}
+            >
+              Dim Lights (Warm Amber)
+            </button>
+            <button
+              type="button"
+              className="session-ambient-btn"
+              onClick={() => handleAmbientSim('ambient_soundscape', 'gentle rain')}
+            >
+              Play Rain Soundscape
+            </button>
+            <button
+              type="button"
+              className="session-ambient-btn"
+              onClick={() => handleAmbientSim('gentle_focus_cue', 'soft chime')}
+            >
+              Emit Focus Chime
+            </button>
+          </div>
+          {ambientSimFeedback && (
+            <div className="session-ambient-feedback">
+              <strong>{ambientSimFeedback.simulation_label || '[SIMULATION MODE]'}</strong>
+              <div style={{marginTop:'.2rem'}}>{ambientSimFeedback.details?.effect || ambientSimFeedback.status}</div>
+              <div style={{fontSize:'.68rem', color:'#a21caf', marginTop:'.2rem'}}>
+                {ambientSimFeedback.honesty_disclosure}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Voice Narration Panel */}
         <div className="session-voice-panel">
           <div className="session-voice-hd">
             <span>Voice &amp; Audio Pacing</span>
@@ -2139,7 +2650,6 @@ function GuidedSessionModal({ content, stateName, durationMinutes = 3, speechRat
             )}
           </div>
 
-          {/* Text/Voice Reflection Fallback */}
           <div className="session-reflection-box">
             <form onSubmit={handleReflectionSubmit} className="session-reflection-input-row">
               <input
@@ -2189,39 +2699,112 @@ function GuidedSessionModal({ content, stateName, durationMinutes = 3, speechRat
   );
 }
 
-/* ─── PRACTICES LIBRARY VIEW ─────────────────────── */
-function ProtocolsView({ onStartSession }) {
+/* ─── PRACTICES LIBRARY VIEW (WITH REAL MCP) ─────── */
+function ProtocolsView({ mcpStatus, mcpPractices, mcpLogs, onRefreshMcp, onStartSession }) {
   const [gunaFilter, setGunaFilter] = useState('all');
-  const [styleFilter, setStyleFilter] = useState('all');
+  const [showLogs, setShowLogs] = useState(false);
+  const [selectedDetail, setSelectedDetail] = useState(null);
 
-  const items = useMemo(() => {
+  // Canonical fallback items if MCP is offline
+  const localCanonicalItems = useMemo(() => {
     const list = [];
     ['sattva', 'rajas', 'tamas'].forEach(guna => {
       ['logical', 'emotional', 'spiritual'].forEach(style => {
         const p = LIBRARY[guna][style];
         list.push({
+          id: p.id,
           guna,
-          style,
+          worldview: style,
           ...p,
-          stateName: guna === 'sattva' ? 'Clear Energy (Sattva)' : guna === 'rajas' ? 'Active Energy (Rajas)' : 'Resting Energy (Tamas)'
+          stateName: guna === 'sattva' ? 'Clear Energy (Sattva)' : guna === 'rajas' ? 'Active Energy (Rajas)' : 'Resting Energy (Tamas)',
+          isMcpSource: false
         });
       });
     });
     return list;
   }, []);
 
+  // Format MCP practices if available
+  const items = useMemo(() => {
+    if (mcpPractices && mcpPractices.length > 0) {
+      return mcpPractices.map(p => ({
+        ...p,
+        step1: p.step1 || (LIBRARY[p.guna]?.[p.worldview]?.step1) || 'Observe the practice steps.',
+        step2: p.step2 || (LIBRARY[p.guna]?.[p.worldview]?.step2) || 'Follow calming guidance.',
+        stateName: p.guna === 'sattva' ? 'Clear Energy (Sattva)' : p.guna === 'rajas' ? 'Active Energy (Rajas)' : 'Resting Energy (Tamas)',
+        isMcpSource: true
+      }));
+    }
+    return localCanonicalItems;
+  }, [mcpPractices, localCanonicalItems]);
+
   const filtered = items.filter(it => {
     if (gunaFilter !== 'all' && it.guna !== gunaFilter) return false;
-    if (styleFilter !== 'all' && it.style !== styleFilter) return false;
     return true;
   });
 
   return (
     <div className="view">
+      {selectedDetail && (
+        <PracticeDetailModal
+          practice={selectedDetail}
+          onClose={() => setSelectedDetail(null)}
+        />
+      )}
       <div className="proto-wrap">
         <header className="proto-header">
           <h1 className="proto-title">Guided Practice Library</h1>
           <p className="proto-sub">Explore the nine evidence-based and contemplative protocols tailored for every inner state.</p>
+
+          {/* Real MCP Connection Status Bar */}
+          <div className="mcp-bar" style={{marginTop:'1.25rem'}}>
+            <div className="mcp-bar-left">
+              <span className={`mcp-dot ${mcpStatus}`} />
+              <div>
+                <span className="mcp-status-title">
+                  {mcpStatus === 'connected' ? '● MCP Server Connected (Live Streamable HTTP)' :
+                   mcpStatus === 'connecting' ? 'Connecting to MCP Server...' :
+                   '○ MCP Server Offline (Using Verified Local Fallback)'}
+                </span>
+                <span className="mcp-status-endpoint">http://127.0.0.1:3333/mcp (Protocol 2025-11-25)</span>
+              </div>
+            </div>
+            <div className="mcp-bar-actions">
+              <button type="button" className="mcp-btn mcp-btn-primary" onClick={onRefreshMcp}>
+                <Icon d={icons.rotateCcw} size={14} />
+                <span>{mcpStatus === 'connected' ? 'Refresh from MCP' : 'Connect to MCP'}</span>
+              </button>
+              <button type="button" className="mcp-btn mcp-btn-secondary" onClick={() => setShowLogs(v => !v)}>
+                <Icon d={icons.terminal} size={14} />
+                <span>Activity Log ({mcpLogs.length})</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Expandable Activity Drawer */}
+          {showLogs && (
+            <div className="mcp-activity-drawer">
+              <div className="mcp-activity-hd">
+                <span className="mcp-activity-title">Live MCP Activity Feed (Streamable HTTP JSON-RPC 2.0)</span>
+                <span style={{color:'var(--slate-400)', fontSize:'.68rem'}}>Loopback 127.0.0.1</span>
+              </div>
+              <div className="mcp-activity-list">
+                {mcpLogs.length === 0 ? (
+                  <div style={{color:'var(--slate-500)', padding:'.5rem 0'}}>No MCP operations recorded yet. Click Connect to initiate handshake.</div>
+                ) : (
+                  mcpLogs.slice().reverse().map(l => (
+                    <div key={l.id} className="mcp-log-item">
+                      <span className="mcp-log-time">{l.time}</span>
+                      <span className="mcp-log-method">{l.method}{l.tool ? `:${l.tool}` : ''}</span>
+                      <span className={`mcp-log-status ${l.isError ? 'err' : ''}`}>{l.status}</span>
+                      <span className="mcp-log-latency">{l.latencyMs}ms</span>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          )}
+
           <div className="proto-filters">
             {['all', 'sattva', 'rajas', 'tamas'].map(g => (
               <button
@@ -2240,26 +2823,747 @@ function ProtocolsView({ onStartSession }) {
           {filtered.map((proto, idx) => (
             <div key={idx} className="proto-card">
               <div>
-                <span className={`proto-card-badge ${proto.guna}`}>
-                  {proto.guna} · {proto.style}
-                </span>
+                <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+                  <span className={`proto-card-badge ${proto.guna}`}>
+                    {proto.guna} · {proto.worldview}
+                  </span>
+                  <span className={`mcp-source-badge ${proto.isMcpSource ? 'live' : 'fallback'}`}>
+                    {proto.isMcpSource ? 'Live MCP: list_guided_practices' : 'Local 9-Protocol Matrix'}
+                  </span>
+                </div>
                 <h3 className="proto-card-title">{proto.title}</h3>
-                <p className="proto-card-desc">{proto.desc}</p>
+                <p className="proto-card-desc">{proto.desc || proto.description}</p>
                 <div className="proto-card-steps">
                   <div className="proto-step-row"><strong>1:</strong> {proto.step1}</div>
                   <div className="proto-step-row"><strong>2:</strong> {proto.step2}</div>
                 </div>
               </div>
-              <button
-                type="button"
-                className="proto-card-btn"
-                onClick={() => onStartSession(proto, proto.stateName)}
-              >
-                <Icon d={icons.play} size={15} />
-                <span>{proto.action}</span>
-              </button>
+              <div style={{display:'flex', gap:'.4rem', marginTop:'.5rem'}}>
+                <button
+                  type="button"
+                  className="proto-card-btn"
+                  style={{flex:2}}
+                  onClick={() => onStartSession(proto, proto.stateName)}
+                >
+                  <Icon d={icons.play} size={15} />
+                  <span>{proto.action || 'Begin Practice'}</span>
+                </button>
+                <button
+                  type="button"
+                  className="proto-card-btn"
+                  style={{flex:1, background:'var(--slate-100)', color:'var(--slate-800)', border:'1px solid var(--slate-200)'}}
+                  onClick={() => setSelectedDetail(proto)}
+                >
+                  Details
+                </button>
+              </div>
             </div>
           ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+/* ─── SANCTUARY HOME / SMART ENVIRONMENT VIEW ──── */
+function SmartHomeView({ mcpStatus, mcpClient, preferences, onStartPractice, onTakeCheckin }) {
+  // Initial realistic device baseline
+  const defaultStates = {
+    lights: { power: true, brightness: 65, color_temp_k: 4000, color_hex: '#fdfbf7', label: 'Circadian Ambience' },
+    audio: { power: false, track: 'rain', track_label: 'Gentle Monsoon Rain', volume: 40 },
+    fan: { power: true, speed: 'low', mode: 'quiet' },
+    thermostat: { current_temp_f: 72, target_temp_f: 71, mode: 'eco_cool', unit: '°F' }
+  };
+
+  const [deviceStates, setDeviceStates] = useState(defaultStates);
+  const [activeScene, setActiveScene] = useState(null);
+  const [previousStates, setPreviousStates] = useState(null);
+  const [previewScene, setPreviewScene] = useState(null);
+  const [simulating, setSimulating] = useState(false);
+  const [mcpResponsePayload, setMcpResponsePayload] = useState(null);
+  const [showRawPayload, setShowRawPayload] = useState(false);
+  const [recommendedPractice, setRecommendedPractice] = useState(null);
+
+  const [actionTimeline, setActionTimeline] = useState([
+    {
+      timestamp: new Date().toLocaleTimeString(),
+      source: 'simulated_hardware',
+      title: 'Smart-Home Simulation Engine initialized',
+      detail: 'Loaded simulated environment baseline: lighting, ambient acoustics, ventilation, and thermostat.',
+    }
+  ]);
+
+  const SCENES_DATA = [
+    {
+      id: 'calm_and_ground',
+      title: 'Calm and Ground',
+      tag: 'Vagal Down-Regulation',
+      badgeClass: 'calm',
+      desc: 'Warm amber lighting at 30% and gentle acoustic rain to down-regulate sympathetic arousal.',
+      targets: {
+        lights: 'Warm Amber 2700K · 30%',
+        audio: 'Gentle Monsoon Rain · 35%',
+        fan: 'Gentle Breeze',
+        thermostat: '70°F'
+      },
+      targetValues: {
+        lights: { power: true, brightness: 30, color_temp_k: 2700, color_hex: '#ffb347', label: 'Warm Amber Grounding' },
+        audio: { power: true, track: 'rain', track_label: 'Gentle Monsoon Rain', volume: 35 },
+        fan: { power: true, speed: 'breeze', mode: 'gentle_waft' },
+        thermostat: { current_temp_f: 72, target_temp_f: 70, mode: 'cool', unit: '°F' }
+      },
+      recommended_practice: { id: 'rajas_logical', title: 'Sympathetic Down-Regulation', guna: 'rajas', style: 'logical' }
+    },
+    {
+      id: 'focus',
+      title: 'Focus',
+      tag: 'Cognitive Clarity',
+      badgeClass: 'focus',
+      desc: 'Crisp daylight neutral lighting with quiet acoustics for uninterrupted cognitive clarity.',
+      targets: {
+        lights: 'Daylight Neutral 4500K · 75%',
+        audio: 'Quiet Study (Muted)',
+        fan: 'Quiet Low',
+        thermostat: '69°F'
+      },
+      targetValues: {
+        lights: { power: true, brightness: 75, color_temp_k: 4500, color_hex: '#eef6fc', label: 'Crisp Daylight Neutral' },
+        audio: { power: false, track: 'silence', track_label: 'Quiet Study (Muted)', volume: 0 },
+        fan: { power: true, speed: 'low', mode: 'quiet' },
+        thermostat: { current_temp_f: 72, target_temp_f: 69, mode: 'cool', unit: '°F' }
+      },
+      recommended_practice: { id: 'sattva_logical', title: 'Maintenance of Clarity', guna: 'sattva', style: 'logical' }
+    },
+    {
+      id: 'sleep_prep',
+      title: 'Sleep Preparation',
+      tag: 'Circadian Wind-Down',
+      badgeClass: 'sleep',
+      desc: 'Deep dim sunset amber and slow waves to prepare circadian rhythm for rest.',
+      targets: {
+        lights: 'Sunset Amber 2200K · 12%',
+        audio: 'Night Waves Pacing · 25%',
+        fan: 'Whisper Low',
+        thermostat: '68°F'
+      },
+      targetValues: {
+        lights: { power: true, brightness: 12, color_temp_k: 2200, color_hex: '#e2725b', label: 'Deep Sunset Amber' },
+        audio: { power: true, track: 'ocean', track_label: 'Night Waves Pacing', volume: 25 },
+        fan: { power: true, speed: 'low', mode: 'whisper' },
+        thermostat: { current_temp_f: 72, target_temp_f: 68, mode: 'night_cool', unit: '°F' }
+      },
+      recommended_practice: { id: 'tamas_emotional', title: 'Holding Space for Yourself', guna: 'tamas', style: 'emotional' }
+    }
+  ];
+
+  // Local fallback simulation generator
+  const simulateLocalScene = (sceneId) => {
+    const scene = SCENES_DATA.find(s => s.id === sceneId);
+    const targetLights = { ...scene.targetValues.lights };
+    const targetAudio = { ...scene.targetValues.audio };
+    const targetFan = { ...scene.targetValues.fan };
+    const targetThermostat = { ...scene.targetValues.thermostat };
+
+    const now = new Date();
+    const action_timeline = [
+      {
+        timestamp: new Date(now.getTime() - 250).toLocaleTimeString(),
+        source: 'user_action',
+        title: 'User selected scene: "' + scene.title + '"',
+        detail: 'Scene activation requested in Sanctuary Home interface.'
+      },
+      {
+        timestamp: new Date(now.getTime() - 200).toLocaleTimeString(),
+        source: 'mcp_tool_call',
+        title: 'Local Fallback Simulation: simulate_wellness_scene executed',
+        detail: 'Coordinating parameters for scene: ' + sceneId + ' (Verified local simulation).'
+      },
+      {
+        timestamp: new Date(now.getTime() - 150).toLocaleTimeString(),
+        source: 'simulated_hardware',
+        title: 'Smart Lights: ' + targetLights.brightness + '% at ' + targetLights.color_temp_k + 'K',
+        detail: '[SIMULATION] Virtual lighting smoothly transitioned to ' + targetLights.label + '.'
+      },
+      {
+        timestamp: new Date(now.getTime() - 100).toLocaleTimeString(),
+        source: 'simulated_hardware',
+        title: 'Ambient Audio: ' + (targetAudio.power ? targetAudio.track_label : 'Muted') + ' (' + targetAudio.volume + '%)',
+        detail: '[SIMULATION] Acoustic simulation configured to user preference.'
+      },
+      {
+        timestamp: new Date(now.getTime() - 50).toLocaleTimeString(),
+        source: 'simulated_hardware',
+        title: 'Climate: Fan ' + targetFan.speed + ', Thermostat set to ' + targetThermostat.target_temp_f + '°F',
+        detail: '[SIMULATION] Virtual ventilation and temperature setpoint adjusted.'
+      },
+      {
+        timestamp: now.toLocaleTimeString(),
+        source: 'wellness_ready',
+        title: 'Scene Active — Recommended practice: "' + scene.recommended_practice.title + '"',
+        detail: 'Guided wellness practice is ready to begin.'
+      }
+    ];
+
+    return {
+      status: 'SCENE_SIMULATED',
+      scene_id: sceneId,
+      scene_title: scene.title,
+      simulation_label: '[SIMULATION - NO PHYSICAL HARDWARE CONNECTED]',
+      simulation_notice: 'SIMULATION MODE — No physical smart-home devices are connected. All device states and environmental changes are simulated locally.',
+      target_states: { lights: targetLights, audio: targetAudio, fan: targetFan, thermostat: targetThermostat },
+      previous_states: deviceStates,
+      recommended_practice: scene.recommended_practice,
+      action_timeline,
+      timestamp: now.toISOString()
+    };
+  };
+
+  const handleActivateScene = async (sceneId) => {
+    setSimulating(true);
+    const scene = SCENES_DATA.find(s => s.id === sceneId);
+    try {
+      let result;
+      if (mcpStatus === 'connected' && mcpClient) {
+        const res = await mcpClient.callTool('simulate_wellness_scene', {
+          scene_id: sceneId,
+          current_states: deviceStates
+        });
+        result = JSON.parse(res.data.result.content[0].text);
+      } else {
+        result = simulateLocalScene(sceneId);
+      }
+
+      setPreviousStates(deviceStates);
+      setDeviceStates(result.target_states);
+      setActiveScene(sceneId);
+      setActionTimeline(result.action_timeline);
+      setRecommendedPractice(scene.recommended_practice);
+      setMcpResponsePayload(result);
+    } catch (err) {
+      console.warn('MCP scene tool error, falling back locally:', err);
+      const fallback = simulateLocalScene(sceneId);
+      setPreviousStates(deviceStates);
+      setDeviceStates(fallback.target_states);
+      setActiveScene(sceneId);
+      setActionTimeline(fallback.action_timeline);
+      setRecommendedPractice(scene.recommended_practice);
+      setMcpResponsePayload(fallback);
+    } finally {
+      setSimulating(false);
+      setPreviewScene(null);
+    }
+  };
+
+  const handleRestorePrevious = async () => {
+    if (!previousStates) return;
+    setSimulating(true);
+    try {
+      let result;
+      if (mcpStatus === 'connected' && mcpClient) {
+        const res = await mcpClient.callTool('restore_previous_scene', {
+          previous_states: previousStates
+        });
+        result = JSON.parse(res.data.result.content[0].text);
+      } else {
+        const now = new Date();
+        result = {
+          status: 'RESTORED',
+          simulation_label: '[SIMULATION - NO PHYSICAL HARDWARE CONNECTED]',
+          restored_states: previousStates,
+          action_timeline: [
+            {
+              timestamp: now.toLocaleTimeString(),
+              source: 'user_action',
+              title: 'User reverted scene to previous baseline',
+              detail: 'Restored previous smart-home state via local fallback.'
+            },
+            {
+              timestamp: now.toLocaleTimeString(),
+              source: 'simulated_hardware',
+              title: 'Simulated environment reverted successfully',
+              detail: '[SIMULATION] Smart lights, acoustics, fan, and thermostat restored to previous values.'
+            }
+          ]
+        };
+      }
+      setDeviceStates(previousStates);
+      setActiveScene(null);
+      setPreviousStates(null);
+      setActionTimeline(prev => [...result.action_timeline, ...prev.slice(0, 10)]);
+      setMcpResponsePayload(result);
+    } catch (err) {
+      setDeviceStates(previousStates);
+      setActiveScene(null);
+      setPreviousStates(null);
+    } finally {
+      setSimulating(false);
+    }
+  };
+
+  const updateDevice = (deviceKey, updater) => {
+    setDeviceStates(prev => {
+      const nextDev = typeof updater === 'function' ? updater(prev[deviceKey]) : updater;
+      const next = { ...prev, [deviceKey]: nextDev };
+      const now = new Date();
+      setActionTimeline(old => [
+        {
+          timestamp: now.toLocaleTimeString(),
+          source: 'user_action',
+          title: 'Manual control: ' + deviceKey.toUpperCase() + ' updated',
+          detail: 'User adjusted ' + deviceKey + ' state directly in simulation interface.'
+        },
+        ...old.slice(0, 15)
+      ]);
+      return next;
+    });
+  };
+
+  const kelvinToHex = (k) => {
+    if (k <= 2500) return '#e2725b';
+    if (k <= 3000) return '#ffb347';
+    if (k <= 4200) return '#fdfbf7';
+    if (k <= 5500) return '#eef6fc';
+    return '#dbeafe';
+  };
+
+  const kelvinLabel = (k) => {
+    if (k <= 2500) return 'Sunset Amber (' + k + 'K)';
+    if (k <= 3200) return 'Warm Amber (' + k + 'K)';
+    if (k <= 4500) return 'Daylight Neutral (' + k + 'K)';
+    return 'Crisp Daylight (' + k + 'K)';
+  };
+
+  const activeSceneObj = SCENES_DATA.find(s => s.id === activeScene);
+
+  return (
+    <div className="view">
+      <div className="home-wrap">
+        {/* Persistent Simulation Notice */}
+        <div className="home-sim-notice" role="alert">
+          <Icon d={icons.lock} size={18} style={{ color: '#d97706', flexShrink: 0, marginTop: 1 }} />
+          <div>
+            <strong>SIMULATION MODE — No physical smart-home devices are connected.</strong> All device states and environmental changes are simulated locally.
+          </div>
+        </div>
+
+        {/* Hero Header */}
+        <div className="home-hero">
+          <div>
+            <h1 className="home-hero-title">Sanctuary Home · Smart Environment</h1>
+            <p className="home-hero-sub">
+              Experience how ambient lighting, acoustics, ventilation, and climate coordinate seamlessly to support your inner balance.
+            </p>
+          </div>
+          <div>
+            <span className={'home-mcp-status ' + (mcpStatus === 'connected' ? 'live' : 'fallback')}>
+              <span className={'mcp-dot ' + mcpStatus} />
+              <span>{mcpStatus === 'connected' ? 'Live MCP: simulate_wellness_scene' : 'Local Simulation Fallback'}</span>
+            </span>
+          </div>
+        </div>
+
+        {/* Active Scene Banner */}
+        {activeScene && activeSceneObj && (
+          <div className="home-active-banner">
+            <div className="home-active-left">
+              <span className="home-active-dot" />
+              <div>
+                <h3 className="home-active-title">Active Scene: {activeSceneObj.title}</h3>
+                <p className="home-active-sub">
+                  Simulated environment adjusted. {recommendedPractice ? 'Recommended: ' + recommendedPractice.title : ''}
+                </p>
+              </div>
+            </div>
+            <div className="home-active-btns">
+              {recommendedPractice && (
+                <button
+                  type="button"
+                  className="scene-btn scene-btn-primary"
+                  onClick={() => onStartPractice(LIBRARY[recommendedPractice.guna][recommendedPractice.style], recommendedPractice.title)}
+                >
+                  <Icon d={icons.play} size={14} />
+                  <span>Begin Guided Practice</span>
+                </button>
+              )}
+              <button
+                type="button"
+                className="scene-btn scene-btn-secondary"
+                onClick={handleRestorePrevious}
+                disabled={simulating}
+              >
+                <Icon d={icons.rotateCcw} size={14} />
+                <span>Restore Previous Scene</span>
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Wellness Scenes Selection */}
+        <div className="home-scenes-hd">
+          <h2 className="home-section-title">
+            <Icon d={icons.sliders} size={18} style={{ color: 'var(--indigo)' }} />
+            <span>Coordinated Wellness Scenes</span>
+          </h2>
+          <span style={{ fontSize: '0.74rem', color: 'var(--slate-500)' }}>
+            One-touch sensory down-regulation &amp; focus routines
+          </span>
+        </div>
+
+        <div className="home-scenes-grid">
+          {SCENES_DATA.map((scene) => {
+            const isActive = activeScene === scene.id;
+            return (
+              <div key={scene.id} className={'scene-card ' + (isActive ? 'active' : '')}>
+                <div>
+                  <div className="scene-hd">
+                    <span className={'scene-badge ' + scene.badgeClass}>{scene.tag}</span>
+                    {isActive && (
+                      <span style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--indigo)' }}>● Active</span>
+                    )}
+                  </div>
+                  <h3 className="scene-title">{scene.title}</h3>
+                  <p className="scene-desc">{scene.desc}</p>
+
+                  <div className="scene-targets-box">
+                    <div className="scene-target-row">
+                      <span>Lighting</span>
+                      <strong>{scene.targets.lights}</strong>
+                    </div>
+                    <div className="scene-target-row">
+                      <span>Acoustics</span>
+                      <strong>{scene.targets.audio}</strong>
+                    </div>
+                    <div className="scene-target-row">
+                      <span>Ventilation</span>
+                      <strong>{scene.targets.fan}</strong>
+                    </div>
+                    <div className="scene-target-row">
+                      <span>Climate</span>
+                      <strong>{scene.targets.thermostat}</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="scene-actions">
+                  <button
+                    type="button"
+                    className="scene-btn scene-btn-secondary"
+                    onClick={() => setPreviewScene(previewScene?.id === scene.id ? null : scene)}
+                  >
+                    {previewScene?.id === scene.id ? 'Hide Preview' : 'Preview'}
+                  </button>
+                  <button
+                    type="button"
+                    className="scene-btn scene-btn-primary"
+                    onClick={() => handleActivateScene(scene.id)}
+                    disabled={simulating}
+                  >
+                    <Icon d={icons.play} size={14} />
+                    <span>{isActive ? 'Re-apply Scene' : 'Activate Scene'}</span>
+                  </button>
+                </div>
+
+                {previewScene?.id === scene.id && (
+                  <div style={{ marginTop: '0.85rem', padding: '0.75rem', background: '#f8faff', border: '1px dashed var(--indigo-mid)', borderRadius: 6, fontSize: '0.72rem', color: 'var(--indigo-dark)' }}>
+                    <strong>Scene Action Preview:</strong>
+                    <div style={{ marginTop: '0.3rem' }}>
+                      Activating this scene will smoothly transition the virtual lights to {scene.targets.lights}, adjust the virtual soundscape to {scene.targets.audio}, and prepare the {scene.recommended_practice.title} guided practice.
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Interactive Device Controls Grid */}
+        <div className="home-scenes-hd">
+          <h2 className="home-section-title">
+            <Icon d={icons.home} size={18} style={{ color: 'var(--indigo)' }} />
+            <span>Interactive Device Controls (Simulated)</span>
+          </h2>
+          <span style={{ fontSize: '0.74rem', color: 'var(--slate-500)' }}>
+            Real-time manual overrides · Zero physical IoT
+          </span>
+        </div>
+
+        <div className="home-devices-grid">
+          {/* Smart Lighting */}
+          <div className="device-card">
+            <div>
+              <div className="device-hd">
+                <div className="device-title-wrap">
+                  <div style={{ width: 32, height: 32, borderRadius: 8, background: '#fef3c7', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Icon d={icons.sun} size={16} style={{ color: '#d97706' }} />
+                  </div>
+                  <div>
+                    <h3 className="device-title">Smart Lighting</h3>
+                    <span style={{ fontSize: '0.68rem', color: 'var(--slate-500)' }}>Sanctuary Room Bulb</span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className={'device-power-btn ' + (deviceStates.lights.power ? 'on' : 'off')}
+                  onClick={() => updateDevice('lights', l => ({ ...l, power: !l.power }))}
+                >
+                  {deviceStates.lights.power ? 'ON' : 'OFF'}
+                </button>
+              </div>
+
+              <div className="device-control-row">
+                <div className="device-label-row">
+                  <span>Brightness</span>
+                  <strong>{deviceStates.lights.brightness}%</strong>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  className="device-slider"
+                  value={deviceStates.lights.brightness}
+                  disabled={!deviceStates.lights.power}
+                  onChange={e => {
+                    const val = parseInt(e.target.value, 10);
+                    updateDevice('lights', l => ({ ...l, brightness: val }));
+                  }}
+                />
+              </div>
+
+              <div className="device-control-row">
+                <div className="device-label-row">
+                  <span>Color Temperature</span>
+                  <strong>{kelvinLabel(deviceStates.lights.color_temp_k)}</strong>
+                </div>
+                <input
+                  type="range"
+                  min="2200"
+                  max="6500"
+                  step="100"
+                  className="device-slider"
+                  value={deviceStates.lights.color_temp_k}
+                  disabled={!deviceStates.lights.power}
+                  onChange={e => {
+                    const k = parseInt(e.target.value, 10);
+                    updateDevice('lights', l => ({ ...l, color_temp_k: k, color_hex: kelvinToHex(k) }));
+                  }}
+                />
+                <div className="device-swatch-box">
+                  <div className="device-swatch" style={{ background: deviceStates.lights.power ? deviceStates.lights.color_hex : '#cbd5e1' }} />
+                  <span style={{ fontSize: '0.72rem', color: 'var(--slate-600)', fontFamily: 'monospace' }}>
+                    {deviceStates.lights.power ? deviceStates.lights.color_hex : 'Unlit'}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Ambient Acoustics */}
+          <div className="device-card">
+            <div>
+              <div className="device-hd">
+                <div className="device-title-wrap">
+                  <div style={{ width: 32, height: 32, borderRadius: 8, background: '#ede9fe', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Icon d={icons.wind} size={16} style={{ color: '#7c3aed' }} />
+                  </div>
+                  <div>
+                    <h3 className="device-title">Ambient Acoustics</h3>
+                    <span style={{ fontSize: '0.68rem', color: 'var(--slate-500)' }}>Virtual Sound Pacer</span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className={'device-power-btn ' + (deviceStates.audio.power ? 'on' : 'off')}
+                  onClick={() => updateDevice('audio', a => ({ ...a, power: !a.power }))}
+                >
+                  {deviceStates.audio.power ? 'PLAYING' : 'PAUSED'}
+                </button>
+              </div>
+
+              <div className="device-control-row">
+                <div className="device-label-row">
+                  <span>Soundscape Track</span>
+                  <strong>{deviceStates.audio.track_label}</strong>
+                </div>
+                <div className="device-pills">
+                  {[
+                    { id: 'rain', label: 'Rain' },
+                    { id: 'forest', label: 'Forest' },
+                    { id: 'ocean', label: 'Waves' },
+                    { id: 'white_noise', label: 'White Noise' },
+                    { id: 'silence', label: 'Silence' }
+                  ].map(t => (
+                    <button
+                      key={t.id}
+                      type="button"
+                      className={'device-pill-btn ' + (deviceStates.audio.track === t.id ? 'active' : '')}
+                      onClick={() => updateDevice('audio', a => ({ ...a, track: t.id, track_label: t.label, power: t.id !== 'silence' }))}
+                    >
+                      {t.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="device-control-row" style={{ marginTop: '0.85rem' }}>
+                <div className="device-label-row">
+                  <span>Volume</span>
+                  <strong>{deviceStates.audio.volume}%</strong>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  className="device-slider"
+                  value={deviceStates.audio.volume}
+                  disabled={!deviceStates.audio.power}
+                  onChange={e => {
+                    const val = parseInt(e.target.value, 10);
+                    updateDevice('audio', a => ({ ...a, volume: val }));
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Circulation Fan */}
+          <div className="device-card">
+            <div>
+              <div className="device-hd">
+                <div className="device-title-wrap">
+                  <div style={{ width: 32, height: 32, borderRadius: 8, background: '#e0f2fe', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Icon d={icons.fan || icons.wind} size={16} style={{ color: '#0284c7' }} />
+                  </div>
+                  <div>
+                    <h3 className="device-title">Circulation Fan</h3>
+                    <span style={{ fontSize: '0.68rem', color: 'var(--slate-500)' }}>Virtual Airflow Pacer</span>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className={'device-power-btn ' + (deviceStates.fan.power ? 'on' : 'off')}
+                  onClick={() => updateDevice('fan', f => ({ ...f, power: !f.power, speed: !f.power ? 'low' : 'off' }))}
+                >
+                  {deviceStates.fan.power ? 'ACTIVE' : 'OFF'}
+                </button>
+              </div>
+
+              <div className="device-control-row">
+                <div className="device-label-row">
+                  <span>Speed Setting</span>
+                  <strong>{deviceStates.fan.speed.toUpperCase()}</strong>
+                </div>
+                <div className="device-pills">
+                  {['off', 'low', 'medium', 'high', 'breeze'].map(spd => (
+                    <button
+                      key={spd}
+                      type="button"
+                      className={'device-pill-btn ' + (deviceStates.fan.speed === spd ? 'active' : '')}
+                      onClick={() => updateDevice('fan', f => ({ ...f, speed: spd, power: spd !== 'off' }))}
+                    >
+                      {spd.toUpperCase()}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Climate Thermostat */}
+          <div className="device-card">
+            <div>
+              <div className="device-hd">
+                <div className="device-title-wrap">
+                  <div style={{ width: 32, height: 32, borderRadius: 8, background: '#fee2e2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Icon d={icons.activity} size={16} style={{ color: '#b91c1c' }} />
+                  </div>
+                  <div>
+                    <h3 className="device-title">Climate Thermostat</h3>
+                    <span style={{ fontSize: '0.68rem', color: 'var(--slate-500)' }}>Eco Cool Mode</span>
+                  </div>
+                </div>
+                <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--slate-700)', padding: '3px 8px', background: 'var(--slate-100)', borderRadius: 12 }}>
+                  Room: {deviceStates.thermostat.current_temp_f}°F
+                </span>
+              </div>
+
+              <div className="device-control-row">
+                <div className="device-label-row">
+                  <span>Target Setpoint</span>
+                  <strong>{deviceStates.thermostat.target_temp_f}°F</strong>
+                </div>
+                <div className="device-temp-stepper">
+                  <button
+                    type="button"
+                    className="device-step-btn"
+                    onClick={() => updateDevice('thermostat', t => ({ ...t, target_temp_f: Math.max(64, t.target_temp_f - 1) }))}
+                  >
+                    -
+                  </button>
+                  <span style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--slate-900)', minWidth: 60, textAlign: 'center' }}>
+                    {deviceStates.thermostat.target_temp_f}°F
+                  </span>
+                  <button
+                    type="button"
+                    className="device-step-btn"
+                    onClick={() => updateDevice('thermostat', t => ({ ...t, target_temp_f: Math.min(82, t.target_temp_f + 1) }))}
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Action & Verification Timeline */}
+        <div className="timeline-card">
+          <div className="timeline-hd">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Icon d={icons.history} size={16} style={{ color: 'var(--indigo)' }} />
+              <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--slate-900)', margin: 0 }}>
+                Simulated Action Timeline &amp; MCP Verification
+              </h3>
+            </div>
+            <button
+              type="button"
+              className="mcp-btn mcp-btn-secondary"
+              style={{ fontSize: '0.72rem', padding: '0.35rem 0.65rem' }}
+              onClick={() => setShowRawPayload(v => !v)}
+            >
+              {showRawPayload ? 'Hide Tool Payload' : 'Inspect Raw Tool Payload'}
+            </button>
+          </div>
+
+          {showRawPayload && mcpResponsePayload && (
+            <div style={{ background: 'var(--slate-900)', color: '#86efac', borderRadius: 8, padding: '0.85rem 1rem', marginBottom: '1rem', fontFamily: 'monospace', fontSize: '0.72rem', overflowX: 'auto' }}>
+              <strong>MCP Response Payload (JSON-RPC):</strong>
+              <pre style={{ margin: '0.4rem 0 0', whiteSpace: 'pre-wrap' }}>
+                {JSON.stringify(mcpResponsePayload, null, 2)}
+              </pre>
+            </div>
+          )}
+
+          <div className="timeline-list">
+            {actionTimeline.map((item, idx) => (
+              <div key={idx} className="timeline-item">
+                <span className="timeline-time">{item.timestamp}</span>
+                <div className="timeline-content">
+                  <div className="timeline-title-row">
+                    <span className={'timeline-badge ' + (item.source || 'user_action')}>
+                      {item.source === 'user_action' ? 'User Action' :
+                       item.source === 'mcp_tool_call' ? 'MCP Tool' :
+                       item.source === 'simulated_hardware' ? 'Simulated Hardware' : 'Wellness Ready'}
+                    </span>
+                    <strong style={{ fontSize: '0.8rem', color: 'var(--slate-800)' }}>{item.title}</strong>
+                  </div>
+                  <div style={{ fontSize: '0.74rem', color: 'var(--slate-600)', lineHeight: 1.4 }}>
+                    {item.detail}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -2356,10 +3660,11 @@ function HistoryView({ onTakeCheckin }) {
   );
 }
 
-/* ─── PREFERENCES VIEW ───────────────────────────── */
-function PreferencesView({ preferences, setPreferences, onClearAllData }) {
+/* ─── PREFERENCES VIEW (WITH AGENT CONSENT FLOW) ─── */
+function PreferencesView({ preferences, setPreferences, onClearAllData, agentConsentToken, onToggleAgentConsent, onTestAgentAccess }) {
   const [form, setForm] = useState(() => ({ ...DEFAULT_PREFERENCES, ...preferences }));
   const [savedToast, setSavedToast] = useState(false);
+  const [agentTestFeedback, setAgentTestFeedback] = useState(null);
 
   const toggleTechnique = (techId) => {
     setForm(prev => {
@@ -2389,6 +3694,13 @@ function PreferencesView({ preferences, setPreferences, onClearAllData }) {
     }
   };
 
+  const runAgentTest = async () => {
+    if (onTestAgentAccess) {
+      const res = await onTestAgentAccess();
+      setAgentTestFeedback(res);
+    }
+  };
+
   return (
     <div className="view">
       <div className="pref-wrap">
@@ -2403,6 +3715,50 @@ function PreferencesView({ preferences, setPreferences, onClearAllData }) {
             <span>Preferences saved privately on this device.</span>
           </div>
         )}
+
+        {/* AI Agent / MCP Server Authorization Card */}
+        <div className="pref-card" style={{border:'1.5px solid var(--indigo-mid)', background:'linear-gradient(180deg, #f8faff 0%, #ffffff 100%)'}}>
+          <div className="pref-section-title" style={{color:'var(--indigo)'}}>
+            <Icon d={icons.lock} size={16} />
+            <span>AI Agent &amp; Alexa+ MCP Consent Boundary</span>
+          </div>
+          <p style={{fontSize:'.78rem', color:'var(--slate-600)', margin:0, lineHeight:1.45}}>
+            Establish trusted authorization for the local MCP Server to share your wellness preferences (duration, narration tone, avoided techniques) with AI agents. Raw check-in history, crisis notes, and emails are <strong>never</strong> shared.
+          </p>
+
+          <div className="pref-toggle-row" style={{borderBottom:'none', paddingTop:'.5rem'}}>
+            <div className="pref-toggle-info">
+              <h4>Authorize AI Agent Preference Access</h4>
+              <p>{agentConsentToken ? 'Authorized: Active consent token established' : 'Protected: Consent denied by default'}</p>
+            </div>
+            <input
+              type="checkbox"
+              style={{width:20, height:20, accentColor:'var(--indigo)', cursor:'pointer'}}
+              checked={!!agentConsentToken}
+              onChange={e => onToggleAgentConsent(e.target.checked, form)}
+            />
+          </div>
+
+          <div style={{display:'flex', alignItems:'center', gap:'.5rem', marginTop:'.4rem'}}>
+            <button
+              type="button"
+              className="mcp-btn mcp-btn-secondary"
+              onClick={runAgentTest}
+              style={{fontSize:'.72rem'}}
+            >
+              Test get_consented_preferences Tool
+            </button>
+            <span style={{fontSize:'.68rem', color:'var(--slate-500)', fontFamily:'monospace'}}>
+              Token: {agentConsentToken ? `${agentConsentToken.slice(0, 12)}...` : 'None (Denied)'}
+            </span>
+          </div>
+
+          {agentTestFeedback && (
+            <div style={{background:'var(--slate-50)', border:'1px solid var(--slate-200)', borderRadius:8, padding:'.6rem .75rem', marginTop:'.5rem', fontSize:'.72rem', fontFamily:'monospace'}}>
+              <strong>MCP Response:</strong> {JSON.stringify(agentTestFeedback, null, 2)}
+            </div>
+          )}
+        </div>
 
         {/* Guided Session Duration */}
         <div className="pref-card">
@@ -2594,7 +3950,7 @@ function PreferencesView({ preferences, setPreferences, onClearAllData }) {
 }
 
 /* ─── RESULTS ────────────────────────────────────── */
-function ResultsView({ scores, profile, preferences, bioData, setBioData, setView, onOpenGuidedSession }) {
+function ResultsView({ scores, profile, preferences, bioData, setBioData, setView, onOpenGuidedSession, onTriggerAmbient }) {
   const [showBio, setShowBio] = useState(false);
   const isDistress = scores.tamas >= 3 || (scores.tamas >= 2 && scores.rajas >= 2);
   const [showDistressModal, setShowDistressModal] = useState(isDistress);
@@ -2618,14 +3974,10 @@ function ResultsView({ scores, profile, preferences, bioData, setBioData, setVie
     : (profile.beliefLevel === 'strong' || profile.spiritualStrength === 'strong') ? 'spiritual'
     : 'logical';
 
-  // Available options for this dominant Guna to support alternative cycling
   const availableStyles = ['logical', 'emotional', 'spiritual'];
   const activeStyle = availableStyles[altIndex % 3];
-
-  // Base protocol
   const baseContent = LIBRARY[dominant][activeStyle];
 
-  // Check for safe adaptation if excluded techniques are configured
   const excluded = preferences?.excludedTechniques || [];
   let finalContent = { ...baseContent };
   let isAdapted = false;
@@ -2663,6 +4015,7 @@ function ResultsView({ scores, profile, preferences, bioData, setBioData, setVie
           stateName={stateName}
           durationMinutes={preferences?.sessionDuration || 3}
           speechRate={preferences?.speechRate || 1.0}
+          onTriggerAmbient={onTriggerAmbient}
           onClose={() => setActiveSession(false)}
         />
       )}
@@ -2726,7 +4079,6 @@ function ResultsView({ scores, profile, preferences, bioData, setBioData, setVie
                   </div>
                 ))}
 
-                {/* Personalization Rationale Callout */}
                 <div className="res-rationale-box">
                   <div className="res-rationale-title">Why this protocol was chosen</div>
                   <div className="res-rationale-text">
@@ -2760,7 +4112,6 @@ function ResultsView({ scores, profile, preferences, bioData, setBioData, setVie
               </div>
             </div>
 
-            {/* Non-Diagnostic Safety Notice */}
             <div className="res-disclaimer-notice">
               <strong>Non-Diagnostic Notice:</strong> Triguna psychological states (Sattva, Rajas, Tamas) and Heart Rate Variability (HRV) are reflective wellness principles, not psychiatric or medical diagnoses.
             </div>
@@ -2900,7 +4251,7 @@ function FeedbackView({ setView, sessionId, saveFeedback }) {
 }
 
 /* ─── APP SHELL ──────────────────────────────────── */
-function AppShell({ currentTab, onSelectTab, onOpenSupport, preferences, children }) {
+function AppShell({ currentTab, onSelectTab, onOpenSupport, preferences, mcpStatus, children }) {
   return (
     <div className={`shell-wrap ${preferences?.highContrast ? 'high-contrast' : ''} ${preferences?.reducedMotion ? 'reduced-motion' : ''}`}>
       <header className="shell-header" role="banner">
@@ -2938,6 +4289,14 @@ function AppShell({ currentTab, onSelectTab, onOpenSupport, preferences, childre
             >
               <Icon d={icons.bookOpen} size={16} />
               <span>Practices</span>
+            </button>
+            <button
+              type="button"
+              className={`shell-nav-btn ${currentTab === 'home' ? 'active' : ''}`}
+              onClick={() => onSelectTab('home')}
+            >
+              <Icon d={icons.sliders} size={16} />
+              <span>Sanctuary Home</span>
             </button>
             <button
               type="button"
@@ -3021,7 +4380,7 @@ function AppShell({ currentTab, onSelectTab, onOpenSupport, preferences, childre
   );
 }
 
-/* ─── MAIN APP ───────────────────────────────────── */
+/* ─── MAIN APP (WITH REAL MCP VERTICAL SLICE) ────── */
 function App() {
   const [tab, setTab]           = useState('checkin');
   const [view, setView]         = useState('onboarding');
@@ -3032,6 +4391,131 @@ function App() {
   const [sessionId, setSessionId] = useState(null);
   const [showGlobalSupport, setShowGlobalSupport] = useState(false);
   const [librarySession, setLibrarySession] = useState(null);
+
+  // MCP State
+  const [mcpStatus, setMcpStatus] = useState('offline'); // offline | connecting | connected | error
+  const [mcpPractices, setMcpPractices] = useState(null);
+  const [mcpLogs, setMcpLogs] = useState([]);
+  const [agentConsentToken, setAgentConsentToken] = useState(() => {
+    return localStore.get(STORAGE_KEYS.AGENT_CONSENT, null);
+  });
+
+  const mcpClientRef = useRef(new BrowserMcpClient());
+
+  const addMcpLog = (method, tool, status, latencyMs, isError = false) => {
+    const entry = {
+      id: Date.now() + Math.random().toString(36).slice(2, 6),
+      time: new Date().toLocaleTimeString(),
+      method,
+      tool,
+      status,
+      latencyMs: latencyMs || 0,
+      isError
+    };
+    setMcpLogs(prev => [...prev.slice(-30), entry]);
+  };
+
+  // Real MCP Connection and Tool Discovery Vertical Slice
+  const connectToMcpServer = useCallback(async () => {
+    setMcpStatus('connecting');
+    const client = mcpClientRef.current;
+    try {
+      // 1. Handshake & initialize
+      const initRes = await client.connect();
+      addMcpLog('initialize', null, '200 OK', initRes.latencyMs);
+
+      // 2. Discover tools
+      const toolsRes = await client.listTools();
+      addMcpLog('tools/list', null, `200 (${toolsRes.data.result.tools.length} tools)`, toolsRes.latencyMs);
+
+      // 3. Call list_guided_practices
+      const practicesRes = await client.callTool('list_guided_practices', { guna_filter: 'all' });
+      addMcpLog('tools/call', 'list_guided_practices', '200 OK', practicesRes.latencyMs);
+
+      const parsed = JSON.parse(practicesRes.data.result.content[0].text);
+      if (parsed.practices && Array.isArray(parsed.practices)) {
+        setMcpPractices(parsed.practices);
+        setMcpStatus('connected');
+      }
+    } catch (err) {
+      console.warn('MCP Server connection failed, falling back to local canonical matrix:', err);
+      addMcpLog('connect', null, 'Offline Fallback', 0, true);
+      setMcpStatus('offline');
+      setMcpPractices(null); // Triggers graceful local fallback
+    }
+  }, []);
+
+  // Attempt initial background connection on load
+  useEffect(() => {
+    connectToMcpServer();
+  }, [connectToMcpServer]);
+
+  // Handle ambient simulation via real MCP or fallback
+  const handleTriggerAmbient = async (actionType, setting) => {
+    if (mcpStatus === 'connected') {
+      try {
+        const res = await mcpClientRef.current.callTool('simulate_ambient_action', { action_type: actionType, setting });
+        addMcpLog('tools/call', 'simulate_ambient_action', '200 OK', res.latencyMs);
+        return JSON.parse(res.data.result.content[0].text);
+      } catch (err) {
+        addMcpLog('tools/call', 'simulate_ambient_action', 'Error', 0, true);
+      }
+    }
+    // Honest offline simulation fallback
+    return {
+      status: 'SIMULATED_SUCCESS',
+      simulation_label: '[SIMULATION - LOCAL CLIENT FALLBACK]',
+      action_executed: actionType,
+      details: { effect: `Simulated action "${actionType}" with parameter "${setting}".` },
+      honesty_disclosure: 'Executed inside software simulation only. No physical Echo or IoT hardware was contacted.'
+    };
+  };
+
+  // Handle agent consent toggle
+  const handleToggleAgentConsent = async (granted, currentPrefs) => {
+    if (granted) {
+      const token = 'agent_token_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+      localStore.set(STORAGE_KEYS.AGENT_CONSENT, token);
+      setAgentConsentToken(token);
+      try {
+        await fetch('http://127.0.0.1:3333/mcp/consent', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'grant', token, preferences: currentPrefs })
+        });
+      } catch (e) {
+        // Safe offline handling
+      }
+    } else {
+      const prevToken = agentConsentToken;
+      localStore.remove(STORAGE_KEYS.AGENT_CONSENT);
+      setAgentConsentToken(null);
+      if (prevToken) {
+        try {
+          await fetch('http://127.0.0.1:3333/mcp/consent', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'revoke', token: prevToken })
+          });
+        } catch (e) {}
+      }
+    }
+  };
+
+  // Test agent preference tool call
+  const handleTestAgentAccess = async () => {
+    if (mcpStatus === 'connected') {
+      try {
+        const tokenToTest = agentConsentToken || 'unauthorized_token_test';
+        const res = await mcpClientRef.current.callTool('get_consented_preferences', { session_auth_token: tokenToTest });
+        addMcpLog('tools/call', 'get_consented_preferences', res.data?.result?.isError ? '403 Denied' : '200 Allowed', res.latencyMs);
+        return JSON.parse(res.data.result.content[0].text);
+      } catch (err) {
+        return { error: err.message };
+      }
+    }
+    return { error: 'MCP server is offline. Start server with "npm run mcp:server" to test.' };
+  };
 
   // Load preferences from local storage
   const [preferences, setPreferences] = useState(() => {
@@ -3050,6 +4534,7 @@ function App() {
       localStore.clearAll();
       setPreferences(DEFAULT_PREFERENCES);
       setScores({ sattva:0, rajas:0, tamas:0 });
+      setAgentConsentToken(null);
       setView('onboarding');
       setTab('checkin');
       alert('All local Sanctuary data has been reset.');
@@ -3082,8 +4567,8 @@ function App() {
       }}
       onOpenSupport={() => setShowGlobalSupport(true)}
       preferences={preferences}
+      mcpStatus={mcpStatus}
     >
-      {/* Global Direct Crisis Modal */}
       {showGlobalSupport && (
         <DistressSupportModal
           onReturnAssessment={() => setShowGlobalSupport(false)}
@@ -3091,18 +4576,17 @@ function App() {
         />
       )}
 
-      {/* Guided Session Modal launched from Library */}
       {librarySession && (
         <GuidedSessionModal
           content={librarySession.protocol}
           stateName={librarySession.stateName}
           durationMinutes={preferences.sessionDuration || 3}
           speechRate={preferences.speechRate || 1.0}
+          onTriggerAmbient={handleTriggerAmbient}
           onClose={() => setLibrarySession(null)}
         />
       )}
 
-      {/* Tab: Check-in / Assessment flow */}
       {tab === 'checkin' && (
         <>
           {view === 'onboarding'  && <OnboardingView profile={profile} setProfile={setProfile} onEnter={goToAssessment} />}
@@ -3117,32 +4601,47 @@ function App() {
               setBioData={setBioData}
               setView={setView}
               onOpenGuidedSession={(proto, stName) => setLibrarySession({ protocol: proto, stateName: stName })}
+              onTriggerAmbient={handleTriggerAmbient}
             />
           )}
           {view === 'feedback'    && <FeedbackView setView={setView} sessionId={sessionId} saveFeedback={saveFeedback} />}
         </>
       )}
 
-      {/* Tab: Practices Library */}
       {tab === 'protocols' && (
         <ProtocolsView
+          mcpStatus={mcpStatus}
+          mcpPractices={mcpPractices}
+          mcpLogs={mcpLogs}
+          onRefreshMcp={connectToMcpServer}
           onStartSession={(proto, stName) => setLibrarySession({ protocol: proto, stateName: stName })}
         />
       )}
 
-      {/* Tab: Session History */}
+      {tab === 'home' && (
+        <SmartHomeView
+          mcpStatus={mcpStatus}
+          mcpClient={mcpClientRef.current}
+          preferences={preferences}
+          onStartPractice={(proto, stName) => setLibrarySession({ protocol: proto, stateName: stName })}
+          onTakeCheckin={goToAssessment}
+        />
+      )}
+
       {tab === 'history' && (
         <HistoryView
           onTakeCheckin={goToAssessment}
         />
       )}
 
-      {/* Tab: Personal Preferences */}
       {tab === 'preferences' && (
         <PreferencesView
           preferences={preferences}
           setPreferences={setPreferences}
           onClearAllData={handleClearAllData}
+          agentConsentToken={agentConsentToken}
+          onToggleAgentConsent={handleToggleAgentConsent}
+          onTestAgentAccess={handleTestAgentAccess}
         />
       )}
     </AppShell>
