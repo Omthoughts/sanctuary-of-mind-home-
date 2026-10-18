@@ -1714,7 +1714,7 @@ async function saveFeedback({ name, email, rating, feedback, sessionId, consentS
       await fetch('https://script.google.com/macros/s/AKfycby_2P5y_uCLLru2wugpFYQhbq9bXqOyEL5tMyv0Ce08yA3C--GoS4FajtCof4EXF7TpqA/exec', {
         method: 'POST', mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'feedback', name: (name || '').trim(), email: (email || '').trim(), rating, feedback: (feedback || '').trim() }),
+        body: JSON.stringify({ type: 'feedback', rating, feedback: (feedback || '').trim() }),
       });
     } catch (err) {
       console.warn('External sync failed:', err);
@@ -1872,12 +1872,12 @@ const QUESTIONS = [
 
 const LIBRARY = {
   rajas: {
-    logical:   { id: 'rajas_logical', title:"Sympathetic Down-Regulation", desc:"Your amygdala is over-firing. Use a 4-7-8 breath ratio to mechanically trigger the parasympathetic (Vagus Nerve).", step1:"Inhale for 4 seconds to oxygenate.", step2:"Exhale for 8 seconds to signal safety.", action:"Initiate Regulation", techniques:["breath_retention", "paced_breathing"] },
+    logical:   { id: 'rajas_logical', title:"Sympathetic Down-Regulation", desc:"When restlessness or sympathetic arousal feels elevated, use an unhurried 4-7-8 breath ratio to cultivate parasympathetic calming.", step1:"Inhale for 4 seconds to oxygenate.", step2:"Exhale for 8 seconds to signal safety.", action:"Initiate Regulation", techniques:["breath_retention", "paced_breathing"] },
     emotional: { id: 'rajas_emotional', title:"Holding Space for Yourself",  desc:"Your heart is racing because it cares. Let's wrap that anxiety in a blanket of breath. You are safe to let go.", step1:"Breathe in acceptance.",               step2:"Breathe out the weight.",             action:"Begin Breathing", techniques:["gentle_breathing", "self_compassion"] },
     spiritual: { id: 'rajas_spiritual', title:"Surrendering to Divine Will", desc:"This restlessness is a call to trust. Release the burden of being the Doer. Breathe in Grace, breathe out control.", step1:"Inhale the present moment.",          step2:"Exhale into the unknown.",            action:"Offer Prayer", techniques:["mantra", "contemplation"] },
   },
   tamas: {
-    logical:   { id: 'tamas_logical', title:"Motor Cortex Activation",  desc:"The Default Mode Network is trapping you in rumination. Immediate motor engagement switches neural networks.", step1:"Stand up immediately.",      step2:"Shake hands vigorously.", action:"Activate Protocol", techniques:["vigorous_movement", "motor_activation"] },
+    logical:   { id: 'tamas_logical', title:"Motor Cortex Activation",  desc:"When feeling sluggish or mentally stuck in rumination, immediate motor engagement helps reorient your focus to the present moment.", step1:"Stand up immediately.",      step2:"Shake hands vigorously.", action:"Activate Protocol", techniques:["vigorous_movement", "motor_activation"] },
     emotional: { id: 'tamas_emotional', title:"Igniting the Spark",        desc:"You feel heavy, and that is okay. We are going to gently move together to remind your body it is capable of change.", step1:"Rise like the sun.", step2:"Shake off the dust.", action:"Move Gently", techniques:["vigorous_movement", "emotional_activation"] },
     spiritual: { id: 'tamas_spiritual', title:"Awakening the Spirit",      desc:"The veil of inertia is heavy, but your spirit is light. Use movement to break the shell and let your inner light shine.", step1:"Stand and offer presence.", step2:"Release the stagnation.", action:"Awaken Now", techniques:["vigorous_movement", "spiritual_activation"] },
   },
@@ -2233,7 +2233,7 @@ function OnboardingView({ profile, setProfile, onEnter }) {
 
         <div className="ob-footer">
           <Icon d={icons.lock} size={11} />
-          <span>Secure · Encrypted · Private</span>
+          <span>Private · Local-Only · Client-Side</span>
         </div>
       </div>
     </div>
@@ -4474,7 +4474,8 @@ function App() {
   // Handle agent consent toggle
   const handleToggleAgentConsent = async (granted, currentPrefs) => {
     if (granted) {
-      const token = 'agent_token_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8);
+      const randomPart = (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID().replace(/-/g, '') : Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
+      const token = 'agent_token_' + Date.now() + '_' + randomPart.slice(0, 24);
       localStore.set(STORAGE_KEYS.AGENT_CONSENT, token);
       setAgentConsentToken(token);
       try {
@@ -4529,12 +4530,22 @@ function App() {
     setTab('checkin');
   };
 
-  const handleClearAllData = () => {
+  const handleClearAllData = async () => {
     if (window.confirm('Erase all local sessions, feedback, and preferences from this device?')) {
+      const tokenToRevoke = agentConsentToken;
       localStore.clearAll();
       setPreferences(DEFAULT_PREFERENCES);
       setScores({ sattva:0, rajas:0, tamas:0 });
       setAgentConsentToken(null);
+      if (tokenToRevoke) {
+        try {
+          await fetch('http://127.0.0.1:3333/mcp/consent', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'revoke', token: tokenToRevoke })
+          });
+        } catch (e) {}
+      }
       setView('onboarding');
       setTab('checkin');
       alert('All local Sanctuary data has been reset.');

@@ -1,7 +1,7 @@
 # Sanctuary of Mind
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![Tests](https://img.shields.io/badge/tests-33%20passed-brightgreen.svg)](./tests)
+[![Tests](https://img.shields.io/badge/tests-43%20passed-brightgreen.svg)](./tests)
 [![MCP Protocol](https://img.shields.io/badge/MCP-2025--11--25-indigo.svg)](./mcp)
 [![Track](https://img.shields.io/badge/Amazon%20Hackathon-Alexa%2B%20Track-orange.svg)](https://amazonappdev2026.devpost.com)
 
@@ -80,7 +80,7 @@ Open **[http://localhost:3000](http://localhost:3000)** in your browser.
 Every feature, protocol, and MCP tool is covered by deterministic test suites:
 
 ```bash
-# 1. Unit Tests (33/33 tests covering scoring, protocols, and 8 MCP tools)
+# 1. Unit & Security Regression Tests (43/43 tests covering scoring, protocols, 8 MCP tools, and security remediation)
 npm test
 
 # 2. Smoke Tests (Fast end-to-end MCP handshake & device simulation)
@@ -157,6 +157,7 @@ Sanctuary_of_Mind/
     ├── mcp_server.test.mjs                     # Full MCP lifecycle & 8 tool test suite
     ├── phase2_personalization.test.mjs         # Preferences, adaptation & history tests
     ├── stabilization.test.mjs                  # Storage, privacy & crisis tests
+    ├── security_remediation.test.mjs           # Security regression suite (DoS limits, strict Zod, traversal, PII)
     ├── test_mcp_e2e_smoke.mjs                  # Fast MCP & simulation smoke test
     └── playwright_e2e.mjs                      # Comprehensive browser E2E test suite
 ```

@@ -23,12 +23,12 @@ function isOriginAllowed(origin) {
 // ─── CANONICAL 9 GUIDED PROTOCOLS (SOURCE OF TRUTH) ─────────────────
 const LIBRARY = {
   rajas: {
-    logical:   { id: 'rajas_logical', title: "Sympathetic Down-Regulation", desc: "Your amygdala is over-firing. Use a 4-7-8 breath ratio to mechanically trigger the parasympathetic (Vagus Nerve).", step1: "Inhale for 4 seconds to oxygenate.", step2: "Exhale for 8 seconds to signal safety.", action: "Initiate Regulation", techniques: ["breath_retention", "paced_breathing"] },
+    logical:   { id: 'rajas_logical', title: "Sympathetic Down-Regulation", desc: "When restlessness or sympathetic arousal feels elevated, use an unhurried 4-7-8 breath ratio to cultivate parasympathetic calming.", step1: "Inhale for 4 seconds to oxygenate.", step2: "Exhale for 8 seconds to signal safety.", action: "Initiate Regulation", techniques: ["breath_retention", "paced_breathing"] },
     emotional: { id: 'rajas_emotional', title: "Holding Space for Yourself",  desc: "Your heart is racing because it cares. Let's wrap that anxiety in a blanket of breath. You are safe to let go.", step1: "Breathe in acceptance.", step2: "Breathe out the weight.", action: "Begin Breathing", techniques: ["gentle_breathing", "self_compassion"] },
     spiritual: { id: 'rajas_spiritual', title: "Surrendering to Divine Will", desc: "This restlessness is a call to trust. Release the burden of being the Doer. Breathe in Grace, breathe out control.", step1: "Inhale the present moment.", step2: "Exhale into the unknown.", action: "Offer Prayer", techniques: ["mantra", "contemplation"] },
   },
   tamas: {
-    logical:   { id: 'tamas_logical', title: "Motor Cortex Activation",  desc: "The Default Mode Network is trapping you in rumination. Immediate motor engagement switches neural networks.", step1: "Stand up immediately.", step2: "Shake hands vigorously.", action: "Activate Protocol", techniques: ["vigorous_movement", "motor_activation"] },
+    logical:   { id: 'tamas_logical', title: "Motor Cortex Activation",  desc: "When feeling sluggish or mentally stuck in rumination, immediate motor engagement helps reorient your focus to the present moment.", step1: "Stand up immediately.", step2: "Shake hands vigorously.", action: "Activate Protocol", techniques: ["vigorous_movement", "motor_activation"] },
     emotional: { id: 'tamas_emotional', title: "Igniting the Spark",        desc: "You feel heavy, and that is okay. We are going to gently move together to remind your body it is capable of change.", step1: "Rise like the sun.", step2: "Shake off the dust.", action: "Move Gently", techniques: ["vigorous_movement", "emotional_activation"] },
     spiritual: { id: 'tamas_spiritual', title: "Awakening the Spirit",      desc: "The veil of inertia is heavy, but your spirit is light. Use movement to break the shell and let your inner light shine.", step1: "Stand and offer presence.", step2: "Release the stagnation.", action: "Awaken Now", techniques: ["vigorous_movement", "spiritual_activation"] },
   },
@@ -76,18 +76,70 @@ const ADAPTED_PROTOCOLS = {
 // ─── TRUSTED IN-MEMORY CONSENT STORE ────────────────────────────────
 // Consent tokens are established only by explicit user action in the Sanctuary UI
 const activeConsentSessions = new Map();
+export const CONSENT_SESSION_TTL_MS = 2 * 60 * 60 * 1000; // 2 hours
+export const MAX_CONSENT_SESSIONS = 100;
+const TOKEN_REGEX = /^[a-zA-Z0-9_\-\.]{16,128}$/;
 
-export function grantConsentSession(token, preferences) {
+// Bounded registration rate limiter (sliding window) to mitigate flooding attacks
+const REGISTRATION_RATE_WINDOW_MS = 60 * 1000; // 1 minute window
+const MAX_REGISTRATIONS_PER_WINDOW = 30; // Max 30 new registrations per minute
+const registrationTimestamps = [];
+
+export function isRegistrationRateLimited() {
+  const now = Date.now();
+  while (registrationTimestamps.length > 0 && registrationTimestamps[0] <= now - REGISTRATION_RATE_WINDOW_MS) {
+    registrationTimestamps.shift();
+  }
+  return registrationTimestamps.length >= MAX_REGISTRATIONS_PER_WINDOW;
+}
+
+export function recordRegistration() {
+  registrationTimestamps.push(Date.now());
+}
+
+export function resetRegistrationRateLimit() {
+  registrationTimestamps.length = 0;
+}
+
+export function isValidConsentToken(token) {
+  return typeof token === 'string' && TOKEN_REGEX.test(token);
+}
+
+export function pruneExpiredConsentSessions() {
+  const now = Date.now();
+  for (const [token, session] of activeConsentSessions.entries()) {
+    if (session.expiresAt && now > session.expiresAt) {
+      activeConsentSessions.delete(token);
+    }
+  }
+}
+
+export function grantConsentSession(token, preferences = {}) {
+  if (!isValidConsentToken(token)) {
+    throw new Error('Invalid token format: must be 16-128 characters matching [a-zA-Z0-9_.-]');
+  }
+
+  pruneExpiredConsentSessions();
+
+  // Capacity protection: reject new registrations when table is full instead of evicting active sessions
+  if (!activeConsentSessions.has(token) && activeConsentSessions.size >= MAX_CONSENT_SESSIONS) {
+    const err = new Error('Consent capacity reached: active session limit reached. Active sessions are protected from eviction.');
+    err.code = 'CAPACITY_REACHED';
+    throw err;
+  }
+
+  const now = Date.now();
   activeConsentSessions.set(token, {
-    grantedAt: new Date().toISOString(),
+    grantedAt: new Date(now).toISOString(),
+    expiresAt: now + CONSENT_SESSION_TTL_MS,
     preferences: {
-      language: preferences.language || 'en',
-      sessionDuration: preferences.sessionDuration || 3,
-      narrationStyle: preferences.narrationStyle || 'calm',
-      speechRate: preferences.speechRate || 1.0,
-      mindStyle: preferences.mindStyle || 'balanced',
-      ambientSound: preferences.ambientSound || 'rain',
-      excludedTechniques: preferences.excludedTechniques || [],
+      language: typeof preferences.language === 'string' ? preferences.language.slice(0, 10) : 'en',
+      sessionDuration: typeof preferences.sessionDuration === 'number' ? Math.min(Math.max(preferences.sessionDuration, 1), 60) : 3,
+      narrationStyle: typeof preferences.narrationStyle === 'string' ? preferences.narrationStyle.slice(0, 20) : 'calm',
+      speechRate: typeof preferences.speechRate === 'number' ? Math.min(Math.max(preferences.speechRate, 0.5), 2.0) : 1.0,
+      mindStyle: ['logical', 'emotional', 'spiritual', 'balanced'].includes(preferences.mindStyle) ? preferences.mindStyle : 'balanced',
+      ambientSound: typeof preferences.ambientSound === 'string' ? preferences.ambientSound.slice(0, 20) : 'rain',
+      excludedTechniques: Array.isArray(preferences.excludedTechniques) ? preferences.excludedTechniques.filter(t => typeof t === 'string').slice(0, 10) : [],
       reducedMotion: !!preferences.reducedMotion,
       highContrast: !!preferences.highContrast,
     }
@@ -96,6 +148,7 @@ export function grantConsentSession(token, preferences) {
 }
 
 export function revokeConsentSession(token) {
+  if (!token || typeof token !== 'string') return false;
   return activeConsentSessions.delete(token);
 }
 
@@ -209,7 +262,7 @@ export function createSanctuaryMcpServer() {
     'get_consented_preferences',
     'Retrieve user-authorized wellness preferences only when explicit user consent has been established in the application.',
     {
-      session_auth_token: z.string().min(8).describe('Cryptographic session token issued when user explicitly toggled agent authorization in Sanctuary settings')
+      session_auth_token: z.string().min(16).max(128).regex(/^[a-zA-Z0-9_\-\.]+$/).describe('Cryptographic session token issued when user explicitly toggled agent authorization in Sanctuary settings')
     },
     async ({ session_auth_token }) => {
       const session = activeConsentSessions.get(session_auth_token);
@@ -224,6 +277,23 @@ export function createSanctuaryMcpServer() {
                 authorized: false,
                 error: 'Consent Required: The user has not established explicit consent for AI agent access in Sanctuary of Mind settings. No personal data was disclosed.',
                 status: 'DENIED'
+              }, null, 2)
+            }
+          ]
+        };
+      }
+
+      if (session.expiresAt && Date.now() > session.expiresAt) {
+        activeConsentSessions.delete(session_auth_token);
+        return {
+          isError: true,
+          content: [
+            {
+              type: 'text',
+              text: JSON.stringify({
+                authorized: false,
+                error: 'Consent Expired: The authorization token has expired. User must re-authorize agent access.',
+                status: 'EXPIRED'
               }, null, 2)
             }
           ]
@@ -408,6 +478,35 @@ export function createSanctuaryMcpServer() {
     }
   );
 
+// Strict Zod schema for smart-home simulated device state validation
+const deviceStateSchema = z.object({
+  lights: z.object({
+    power: z.boolean().optional(),
+    brightness: z.number().min(0).max(100).optional(),
+    color_temp_k: z.number().min(2000).max(6500).optional(),
+    color_hex: z.string().regex(/^#[0-9a-fA-F]{3,8}$/).optional(),
+    label: z.string().max(100).optional()
+  }).strict().optional(),
+  audio: z.object({
+    power: z.boolean().optional(),
+    track: z.string().max(50).optional(),
+    track_label: z.string().max(100).optional(),
+    volume: z.number().min(0).max(100).optional()
+  }).strict().optional(),
+  fan: z.object({
+    power: z.boolean().optional(),
+    speed: z.enum(['off', 'low', 'medium', 'high', 'breeze']).optional(),
+    mode: z.string().max(50).optional()
+  }).strict().optional(),
+  thermostat: z.object({
+    power: z.boolean().optional(),
+    current_temp_f: z.number().min(40).max(110).optional(),
+    target_temp_f: z.number().min(50).max(95).optional(),
+    mode: z.string().max(50).optional(),
+    unit: z.enum(['°F', '°C']).optional()
+  }).strict().optional()
+}).strict();
+
   // Tool 7: simulate_wellness_scene
   server.tool(
     'simulate_wellness_scene',
@@ -422,7 +521,7 @@ export function createSanctuaryMcpServer() {
         fan_speed: z.enum(['off', 'low', 'medium', 'high', 'breeze']).optional(),
         target_temp_f: z.number().min(60).max(85).optional()
       }).optional().describe('Optional user overrides for lighting, audio, or climate'),
-      current_states: z.record(z.any()).optional().describe('Current device states before activating scene to enable restoration')
+      current_states: deviceStateSchema.optional().describe('Current device states before activating scene to enable restoration')
     },
     async ({ scene_id, overrides = {}, current_states }) => {
       const SCENE_CONFIGS = {
@@ -556,7 +655,7 @@ export function createSanctuaryMcpServer() {
     'restore_previous_scene',
     'Revert simulated smart-home wellness environment to previous state. Software simulation only.',
     {
-      previous_states: z.record(z.any()).describe('Previous device states to restore')
+      previous_states: deviceStateSchema.describe('Previous device states to restore')
     },
     async ({ previous_states }) => {
       const now = new Date();
@@ -667,22 +766,66 @@ export async function startMcpHttpServer(optsOrPort = {}, maybeHost) {
 
     // Trusted application consent registration endpoint
     if (parsedUrl.pathname === '/mcp/consent' && req.method === 'POST') {
+      const MAX_BODY_BYTES = 64 * 1024; // 64 KB limit to prevent memory exhaustion DoS
       let bodyStr = '';
-      req.on('data', chunk => bodyStr += chunk);
+      let bodyBytes = 0;
+      let tooLarge = false;
+
+      req.on('data', chunk => {
+        bodyBytes += chunk.length;
+        if (bodyBytes > MAX_BODY_BYTES) {
+          tooLarge = true;
+          res.writeHead(413, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Payload Too Large: request body exceeds 64KB limit' }));
+          req.destroy();
+          return;
+        }
+        bodyStr += chunk;
+      });
+
       req.on('end', () => {
+        if (tooLarge) return;
         try {
           const body = JSON.parse(bodyStr || '{}');
-          if (body.action === 'grant' && body.token && body.preferences) {
-            grantConsentSession(body.token, body.preferences);
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            return res.end(JSON.stringify({ success: true, token: body.token, status: 'CONSENT_GRANTED' }));
-          } else if (body.action === 'revoke' && body.token) {
+          if (body.action === 'grant') {
+            if (!isValidConsentToken(body.token)) {
+              res.writeHead(400, { 'Content-Type': 'application/json' });
+              return res.end(JSON.stringify({ error: 'Invalid token format: must be 16-128 characters matching [a-zA-Z0-9_.-]' }));
+            }
+            if (!body.preferences || typeof body.preferences !== 'object' || Array.isArray(body.preferences)) {
+              res.writeHead(400, { 'Content-Type': 'application/json' });
+              return res.end(JSON.stringify({ error: 'Invalid or missing preferences object' }));
+            }
+
+            // Rate limit new registration requests
+            if (!activeConsentSessions.has(body.token) && isRegistrationRateLimited()) {
+              res.writeHead(429, { 'Content-Type': 'application/json' });
+              return res.end(JSON.stringify({ error: 'Too Many Requests: registration rate limit exceeded. Please try again later.' }));
+            }
+
+            try {
+              grantConsentSession(body.token, body.preferences);
+              recordRegistration();
+              res.writeHead(200, { 'Content-Type': 'application/json' });
+              return res.end(JSON.stringify({ success: true, token: body.token, status: 'CONSENT_GRANTED' }));
+            } catch (err) {
+              if (err.code === 'CAPACITY_REACHED') {
+                res.writeHead(503, { 'Content-Type': 'application/json' });
+                return res.end(JSON.stringify({ error: err.message, status: 'CAPACITY_REACHED' }));
+              }
+              throw err;
+            }
+          } else if (body.action === 'revoke') {
+            if (!isValidConsentToken(body.token)) {
+              res.writeHead(400, { 'Content-Type': 'application/json' });
+              return res.end(JSON.stringify({ error: 'Invalid token format: must be 16-128 characters matching [a-zA-Z0-9_.-]' }));
+            }
             revokeConsentSession(body.token);
             res.writeHead(200, { 'Content-Type': 'application/json' });
             return res.end(JSON.stringify({ success: true, status: 'CONSENT_REVOKED' }));
           } else {
             res.writeHead(400, { 'Content-Type': 'application/json' });
-            return res.end(JSON.stringify({ error: 'Invalid consent payload' }));
+            return res.end(JSON.stringify({ error: 'Invalid consent payload: action must be "grant" or "revoke"' }));
           }
         } catch (err) {
           res.writeHead(400, { 'Content-Type': 'application/json' });
